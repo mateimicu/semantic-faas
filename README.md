@@ -5,16 +5,16 @@ Ontology to interact and parse function as a service providers and also define a
 
 For Phase I (release 0.1.0):
 
-[ ] Basic query / compression of FaaS providers
-[ ] Ability to define an application and using SPARQL query to find a list of suitable providers
-  [ ] RAM requirements
-  [ ] CPU requirements
-  [ ] Storage Requirements
-  [ ] Supported Languages (and versions)
-  [ ] Geographical restrictions
-  [ ] Cost restrictions
-  [ ] Available metrics (not every platform offers the same metrics)
-  [ ] Concurrency requirements
+  [ ] Basic query / compression of FaaS providers
+  [ ] Ability to define an application and using SPARQL query to find a list of suitable providers
+      [ ] RAM requirements
+      [ ] CPU requirements
+      [ ] Storage Requirements
+      [ ] Supported Languages (and versions)
+      [ ] Geographical restrictions
+      [ ] Cost restrictions
+      [ ] Available metrics (not every platform offers the same metrics)
+      [ ] Concurrency requirements
 
 Example:
 
