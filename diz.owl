@@ -1,270 +1,187 @@
 @prefix : <http://www.semantic-faas.com/ontology#> .
-@prefix wd: <http://www.wikidata.org/entity/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dave: <http://theme-e.adaptcentre.ie/dave#> .
+@prefix ns1: <http://purl.org/dc/terms/> .
+@prefix ns2: <http://xmlns.com/foaf/0.1/> .
+@prefix ns3: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix wikibase: <http://wikiba.se/ontology#> .
-@base <http://www.semantic-faas.com/ontology> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://www.semantic-faas.com/ontology> rdf:type owl:Ontology ;
-                                         owl:versionIRI <http://www.semantic-faas.com/ontology/0.0.1> ;
-                                         owl:imports dave: ;
-                                         <http://purl.org/dc/elements/1.1/description> "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a FaaS provider."@en ;
-                                         <http://purl.org/dc/terms/creator> "Matei-Marius Micu <micumatei@gmail.com>"@en ,
-                                                                            "Stefan Gordin <stefangordindev@gmail.com>"@en ;
-                                         <http://purl.org/dc/terms/title> "Function as a Service Ontology"@en ;
-                                         owl:versionInfo "0.0.1" ;
-                                         <http://xmlns.com/foaf/0.1/homepage> "semantic-faas.com"@en ;
-                                         <http://xmlns.com/foaf/0.1/name> "Function as a Service Ontology"@en .
-
-#################################################################
-#    Object Properties
-#################################################################
-
-###  http://www.semantic-faas.com/ontology#Metrics
-:Metrics rdf:type owl:ObjectProperty ,
-                  owl:AsymmetricProperty ,
-                  owl:IrreflexiveProperty ;
-         rdfs:domain :FaaSExecutionEnvironment ;
-         rdfs:range :Metric .
-
-
-###  http://www.semantic-faas.com/ontology#availableRegions
-:availableRegions rdf:type owl:ObjectProperty ,
-                           owl:AsymmetricProperty ,
-                           owl:IrreflexiveProperty ;
-                  rdfs:domain :FaaSExecutionEnvironment ;
-                  rdfs:label "supportedRegions"@en .
-
-
-###  http://www.semantic-faas.com/ontology#canIntegrateWith
-:canIntegrateWith rdf:type owl:ObjectProperty ;
-                  rdfs:domain :FaaSExecutionEnvironment ;
-                  rdfs:comment "What software can be integrated with this execution environment."@en .
-
-
-###  http://www.semantic-faas.com/ontology#code
-:code rdf:type owl:ObjectProperty ,
-               owl:AsymmetricProperty ,
-               owl:IrreflexiveProperty ;
-      rdfs:domain :Application ;
-      rdfs:range :Code ;
-      rdfs:comment "Source Code of the applicaiton"@en .
-
-
-###  http://www.semantic-faas.com/ontology#cpuArch
-:cpuArch rdf:type owl:ObjectProperty ,
-                  owl:AsymmetricProperty ,
-                  owl:IrreflexiveProperty ;
-         rdfs:domain :CPURequirement ,
-                     :FaaSExecutionEnvironment ;
-         rdfs:range wd:Q272683;
-         rdfs:comment "CPU Architectures required for the code to work"@en .
-
-
-###  http://www.semantic-faas.com/ontology#geoRestrictions
-:geoRestrictions rdf:type owl:ObjectProperty ,
-                          owl:AsymmetricProperty ,
-                          owl:IrreflexiveProperty ;
-                 rdfs:domain :GeographicalRequirement .
-
-
-###  http://www.semantic-faas.com/ontology#pricingModel
-:pricingModel rdf:type owl:ObjectProperty ,
-                       owl:AsymmetricProperty ,
-                       owl:IrreflexiveProperty ;
-              rdfs:domain :FaaSExecutionEnvironment ;
-              rdfs:range :PricingModel .
-
-
-###  http://www.semantic-faas.com/ontology#programmingLanguage
-:programmingLanguage rdf:type owl:ObjectProperty ,
-                              owl:AsymmetricProperty ,
-                              owl:IrreflexiveProperty ;
-                     rdfs:domain :Code .
-
-
-###  http://www.semantic-faas.com/ontology#requirements
-:requirements rdf:type owl:ObjectProperty ,
-                       owl:AsymmetricProperty ,
-                       owl:IrreflexiveProperty ;
-              rdfs:domain :Application ;
-              rdfs:range :Requirement .
-
-
-###  http://www.semantic-faas.com/ontology#supportedPackages
-:supportedPackages rdf:type owl:ObjectProperty ,
-                            owl:AsymmetricProperty ,
-                            owl:IrreflexiveProperty ;
-                   rdfs:domain :FaaSExecutionEnvironment .
-
-
-###  http://www.semantic-faas.com/ontology#SLA's
-<http://www.semantic-faas.com/ontology#SLA's> rdf:type owl:ObjectProperty ,
-                                                       owl:AsymmetricProperty ,
-                                                       owl:IrreflexiveProperty ;
-                                              rdfs:domain :Application ,
-                                                          :FaaSExecutionEnvironment ;
-                                              rdfs:range :SLA .
-
-
-#################################################################
-#    Data properties
-#################################################################
-
-###  http://www.semantic-faas.com/ontology#maxAllowedRAM
-:maxAllowedRAM rdf:type owl:DatatypeProperty ;
-               rdfs:domain :MemoryRequirement ;
-               rdfs:range xsd:positiveInteger ;
-               rdfs:comment "Maximum allowed RAM comsumtion"@en .
-
-
-###  http://www.semantic-faas.com/ontology#maxAllowedStorage
-:maxAllowedStorage rdf:type owl:DatatypeProperty ;
-                   rdfs:domain :StorageRequirement ;
-                   rdfs:range xsd:positiveInteger ;
-                   rdfs:comment "Maximum storage allowed to be used."@en .
-
-
-###  http://www.semantic-faas.com/ontology#maxConccurency
-:maxConccurency rdf:type owl:DatatypeProperty ;
-                rdfs:domain :ConcurrencyRequirement ,
-                            :FaaSExecutionEnvironment ;
-                rdfs:range xsd:positiveInteger ;
-                rdfs:comment "Maximum number of concurent executions."@en .
-
-
-###  http://www.semantic-faas.com/ontology#maxRAM
-:maxRAM rdf:type owl:DatatypeProperty ;
-        rdfs:domain :FaaSExecutionEnvironment ;
-        rdfs:range xsd:positiveInteger ;
-        rdfs:comment "The maximum RAM the environment can provide to a single function."@en .
-
-
-###  http://www.semantic-faas.com/ontology#maxTimeAllowed
-:maxTimeAllowed rdf:type owl:DatatypeProperty ;
-                rdfs:domain :ExecutionTimeRequirement ,
-                            :FaaSExecutionEnvironment ;
-                rdfs:range xsd:positiveInteger ;
-                rdfs:comment "The maximum time in ms of execution time."@en .
-
-
-###  http://www.semantic-faas.com/ontology#minRAM
-:minRAM rdf:type owl:DatatypeProperty ;
-        rdfs:domain :FaaSExecutionEnvironment ;
-        rdfs:range xsd:positiveInteger ;
-        rdfs:comment "The smallest RAM allocation for a single function."@en .
-
-
-###  http://www.semantic-faas.com/ontology#minRequiredRAM
-:minRequiredRAM rdf:type owl:DatatypeProperty ;
-                rdfs:domain :MemoryRequirement ;
-                rdfs:range xsd:positiveInteger ;
-                rdfs:comment "The minimum RAM required for normal operations."@en .
-
-
-###  http://www.semantic-faas.com/ontology#minRequiredStorage
-:minRequiredStorage rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain :StorageRequirement ;
-                    rdfs:range xsd:positiveInteger ;
-                    rdfs:comment "Minimum amount of storage need for operations."@en .
-
-
-###  http://www.semantic-faas.com/ontology#sourceCode
-:sourceCode rdf:type owl:DatatypeProperty ;
-            rdfs:domain :Code ;
-            rdfs:range xsd:base64Binary ;
-            rdfs:comment "The actuam source files encoded"@en .
-
-
-#################################################################
-#    Classes
-#################################################################
-
-###  http://theme-e.adaptcentre.ie/dave#Metric
 dave:Metric owl:equivalentClass :Metric .
 
+<http://www.semantic-faas.com/ontology> a owl:Ontology ;
+    ns3:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a FaaS provider."@en ;
+    ns1:creator "Matei-Marius Micu <micumatei@gmail.com>"@en,
+        "Stefan Gordin <stefangordindev@gmail.com>"@en ;
+    ns1:title "Function as a Service Ontology"@en ;
+    owl:imports dave: ;
+    owl:versionIRI <http://www.semantic-faas.com/ontology/0.0.1> ;
+    owl:versionInfo "0.0.1" ;
+    ns2:homepage "semantic-faas.com"@en ;
+    ns2:name "Function as a Service Ontology"@en .
 
-###  http://www.semantic-faas.com/ontology#Application
-:Application rdf:type owl:Class ;
-             rdfs:comment "Definition of a functional application, it is more then the source code, it contains also infrastructure requirements."@en .
+:AWSLambda a :FaaSExecutionEnvironment,
+        owl:NamedIndividual ;
+    rdfs:label "AWS Lambda"^^xsd:string ;
+    :cpuArch wd:Q272629 ;
+    rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI .
 
+:Metrics a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :FaaSExecutionEnvironment ;
+    rdfs:range :Metric .
 
-###  http://www.semantic-faas.com/ontology#CPURequirement
-:CPURequirement rdf:type owl:Class ;
-                rdfs:subClassOf :Requirement .
+<http://www.semantic-faas.com/ontology#SLA's> a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :Application,
+        :FaaSExecutionEnvironment ;
+    rdfs:range :SLA .
 
+:availableRegions a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:label "supportedRegions"@en ;
+    rdfs:domain :FaaSExecutionEnvironment .
 
-###  http://www.semantic-faas.com/ontology#Code
-:Code rdf:type owl:Class ;
-      rdfs:comment "Source Code object" ;
-      rdfs:label "Code"@en .
+:canIntegrateWith a owl:ObjectProperty ;
+    rdfs:comment "What software can be integrated with this execution environment."@en ;
+    rdfs:domain :FaaSExecutionEnvironment .
 
+:code a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:comment "Source Code of the applicaiton"@en ;
+    rdfs:domain :Application ;
+    rdfs:range :Code .
 
-###  http://www.semantic-faas.com/ontology#ConcurrencyRequirement
-:ConcurrencyRequirement rdf:type owl:Class ;
-                        rdfs:subClassOf :Requirement .
+:cpuArch a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:comment "CPU Architectures required for the code to work"@en ;
+    rdfs:domain :CPURequirement,
+        :FaaSExecutionEnvironment ;
+    rdfs:range wd:Q272683 .
 
+:geoRestrictions a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :GeographicalRequirement .
 
-###  http://www.semantic-faas.com/ontology#ExecutionTimeRequirement
-:ExecutionTimeRequirement rdf:type owl:Class ;
-                          rdfs:subClassOf :Requirement .
+:maxAllowedRAM a owl:DatatypeProperty ;
+    rdfs:comment "Maximum allowed RAM comsumtion"@en ;
+    rdfs:domain :MemoryRequirement ;
+    rdfs:range xsd:positiveInteger .
 
+:maxAllowedStorage a owl:DatatypeProperty ;
+    rdfs:comment "Maximum storage allowed to be used."@en ;
+    rdfs:domain :StorageRequirement ;
+    rdfs:range xsd:positiveInteger .
 
-###  http://www.semantic-faas.com/ontology#FaaSExecutionEnvironment
-:FaaSExecutionEnvironment rdf:type owl:Class ;
-                          rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en ;
-                          rdfs:label "Function as a Service Execution Environment"@en .
+:maxConccurency a owl:DatatypeProperty ;
+    rdfs:comment "Maximum number of concurent executions."@en ;
+    rdfs:domain :ConcurrencyRequirement,
+        :FaaSExecutionEnvironment ;
+    rdfs:range xsd:positiveInteger .
 
+:maxRAM a owl:DatatypeProperty ;
+    rdfs:comment "The maximum RAM the environment can provide to a single function."@en ;
+    rdfs:domain :FaaSExecutionEnvironment ;
+    rdfs:range xsd:positiveInteger .
 
-###  http://www.semantic-faas.com/ontology#GeographicalRequirement
-:GeographicalRequirement rdf:type owl:Class ;
-                         rdfs:subClassOf :Requirement .
+:maxTimeAllowed a owl:DatatypeProperty ;
+    rdfs:comment "The maximum time in ms of execution time."@en ;
+    rdfs:domain :ExecutionTimeRequirement,
+        :FaaSExecutionEnvironment ;
+    rdfs:range xsd:positiveInteger .
 
+:minRAM a owl:DatatypeProperty ;
+    rdfs:comment "The smallest RAM allocation for a single function."@en ;
+    rdfs:domain :FaaSExecutionEnvironment ;
+    rdfs:range xsd:positiveInteger .
 
-###  http://www.semantic-faas.com/ontology#MemoryRequirement
-:MemoryRequirement rdf:type owl:Class ;
-                   rdfs:subClassOf :Requirement .
+:minRequiredRAM a owl:DatatypeProperty ;
+    rdfs:comment "The minimum RAM required for normal operations."@en ;
+    rdfs:domain :MemoryRequirement ;
+    rdfs:range xsd:positiveInteger .
 
+:minRequiredStorage a owl:DatatypeProperty ;
+    rdfs:comment "Minimum amount of storage need for operations."@en ;
+    rdfs:domain :StorageRequirement ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:subPropertyOf owl:topDataProperty .
 
-###  http://www.semantic-faas.com/ontology#Metric
-:Metric rdf:type owl:Class ;
-        rdfs:label "Metric"@en .
+:pricingModel a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :FaaSExecutionEnvironment ;
+    rdfs:range :PricingModel .
 
+:programmingLanguage a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :Code .
 
-###  http://www.semantic-faas.com/ontology#PricingModel
-:PricingModel rdf:type owl:Class ;
-              rdfs:comment "Definition of a pricing method for FaaS environments"@en ;
-              rdfs:label "Pricing Model"@en .
+:requirements a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :Application ;
+    rdfs:range :Requirement .
 
+:sourceCode a owl:DatatypeProperty ;
+    rdfs:comment "The actuam source files encoded"@en ;
+    rdfs:domain :Code ;
+    rdfs:range xsd:base64Binary .
 
-###  http://www.semantic-faas.com/ontology#Requirement
-:Requirement rdf:type owl:Class .
+:supportedPackages a owl:AsymmetricProperty,
+        owl:IrreflexiveProperty,
+        owl:ObjectProperty ;
+    rdfs:domain :FaaSExecutionEnvironment .
 
+:CPURequirement a owl:Class ;
+    rdfs:subClassOf :Requirement .
 
-###  http://www.semantic-faas.com/ontology#SLA
-:SLA rdf:type owl:Class ;
-     rdfs:label "Service Level Agreements"@en .
+:ConcurrencyRequirement a owl:Class ;
+    rdfs:subClassOf :Requirement .
 
+:ExecutionTimeRequirement a owl:Class ;
+    rdfs:subClassOf :Requirement .
 
-###  http://www.semantic-faas.com/ontology#StorageRequirement
-:StorageRequirement rdf:type owl:Class ;
-                    rdfs:subClassOf :Requirement .
+:GeographicalRequirement a owl:Class ;
+    rdfs:subClassOf :Requirement .
 
+:PricingModel a owl:Class ;
+    rdfs:label "Pricing Model"@en ;
+    rdfs:comment "Definition of a pricing method for FaaS environments"@en .
 
-#################################################################
-#    Individuals
-#################################################################
+:SLA a owl:Class ;
+    rdfs:label "Service Level Agreements"@en .
 
-###  http://www.semantic-faas.com/ontology#AWSLambda
-:AWSLambda rdf:type owl:NamedIndividual ,
-                    :FaaSExecutionEnvironment ;
-           rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
-           rdfs:label "AWS Lambda"^^xsd:string .
+wd:Q272629 rdfs:label "x86_64" .
 
+wd:Q272683 rdfs:label "instruction set architecture" .
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+:MemoryRequirement a owl:Class ;
+    rdfs:subClassOf :Requirement .
+
+:Metric a owl:Class ;
+    rdfs:label "Metric"@en .
+
+:StorageRequirement a owl:Class ;
+    rdfs:subClassOf :Requirement .
+
+:Application a owl:Class ;
+    rdfs:comment "Definition of a functional application, it is more then the source code, it contains also infrastructure requirements."@en .
+
+:Code a owl:Class ;
+    rdfs:label "Code"@en ;
+    rdfs:comment "Source Code object" .
+
+:Requirement a owl:Class .
+
+:FaaSExecutionEnvironment a owl:Class ;
+    rdfs:label "Function as a Service Execution Environment"@en ;
+    rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en .
+
