@@ -6,15 +6,23 @@ Ontology to interact and parse function as a service providers and also define a
 #### For Phase I (release 0.1.0):
 
 * [ ] Basic query / compression of FaaS providers
-* [ ] Ability to define an application and using SPARQL query to find a list of suitable providers
-   *  [ ] RAM requirements
-   *  [ ] CPU requirements
-   *  [ ] Storage Requirements
-   *  [ ] Supported Languages (and versions)
-   *  [ ] Geographical restrictions
-   *  [ ] Cost restrictions
-   *  [ ] Available metrics (not every platform offers the same metrics)
-   *  [ ] Concurrency requirements
+* [x] Ability to define an application and using SPARQL query to find a list of suitable providers
+   *  [x] RAM requirements
+   *  [x] CPU requirements
+   *  [x] Storage Requirements
+   *  [x] Supported Languages (and versions)
+   *  [x] Geographical restrictions
+   *  [x] Cost restrictions
+   *  [x] Available metrics (not every platform offers the same metrics)
+   *  [x] Concurrency requirements
+* [ ] Model a subset of environments
+   *  [ ] AWSLambda
+   *  [ ] GoogleFunctions
+   *  [ ] LocalCloudFaaS (implemanted using Knative for example)
+* [ ] Model 3 functions
+* [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
+
+
 
 Example:
 
