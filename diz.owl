@@ -1,187 +1,757 @@
 @prefix : <http://www.semantic-faas.com/ontology#> .
-@prefix dave: <http://theme-e.adaptcentre.ie/dave#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
 @prefix ns1: <http://purl.org/dc/terms/> .
 @prefix ns2: <http://xmlns.com/foaf/0.1/> .
 @prefix ns3: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dave: <http://theme-e.adaptcentre.ie/dave#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semantic-faas.com/ontology> .
 
-dave:Metric owl:equivalentClass :Metric .
+<http://www.semantic-faas.com/ontology> rdf:type owl:Ontology ;
+                                         owl:versionIRI <http://www.semantic-faas.com/ontology/0.0.1> ;
+                                         owl:imports dave: ,
+                                                     <http://www.w3.org/ns/locn> ;
+                                         ns3:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a FaaS provider."@en ;
+                                         ns1:creator "Matei-Marius Micu <micumatei@gmail.com>"@en ,
+                                                     "Stefan Gordin <stefangordindev@gmail.com>"@en ;
+                                         ns1:title "Function as a Service Ontology"@en ;
+                                         owl:versionInfo "0.0.1" ;
+                                         ns2:homepage "semantic-faas.com"@en ;
+                                         ns2:name "Function as a Service Ontology"@en .
 
-<http://www.semantic-faas.com/ontology> a owl:Ontology ;
-    ns3:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a FaaS provider."@en ;
-    ns1:creator "Matei-Marius Micu <micumatei@gmail.com>"@en,
-        "Stefan Gordin <stefangordindev@gmail.com>"@en ;
-    ns1:title "Function as a Service Ontology"@en ;
-    owl:imports dave: ;
-    owl:versionIRI <http://www.semantic-faas.com/ontology/0.0.1> ;
-    owl:versionInfo "0.0.1" ;
-    ns2:homepage "semantic-faas.com"@en ;
-    ns2:name "Function as a Service Ontology"@en .
+#################################################################
+#    Annotation properties
+#################################################################
 
-:AWSLambda a :FaaSExecutionEnvironment,
-        owl:NamedIndividual ;
-    rdfs:label "AWS Lambda"^^xsd:string ;
-    :cpuArch wd:Q272629 ;
-    rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI .
+###  http://purl.org/dc/elements/1.1/description
+ns3:description rdf:type owl:AnnotationProperty .
 
-:Metrics a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :FaaSExecutionEnvironment ;
-    rdfs:range :Metric .
 
-<http://www.semantic-faas.com/ontology#SLA's> a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :Application,
-        :FaaSExecutionEnvironment ;
-    rdfs:range :SLA .
+###  http://purl.org/dc/terms/creator
+ns1:creator rdf:type owl:AnnotationProperty .
 
-:availableRegions a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:label "supportedRegions"@en ;
-    rdfs:domain :FaaSExecutionEnvironment .
 
-:canIntegrateWith a owl:ObjectProperty ;
-    rdfs:comment "What software can be integrated with this execution environment."@en ;
-    rdfs:domain :FaaSExecutionEnvironment .
+###  http://purl.org/dc/terms/title
+ns1:title rdf:type owl:AnnotationProperty .
 
-:code a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:comment "Source Code of the applicaiton"@en ;
-    rdfs:domain :Application ;
-    rdfs:range :Code .
 
-:cpuArch a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:comment "CPU Architectures required for the code to work"@en ;
-    rdfs:domain :CPURequirement,
-        :FaaSExecutionEnvironment ;
-    rdfs:range wd:Q272683 .
+###  http://xmlns.com/foaf/0.1/homepage
+ns2:homepage rdf:type owl:AnnotationProperty .
 
-:geoRestrictions a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :GeographicalRequirement .
 
-:maxAllowedRAM a owl:DatatypeProperty ;
-    rdfs:comment "Maximum allowed RAM comsumtion"@en ;
-    rdfs:domain :MemoryRequirement ;
-    rdfs:range xsd:positiveInteger .
+###  http://xmlns.com/foaf/0.1/name
+ns2:name rdf:type owl:AnnotationProperty .
 
-:maxAllowedStorage a owl:DatatypeProperty ;
-    rdfs:comment "Maximum storage allowed to be used."@en ;
-    rdfs:domain :StorageRequirement ;
-    rdfs:range xsd:positiveInteger .
 
-:maxConccurency a owl:DatatypeProperty ;
-    rdfs:comment "Maximum number of concurent executions."@en ;
-    rdfs:domain :ConcurrencyRequirement,
-        :FaaSExecutionEnvironment ;
-    rdfs:range xsd:positiveInteger .
+#################################################################
+#    Object Properties
+#################################################################
 
-:maxRAM a owl:DatatypeProperty ;
-    rdfs:comment "The maximum RAM the environment can provide to a single function."@en ;
-    rdfs:domain :FaaSExecutionEnvironment ;
-    rdfs:range xsd:positiveInteger .
+###  http://www.semantic-faas.com/ontology#Metrics
+:Metrics rdf:type owl:ObjectProperty ,
+                  owl:AsymmetricProperty ,
+                  owl:IrreflexiveProperty ;
+         rdfs:domain :FaaSExecutionEnvironment ;
+         rdfs:range :Metric .
 
-:maxTimeAllowed a owl:DatatypeProperty ;
-    rdfs:comment "The maximum time in ms of execution time."@en ;
-    rdfs:domain :ExecutionTimeRequirement,
-        :FaaSExecutionEnvironment ;
-    rdfs:range xsd:positiveInteger .
 
-:minRAM a owl:DatatypeProperty ;
-    rdfs:comment "The smallest RAM allocation for a single function."@en ;
-    rdfs:domain :FaaSExecutionEnvironment ;
-    rdfs:range xsd:positiveInteger .
+###  http://www.semantic-faas.com/ontology#availableRegions
+:availableRegions rdf:type owl:ObjectProperty ,
+                           owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain :FaaSExecutionEnvironment ;
+                  rdfs:label "supportedRegions"@en .
 
-:minRequiredRAM a owl:DatatypeProperty ;
-    rdfs:comment "The minimum RAM required for normal operations."@en ;
-    rdfs:domain :MemoryRequirement ;
-    rdfs:range xsd:positiveInteger .
 
-:minRequiredStorage a owl:DatatypeProperty ;
-    rdfs:comment "Minimum amount of storage need for operations."@en ;
-    rdfs:domain :StorageRequirement ;
-    rdfs:range xsd:positiveInteger ;
-    rdfs:subPropertyOf owl:topDataProperty .
+###  http://www.semantic-faas.com/ontology#canIntegrateWith
+:canIntegrateWith rdf:type owl:ObjectProperty ;
+                  rdfs:domain :FaaSExecutionEnvironment ;
+                  rdfs:comment "What software can be integrated with this execution environment."@en .
 
-:pricingModel a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :FaaSExecutionEnvironment ;
-    rdfs:range :PricingModel .
 
-:programmingLanguage a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :Code .
+###  http://www.semantic-faas.com/ontology#code
+:code rdf:type owl:ObjectProperty ,
+               owl:AsymmetricProperty ,
+               owl:IrreflexiveProperty ;
+      rdfs:domain :Application ;
+      rdfs:range :Code ;
+      rdfs:comment "Source Code of the applicaiton"@en .
 
-:requirements a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :Application ;
-    rdfs:range :Requirement .
 
-:sourceCode a owl:DatatypeProperty ;
-    rdfs:comment "The actuam source files encoded"@en ;
-    rdfs:domain :Code ;
-    rdfs:range xsd:base64Binary .
+###  http://www.semantic-faas.com/ontology#cpuArch
+:cpuArch rdf:type owl:ObjectProperty ,
+                  owl:AsymmetricProperty ,
+                  owl:IrreflexiveProperty ;
+         rdfs:domain :CPURequirement ,
+                     :FaaSExecutionEnvironment ;
+         rdfs:range wd:Q272683 ;
+         rdfs:comment "CPU Architectures required for the code to work"@en .
 
-:supportedPackages a owl:AsymmetricProperty,
-        owl:IrreflexiveProperty,
-        owl:ObjectProperty ;
-    rdfs:domain :FaaSExecutionEnvironment .
 
-:CPURequirement a owl:Class ;
-    rdfs:subClassOf :Requirement .
+###  http://www.semantic-faas.com/ontology#geoRestrictions
+:geoRestrictions rdf:type owl:ObjectProperty ,
+                          owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain :GeographicalRequirement .
 
-:ConcurrencyRequirement a owl:Class ;
-    rdfs:subClassOf :Requirement .
 
-:ExecutionTimeRequirement a owl:Class ;
-    rdfs:subClassOf :Requirement .
+###  http://www.semantic-faas.com/ontology#pricingModel
+:pricingModel rdf:type owl:ObjectProperty ,
+                       owl:AsymmetricProperty ,
+                       owl:IrreflexiveProperty ;
+              rdfs:domain :FaaSExecutionEnvironment ;
+              rdfs:range :PricingModel .
 
-:GeographicalRequirement a owl:Class ;
-    rdfs:subClassOf :Requirement .
 
-:PricingModel a owl:Class ;
-    rdfs:label "Pricing Model"@en ;
-    rdfs:comment "Definition of a pricing method for FaaS environments"@en .
+###  http://www.semantic-faas.com/ontology#programmingLanguage
+:programmingLanguage rdf:type owl:ObjectProperty ,
+                              owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain :Code .
 
-:SLA a owl:Class ;
-    rdfs:label "Service Level Agreements"@en .
 
-wd:Q272629 rdfs:label "x86_64" .
+###  http://www.semantic-faas.com/ontology#requirements
+:requirements rdf:type owl:ObjectProperty ,
+                       owl:AsymmetricProperty ,
+                       owl:IrreflexiveProperty ;
+              rdfs:domain :Application ;
+              rdfs:range :Requirement .
 
-wd:Q272683 rdfs:label "instruction set architecture" .
 
-:MemoryRequirement a owl:Class ;
-    rdfs:subClassOf :Requirement .
+###  http://www.semantic-faas.com/ontology#supportedPackages
+:supportedPackages rdf:type owl:ObjectProperty ,
+                            owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain :FaaSExecutionEnvironment .
 
-:Metric a owl:Class ;
-    rdfs:label "Metric"@en .
 
-:StorageRequirement a owl:Class ;
-    rdfs:subClassOf :Requirement .
+###  http://www.semantic-faas.com/ontology#SLA's
+<http://www.semantic-faas.com/ontology#SLA's> rdf:type owl:ObjectProperty ,
+                                                       owl:AsymmetricProperty ,
+                                                       owl:IrreflexiveProperty ;
+                                              rdfs:domain :Application ,
+                                                          :FaaSExecutionEnvironment ;
+                                              rdfs:range :SLA .
 
-:Application a owl:Class ;
-    rdfs:comment "Definition of a functional application, it is more then the source code, it contains also infrastructure requirements."@en .
 
-:Code a owl:Class ;
-    rdfs:label "Code"@en ;
-    rdfs:comment "Source Code object" .
+###  https://www.wikidata.org/entity/Q182933#datacenter
+:datacenter rdf:type owl:ObjectProperty ;
+                                                     rdfs:subPropertyOf owl:topObjectProperty ;
+                                                     rdfs:domain :FaaSExecutionEnvironment ;
+                                                     rdfs:range wd:Q671224 .
 
-:Requirement a owl:Class .
 
-:FaaSExecutionEnvironment a owl:Class ;
-    rdfs:label "Function as a Service Execution Environment"@en ;
-    rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en .
+#################################################################
+#    Data properties
+#################################################################
 
+###  http://www.semantic-faas.com/ontology#maxAllowedRAM
+:maxAllowedRAM rdf:type owl:DatatypeProperty ;
+               rdfs:domain :MemoryRequirement ;
+               rdfs:range xsd:positiveInteger ;
+               rdfs:comment "Maximum allowed RAM comsumtion"@en .
+
+
+###  http://www.semantic-faas.com/ontology#maxAllowedStorage
+:maxAllowedStorage rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :StorageRequirement ;
+                   rdfs:range xsd:positiveInteger ;
+                   rdfs:comment "Maximum storage allowed to be used."@en .
+
+
+###  http://www.semantic-faas.com/ontology#maxConccurency
+:maxConccurency rdf:type owl:DatatypeProperty ;
+                rdfs:domain :ConcurrencyRequirement ,
+                            :FaaSExecutionEnvironment ;
+                rdfs:range xsd:positiveInteger ;
+                rdfs:comment "Maximum number of concurent executions."@en .
+
+
+###  http://www.semantic-faas.com/ontology#maxRAM
+:maxRAM rdf:type owl:DatatypeProperty ;
+        rdfs:domain :FaaSExecutionEnvironment ;
+        rdfs:range xsd:positiveInteger ;
+        rdfs:comment "The maximum RAM the environment can provide to a single function."@en .
+
+
+###  http://www.semantic-faas.com/ontology#maxTimeAllowed
+:maxTimeAllowed rdf:type owl:DatatypeProperty ;
+                rdfs:domain :ExecutionTimeRequirement ,
+                            :FaaSExecutionEnvironment ;
+                rdfs:range xsd:positiveInteger ;
+                rdfs:comment "The maximum time in ms of execution time."@en .
+
+
+###  http://www.semantic-faas.com/ontology#minRAM
+:minRAM rdf:type owl:DatatypeProperty ;
+        rdfs:domain :FaaSExecutionEnvironment ;
+        rdfs:range xsd:positiveInteger ;
+        rdfs:comment "The smallest RAM allocation for a single function."@en .
+
+
+###  http://www.semantic-faas.com/ontology#minRequiredRAM
+:minRequiredRAM rdf:type owl:DatatypeProperty ;
+                rdfs:domain :MemoryRequirement ;
+                rdfs:range xsd:positiveInteger ;
+                rdfs:comment "The minimum RAM required for normal operations."@en .
+
+
+###  http://www.semantic-faas.com/ontology#minRequiredStorage
+:minRequiredStorage rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain :StorageRequirement ;
+                    rdfs:range xsd:positiveInteger ;
+                    rdfs:comment "Minimum amount of storage need for operations."@en .
+
+
+###  http://www.semantic-faas.com/ontology#sourceCode
+:sourceCode rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Code ;
+            rdfs:range xsd:base64Binary ;
+            rdfs:comment "The actuam source files encoded"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://theme-e.adaptcentre.ie/dave#Metric
+dave:Metric rdf:type owl:Class ;
+            owl:equivalentClass :Metric .
+
+
+###  http://www.semantic-faas.com/ontology#Application
+:Application rdf:type owl:Class ;
+             rdfs:comment "Definition of a functional application, it is more then the source code, it contains also infrastructure requirements."@en .
+
+
+###  http://www.semantic-faas.com/ontology#CPURequirement
+:CPURequirement rdf:type owl:Class ;
+                rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#Code
+:Code rdf:type owl:Class ;
+      rdfs:comment "Source Code object" ;
+      rdfs:label "Code"@en .
+
+
+###  http://www.semantic-faas.com/ontology#ConcurrencyRequirement
+:ConcurrencyRequirement rdf:type owl:Class ;
+                        rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#ExecutionTimeRequirement
+:ExecutionTimeRequirement rdf:type owl:Class ;
+                          rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#FaaSExecutionEnvironment
+:FaaSExecutionEnvironment rdf:type owl:Class ;
+                          rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en ;
+                          rdfs:label "Function as a Service Execution Environment"@en .
+
+
+###  http://www.semantic-faas.com/ontology#GeographicalRequirement
+:GeographicalRequirement rdf:type owl:Class ;
+                         rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#MemoryRequirement
+:MemoryRequirement rdf:type owl:Class ;
+                   rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#Metric
+:Metric rdf:type owl:Class ;
+        rdfs:label "Metric"@en .
+
+
+###  http://www.semantic-faas.com/ontology#PricingModel
+:PricingModel rdf:type owl:Class ;
+              rdfs:comment "Definition of a pricing method for FaaS environments"@en ;
+              rdfs:label "Pricing Model"@en .
+
+
+###  http://www.semantic-faas.com/ontology#Requirement
+:Requirement rdf:type owl:Class .
+
+
+###  http://www.semantic-faas.com/ontology#SLA
+:SLA rdf:type owl:Class ;
+     rdfs:label "Service Level Agreements"@en .
+
+
+###  http://www.semantic-faas.com/ontology#StorageRequirement
+:StorageRequirement rdf:type owl:Class ;
+                    rdfs:subClassOf :Requirement .
+
+
+###  http://www.wikidata.org/entity/Q272683
+wd:Q272683 rdf:type owl:Class ;
+           rdfs:label "instruction set architecture" .
+
+
+###  http://www.wikidata.org/entity/Q671224
+wd:Q671224 rdf:type owl:Class ;
+           rdfs:label "data center" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+:af-south-1a a wd:Q671224 ;
+    rdfs:label "af-south-1a" ;
+    locn:addressArea :Cape_Town .
+
+:af-south-1b a wd:Q671224 ;
+    rdfs:label "af-south-1b" ;
+    locn:addressArea :Cape_Town .
+
+:af-south-1c a wd:Q671224 ;
+    rdfs:label "af-south-1c" ;
+    locn:addressArea :Cape_Town .
+
+:ap-east-1a a wd:Q671224 ;
+    rdfs:label "ap-east-1a" ;
+    locn:addressArea :Hong_Kong .
+
+:ap-east-1b a wd:Q671224 ;
+    rdfs:label "ap-east-1b" ;
+    locn:addressArea :Hong_Kong .
+
+:ap-east-1c a wd:Q671224 ;
+    rdfs:label "ap-east-1c" ;
+    locn:addressArea :Hong_Kong .
+
+:ap-northeast-1a a wd:Q671224 ;
+    rdfs:label "ap-northeast-1a" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-1b a wd:Q671224 ;
+    rdfs:label "ap-northeast-1b" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-1c a wd:Q671224 ;
+    rdfs:label "ap-northeast-1c" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-1d a wd:Q671224 ;
+    rdfs:label "ap-northeast-1d" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-2a a wd:Q671224 ;
+    rdfs:label "ap-northeast-2a" ;
+    locn:addressArea :Seoul .
+
+:ap-northeast-2b a wd:Q671224 ;
+    rdfs:label "ap-northeast-2b" ;
+    locn:addressArea :Seoul .
+
+:ap-northeast-2c a wd:Q671224 ;
+    rdfs:label "ap-northeast-2c" ;
+    locn:addressArea :Seoul .
+
+:ap-northeast-3a a wd:Q671224 ;
+    rdfs:label "ap-northeast-3a" ;
+    locn:addressArea :Osaka .
+
+:ap-south-1a a wd:Q671224 ;
+    rdfs:label "ap-south-1a" ;
+    locn:addressArea :Mumbai .
+
+:ap-south-1b a wd:Q671224 ;
+    rdfs:label "ap-south-1b" ;
+    locn:addressArea :Mumbai .
+
+:ap-south-1c a wd:Q671224 ;
+    rdfs:label "ap-south-1c" ;
+    locn:addressArea :Mumbai .
+
+:ap-southeast-1a a wd:Q671224 ;
+    rdfs:label "ap-southeast-1a" ;
+    locn:addressArea :Singapore .
+
+:ap-southeast-1b a wd:Q671224 ;
+    rdfs:label "ap-southeast-1b" ;
+    locn:addressArea :Singapore .
+
+:ap-southeast-1c a wd:Q671224 ;
+    rdfs:label "ap-southeast-1c" ;
+    locn:addressArea :Singapore .
+
+:ap-southeast-2a a wd:Q671224 ;
+    rdfs:label "ap-southeast-2a" ;
+    locn:addressArea :Sydney .
+
+:ap-southeast-2b a wd:Q671224 ;
+    rdfs:label "ap-southeast-2b" ;
+    locn:addressArea :Sydney .
+
+:ap-southeast-2c a wd:Q671224 ;
+    rdfs:label "ap-southeast-2c" ;
+    locn:addressArea :Sydney .
+
+:ca-central-1a a wd:Q671224 ;
+    rdfs:label "ca-central-1a" ;
+    locn:addressArea :Canada .
+
+:ca-central-1b a wd:Q671224 ;
+    rdfs:label "ca-central-1b" ;
+    locn:addressArea :Canada .
+
+:ca-central-1c a wd:Q671224 ;
+    rdfs:label "ca-central-1c" ;
+    locn:addressArea :Canada .
+
+:cn-north-1a a wd:Q671224 ;
+    rdfs:label "cn-north-1a" ;
+    locn:addressArea :Beijing .
+
+:cn-north-1b a wd:Q671224 ;
+    rdfs:label "cn-north-1b" ;
+    locn:addressArea :Beijing .
+
+:cn-northwest-1a a wd:Q671224 ;
+    rdfs:label "cn-northwest-1a" ;
+    locn:addressArea :Ningxia .
+
+:cn-northwest-1b a wd:Q671224 ;
+    rdfs:label "cn-northwest-1b" ;
+    locn:addressArea :Ningxia .
+
+:cn-northwest-1c a wd:Q671224 ;
+    rdfs:label "cn-northwest-1c" ;
+    locn:addressArea :Ningxia .
+
+:eu-central-1a a wd:Q671224 ;
+    rdfs:label "eu-central-1a" ;
+    locn:addressArea :Frankfurt .
+
+:eu-central-1b a wd:Q671224 ;
+    rdfs:label "eu-central-1b" ;
+    locn:addressArea :Frankfurt .
+
+:eu-central-1c a wd:Q671224 ;
+    rdfs:label "eu-central-1c" ;
+    locn:addressArea :Frankfurt .
+
+:eu-north-1a a wd:Q671224 ;
+    rdfs:label "eu-north-1a" ;
+    locn:addressArea :Stockholm .
+
+:eu-north-1b a wd:Q671224 ;
+    rdfs:label "eu-north-1b" ;
+    locn:addressArea :Stockholm .
+
+:eu-north-1c a wd:Q671224 ;
+    rdfs:label "eu-north-1c" ;
+    locn:addressArea :Stockholm .
+
+:eu-south-1a a wd:Q671224 ;
+    rdfs:label "eu-south-1a" ;
+    locn:addressArea :Milan .
+
+:eu-south-1b a wd:Q671224 ;
+    rdfs:label "eu-south-1b" ;
+    locn:addressArea :Milan .
+
+:eu-south-1c a wd:Q671224 ;
+    rdfs:label "eu-south-1c" ;
+    locn:addressArea :Milan .
+
+:eu-west-1a a wd:Q671224 ;
+    rdfs:label "eu-west-1a" ;
+    locn:addressArea :Ireland .
+
+:eu-west-1b a wd:Q671224 ;
+    rdfs:label "eu-west-1b" ;
+    locn:addressArea :Ireland .
+
+:eu-west-1c a wd:Q671224 ;
+    rdfs:label "eu-west-1c" ;
+    locn:addressArea :Ireland .
+
+:eu-west-2a a wd:Q671224 ;
+    rdfs:label "eu-west-2a" ;
+    locn:addressArea :London .
+
+:eu-west-2b a wd:Q671224 ;
+    rdfs:label "eu-west-2b" ;
+    locn:addressArea :London .
+
+:eu-west-2c a wd:Q671224 ;
+    rdfs:label "eu-west-2c" ;
+    locn:addressArea :London .
+
+:eu-west-3a a wd:Q671224 ;
+    rdfs:label "eu-west-3a" ;
+    locn:addressArea :Paris .
+
+:eu-west-3b a wd:Q671224 ;
+    rdfs:label "eu-west-3b" ;
+    locn:addressArea :Paris .
+
+:eu-west-3c a wd:Q671224 ;
+    rdfs:label "eu-west-3c" ;
+    locn:addressArea :Paris .
+
+:me-south-1a a wd:Q671224 ;
+    rdfs:label "me-south-1a" ;
+    locn:addressArea :Bahrain .
+
+:me-south-1b a wd:Q671224 ;
+    rdfs:label "me-south-1b" ;
+    locn:addressArea :Bahrain .
+
+:me-south-1c a wd:Q671224 ;
+    rdfs:label "me-south-1c" ;
+    locn:addressArea :Bahrain .
+
+:sa-east-1a a wd:Q671224 ;
+    rdfs:label "sa-east-1a" ;
+    locn:addressArea :São_Paulo .
+
+:sa-east-1b a wd:Q671224 ;
+    rdfs:label "sa-east-1b" ;
+    locn:addressArea :São_Paulo .
+
+:sa-east-1c a wd:Q671224 ;
+    rdfs:label "sa-east-1c" ;
+    locn:addressArea :São_Paulo .
+
+:us-east-1a a wd:Q671224 ;
+    rdfs:label "us-east-1a" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1b a wd:Q671224 ;
+    rdfs:label "us-east-1b" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1c a wd:Q671224 ;
+    rdfs:label "us-east-1c" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1d a wd:Q671224 ;
+    rdfs:label "us-east-1d" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1e a wd:Q671224 ;
+    rdfs:label "us-east-1e" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1f a wd:Q671224 ;
+    rdfs:label "us-east-1f" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-2a a wd:Q671224 ;
+    rdfs:label "us-east-2a" ;
+    locn:addressArea :Ohio .
+
+:us-east-2b a wd:Q671224 ;
+    rdfs:label "us-east-2b" ;
+    locn:addressArea :Ohio .
+
+:us-east-2c a wd:Q671224 ;
+    rdfs:label "us-east-2c" ;
+    locn:addressArea :Ohio .
+
+:us-gov-east-1a a wd:Q671224 ;
+    rdfs:label "us-gov-east-1a" ;
+    locn:addressArea :GovCloud_East .
+
+:us-gov-east-1b a wd:Q671224 ;
+    rdfs:label "us-gov-east-1b" ;
+    locn:addressArea :GovCloud_East .
+
+:us-gov-east-1c a wd:Q671224 ;
+    rdfs:label "us-gov-east-1c" ;
+    locn:addressArea :GovCloud_East .
+
+:us-gov-west-1a a wd:Q671224 ;
+    rdfs:label "us-gov-west-1a" ;
+    locn:addressArea :GovCloud_West .
+
+:us-gov-west-1b a wd:Q671224 ;
+    rdfs:label "us-gov-west-1b" ;
+    locn:addressArea :GovCloud_West .
+
+:us-gov-west-1c a wd:Q671224 ;
+    rdfs:label "us-gov-west-1c" ;
+    locn:addressArea :GovCloud_West .
+
+:us-west-1a a wd:Q671224 ;
+    rdfs:label "us-west-1a" ;
+    locn:addressArea :N._California .
+
+:us-west-1b a wd:Q671224 ;
+    rdfs:label "us-west-1b" ;
+    locn:addressArea :N._California .
+
+:us-west-1c a wd:Q671224 ;
+    rdfs:label "us-west-1c" ;
+    locn:addressArea :N._California .
+
+:us-west-2a a wd:Q671224 ;
+    rdfs:label "us-west-2a" ;
+    locn:addressArea :Oregon .
+
+:us-west-2b a wd:Q671224 ;
+    rdfs:label "us-west-2b" ;
+    locn:addressArea :Oregon .
+
+:us-west-2c a wd:Q671224 ;
+    rdfs:label "us-west-2c" ;
+    locn:addressArea :Oregon .
+
+:us-west-2d a wd:Q671224 ;
+    rdfs:label "us-west-2d" ;
+    locn:addressArea :Oregon .
+
+:Osaka a locn:Address ;
+    rdfs:label "Osaka" ;
+    rdfs:comment "Asia Pacific (Osaka-Local)" ;
+    locn:addressArea "Osaka" .
+
+:Beijing a locn:Address ;
+    rdfs:label "Beijing" ;
+    rdfs:comment "China (Beijing)" ;
+    locn:addressArea "Beijing" .
+
+:Bahrain a locn:Address ;
+    rdfs:label "Bahrain" ;
+    rdfs:comment "Middle East (Bahrain)" ;
+    locn:addressArea "Bahrain" .
+
+:Canada a locn:Address ;
+    rdfs:label "Canada" ;
+    rdfs:comment "Canada (Central)" ;
+    locn:addressArea "Canada" .
+
+:Cape_Town a locn:Address ;
+    rdfs:label "Cape Town" ;
+    rdfs:comment "Africa (Cape Town)" ;
+    locn:addressArea "Cape Town" .
+
+:Frankfurt a locn:Address ;
+    rdfs:label "Frankfurt" ;
+    rdfs:comment "EU (Frankfurt)" ;
+    locn:addressArea "Frankfurt" .
+
+:GovCloud_East a locn:Address ;
+    rdfs:label "GovCloud East" ;
+    rdfs:comment "AWS GovCloud (US-East)" ;
+    locn:addressArea "GovCloud East" .
+
+:GovCloud_West a locn:Address ;
+    rdfs:label "GovCloud West" ;
+    rdfs:comment "AWS GovCloud (US)" ;
+    locn:addressArea "GovCloud West" .
+
+:Hong_Kong a locn:Address ;
+    rdfs:label "Hong Kong" ;
+    rdfs:comment "Asia Pacific (Hong Kong)" ;
+    locn:addressArea "Hong Kong" .
+
+:Ireland a locn:Address ;
+    rdfs:label "Ireland" ;
+    rdfs:comment "EU (Ireland)" ;
+    locn:addressArea "Ireland" .
+
+:London a locn:Address ;
+    rdfs:label "London" ;
+    rdfs:comment "EU (London)" ;
+    locn:addressArea "London" .
+
+:Milan a locn:Address ;
+    rdfs:label "Milan" ;
+    rdfs:comment "EU (Milan)" ;
+    locn:addressArea "Milan" .
+
+:Mumbai a locn:Address ;
+    rdfs:label "Mumbai" ;
+    rdfs:comment "Asia Pacific (Mumbai)" ;
+    locn:addressArea "Mumbai" .
+
+:N._California a locn:Address ;
+    rdfs:label "N. California" ;
+    rdfs:comment "US West (N. California)" ;
+    locn:addressArea "N. California" .
+
+:Ningxia a locn:Address ;
+    rdfs:label "Ningxia" ;
+    rdfs:comment "China (Ningxia)" ;
+    locn:addressArea "Ningxia" .
+
+:Ohio a locn:Address ;
+    rdfs:label "Ohio" ;
+    rdfs:comment "US East (Ohio)" ;
+    locn:addressArea "Ohio" .
+
+:Paris a locn:Address ;
+    rdfs:label "Paris" ;
+    rdfs:comment "EU (Paris)" ;
+    locn:addressArea "Paris" .
+
+:Seoul a locn:Address ;
+    rdfs:label "Seoul" ;
+    rdfs:comment "Asia Pacific (Seoul)" ;
+    locn:addressArea "Seoul" .
+
+:Singapore a locn:Address ;
+    rdfs:label "Singapore" ;
+    rdfs:comment "Asia Pacific (Singapore)" ;
+    locn:addressArea "Singapore" .
+
+:Stockholm a locn:Address ;
+    rdfs:label "Stockholm" ;
+    rdfs:comment "EU (Stockholm)" ;
+    locn:addressArea "Stockholm" .
+
+:Sydney a locn:Address ;
+    rdfs:label "Sydney" ;
+    rdfs:comment "Asia Pacific (Sydney)" ;
+    locn:addressArea "Sydney" .
+
+:São_Paulo a locn:Address ;
+    rdfs:label "São Paulo" ;
+    rdfs:comment "South America (São Paulo)" ;
+    locn:addressArea "São Paulo" .
+
+:Oregon a locn:Address ;
+    rdfs:label "Oregon" ;
+    rdfs:comment "US West (Oregon)" ;
+    locn:addressArea "Oregon" .
+
+:Tokyo a locn:Address ;
+    rdfs:label "Tokyo" ;
+    rdfs:comment "Asia Pacific (Tokyo)" ;
+    locn:addressArea "Tokyo" .
+
+:N._Virginia a locn:Address ;
+    rdfs:label "N. Virginia" ;
+    rdfs:comment "US East (N. Virginia)" ;
+    locn:addressArea "N. Virginia" .
+
+
+###  http://www.semantic-faas.com/ontology#AWSLambda
+:AWSLambda rdf:type owl:NamedIndividual ,
+                    :FaaSExecutionEnvironment ;
+           :cpuArch wd:Q272629 ;
+           :datacenter <http://www.semantic-faas.com/af-south-1a> ;
+           rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
+           rdfs:label "AWS Lambda"^^xsd:string .
+
+
+###  http://www.wikidata.org/entity/Q272629
+wd:Q272629 rdf:type owl:NamedIndividual ;
+           rdfs:label "x86_64" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
