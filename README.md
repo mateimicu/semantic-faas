@@ -17,6 +17,8 @@ Ontology to interact and parse function as a service providers and also define a
    *  [x] Concurrency requirements
 * [ ] Model a subset of environments
    *  [ ] AWSLambda
+     * [x] model all datacenters
+       * [ ] link them with wikidata objects
    *  [ ] GoogleFunctions
    *  [ ] LocalCloudFaaS (implemanted using Knative for example)
 * [ ] Model 3 functions
@@ -67,6 +69,7 @@ Example:
  * [ ] HTTP
  * [ ] QUEUE invocation
 * [ ] SLA provided by the platform
+* [ ] split info about individuals and ontology/vocabulary (Abox and Tbox)
 
 #### For Phase III (release 0.3.0):
 
