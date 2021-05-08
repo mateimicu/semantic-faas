@@ -1,0 +1,438 @@
+@prefix : <http://www.semantic-faas.com/ontology#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+
+:af-south-1a a wd:Q671224 ;
+    rdfs:label "af-south-1a" ;
+    locn:addressArea :Cape_Town .
+
+:af-south-1b a wd:Q671224 ;
+    rdfs:label "af-south-1b" ;
+    locn:addressArea :Cape_Town .
+
+:af-south-1c a wd:Q671224 ;
+    rdfs:label "af-south-1c" ;
+    locn:addressArea :Cape_Town .
+
+:ap-east-1a a wd:Q671224 ;
+    rdfs:label "ap-east-1a" ;
+    locn:addressArea :Hong_Kong .
+
+:ap-east-1b a wd:Q671224 ;
+    rdfs:label "ap-east-1b" ;
+    locn:addressArea :Hong_Kong .
+
+:ap-east-1c a wd:Q671224 ;
+    rdfs:label "ap-east-1c" ;
+    locn:addressArea :Hong_Kong .
+
+:ap-northeast-1a a wd:Q671224 ;
+    rdfs:label "ap-northeast-1a" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-1b a wd:Q671224 ;
+    rdfs:label "ap-northeast-1b" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-1c a wd:Q671224 ;
+    rdfs:label "ap-northeast-1c" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-1d a wd:Q671224 ;
+    rdfs:label "ap-northeast-1d" ;
+    locn:addressArea :Tokyo .
+
+:ap-northeast-2a a wd:Q671224 ;
+    rdfs:label "ap-northeast-2a" ;
+    locn:addressArea :Seoul .
+
+:ap-northeast-2b a wd:Q671224 ;
+    rdfs:label "ap-northeast-2b" ;
+    locn:addressArea :Seoul .
+
+:ap-northeast-2c a wd:Q671224 ;
+    rdfs:label "ap-northeast-2c" ;
+    locn:addressArea :Seoul .
+
+:ap-northeast-3a a wd:Q671224 ;
+    rdfs:label "ap-northeast-3a" ;
+    locn:addressArea :Osaka .
+
+:ap-south-1a a wd:Q671224 ;
+    rdfs:label "ap-south-1a" ;
+    locn:addressArea :Mumbai .
+
+:ap-south-1b a wd:Q671224 ;
+    rdfs:label "ap-south-1b" ;
+    locn:addressArea :Mumbai .
+
+:ap-south-1c a wd:Q671224 ;
+    rdfs:label "ap-south-1c" ;
+    locn:addressArea :Mumbai .
+
+:ap-southeast-1a a wd:Q671224 ;
+    rdfs:label "ap-southeast-1a" ;
+    locn:addressArea :Singapore .
+
+:ap-southeast-1b a wd:Q671224 ;
+    rdfs:label "ap-southeast-1b" ;
+    locn:addressArea :Singapore .
+
+:ap-southeast-1c a wd:Q671224 ;
+    rdfs:label "ap-southeast-1c" ;
+    locn:addressArea :Singapore .
+
+:ap-southeast-2a a wd:Q671224 ;
+    rdfs:label "ap-southeast-2a" ;
+    locn:addressArea :Sydney .
+
+:ap-southeast-2b a wd:Q671224 ;
+    rdfs:label "ap-southeast-2b" ;
+    locn:addressArea :Sydney .
+
+:ap-southeast-2c a wd:Q671224 ;
+    rdfs:label "ap-southeast-2c" ;
+    locn:addressArea :Sydney .
+
+:ca-central-1a a wd:Q671224 ;
+    rdfs:label "ca-central-1a" ;
+    locn:addressArea :Canada .
+
+:ca-central-1b a wd:Q671224 ;
+    rdfs:label "ca-central-1b" ;
+    locn:addressArea :Canada .
+
+:ca-central-1c a wd:Q671224 ;
+    rdfs:label "ca-central-1c" ;
+    locn:addressArea :Canada .
+
+:cn-north-1a a wd:Q671224 ;
+    rdfs:label "cn-north-1a" ;
+    locn:addressArea :Beijing .
+
+:cn-north-1b a wd:Q671224 ;
+    rdfs:label "cn-north-1b" ;
+    locn:addressArea :Beijing .
+
+:cn-northwest-1a a wd:Q671224 ;
+    rdfs:label "cn-northwest-1a" ;
+    locn:addressArea :Ningxia .
+
+:cn-northwest-1b a wd:Q671224 ;
+    rdfs:label "cn-northwest-1b" ;
+    locn:addressArea :Ningxia .
+
+:cn-northwest-1c a wd:Q671224 ;
+    rdfs:label "cn-northwest-1c" ;
+    locn:addressArea :Ningxia .
+
+:eu-central-1a a wd:Q671224 ;
+    rdfs:label "eu-central-1a" ;
+    locn:addressArea :Frankfurt .
+
+:eu-central-1b a wd:Q671224 ;
+    rdfs:label "eu-central-1b" ;
+    locn:addressArea :Frankfurt .
+
+:eu-central-1c a wd:Q671224 ;
+    rdfs:label "eu-central-1c" ;
+    locn:addressArea :Frankfurt .
+
+:eu-north-1a a wd:Q671224 ;
+    rdfs:label "eu-north-1a" ;
+    locn:addressArea :Stockholm .
+
+:eu-north-1b a wd:Q671224 ;
+    rdfs:label "eu-north-1b" ;
+    locn:addressArea :Stockholm .
+
+:eu-north-1c a wd:Q671224 ;
+    rdfs:label "eu-north-1c" ;
+    locn:addressArea :Stockholm .
+
+:eu-south-1a a wd:Q671224 ;
+    rdfs:label "eu-south-1a" ;
+    locn:addressArea :Milan .
+
+:eu-south-1b a wd:Q671224 ;
+    rdfs:label "eu-south-1b" ;
+    locn:addressArea :Milan .
+
+:eu-south-1c a wd:Q671224 ;
+    rdfs:label "eu-south-1c" ;
+    locn:addressArea :Milan .
+
+:eu-west-1a a wd:Q671224 ;
+    rdfs:label "eu-west-1a" ;
+    locn:addressArea :Ireland .
+
+:eu-west-1b a wd:Q671224 ;
+    rdfs:label "eu-west-1b" ;
+    locn:addressArea :Ireland .
+
+:eu-west-1c a wd:Q671224 ;
+    rdfs:label "eu-west-1c" ;
+    locn:addressArea :Ireland .
+
+:eu-west-2a a wd:Q671224 ;
+    rdfs:label "eu-west-2a" ;
+    locn:addressArea :London .
+
+:eu-west-2b a wd:Q671224 ;
+    rdfs:label "eu-west-2b" ;
+    locn:addressArea :London .
+
+:eu-west-2c a wd:Q671224 ;
+    rdfs:label "eu-west-2c" ;
+    locn:addressArea :London .
+
+:eu-west-3a a wd:Q671224 ;
+    rdfs:label "eu-west-3a" ;
+    locn:addressArea :Paris .
+
+:eu-west-3b a wd:Q671224 ;
+    rdfs:label "eu-west-3b" ;
+    locn:addressArea :Paris .
+
+:eu-west-3c a wd:Q671224 ;
+    rdfs:label "eu-west-3c" ;
+    locn:addressArea :Paris .
+
+:me-south-1a a wd:Q671224 ;
+    rdfs:label "me-south-1a" ;
+    locn:addressArea :Bahrain .
+
+:me-south-1b a wd:Q671224 ;
+    rdfs:label "me-south-1b" ;
+    locn:addressArea :Bahrain .
+
+:me-south-1c a wd:Q671224 ;
+    rdfs:label "me-south-1c" ;
+    locn:addressArea :Bahrain .
+
+:sa-east-1a a wd:Q671224 ;
+    rdfs:label "sa-east-1a" ;
+    locn:addressArea :São_Paulo .
+
+:sa-east-1b a wd:Q671224 ;
+    rdfs:label "sa-east-1b" ;
+    locn:addressArea :São_Paulo .
+
+:sa-east-1c a wd:Q671224 ;
+    rdfs:label "sa-east-1c" ;
+    locn:addressArea :São_Paulo .
+
+:us-east-1a a wd:Q671224 ;
+    rdfs:label "us-east-1a" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1b a wd:Q671224 ;
+    rdfs:label "us-east-1b" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1c a wd:Q671224 ;
+    rdfs:label "us-east-1c" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1d a wd:Q671224 ;
+    rdfs:label "us-east-1d" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1e a wd:Q671224 ;
+    rdfs:label "us-east-1e" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-1f a wd:Q671224 ;
+    rdfs:label "us-east-1f" ;
+    locn:addressArea :N._Virginia .
+
+:us-east-2a a wd:Q671224 ;
+    rdfs:label "us-east-2a" ;
+    locn:addressArea :Ohio .
+
+:us-east-2b a wd:Q671224 ;
+    rdfs:label "us-east-2b" ;
+    locn:addressArea :Ohio .
+
+:us-east-2c a wd:Q671224 ;
+    rdfs:label "us-east-2c" ;
+    locn:addressArea :Ohio .
+
+:us-gov-east-1a a wd:Q671224 ;
+    rdfs:label "us-gov-east-1a" ;
+    locn:addressArea :GovCloud_East .
+
+:us-gov-east-1b a wd:Q671224 ;
+    rdfs:label "us-gov-east-1b" ;
+    locn:addressArea :GovCloud_East .
+
+:us-gov-east-1c a wd:Q671224 ;
+    rdfs:label "us-gov-east-1c" ;
+    locn:addressArea :GovCloud_East .
+
+:us-gov-west-1a a wd:Q671224 ;
+    rdfs:label "us-gov-west-1a" ;
+    locn:addressArea :GovCloud_West .
+
+:us-gov-west-1b a wd:Q671224 ;
+    rdfs:label "us-gov-west-1b" ;
+    locn:addressArea :GovCloud_West .
+
+:us-gov-west-1c a wd:Q671224 ;
+    rdfs:label "us-gov-west-1c" ;
+    locn:addressArea :GovCloud_West .
+
+:us-west-1a a wd:Q671224 ;
+    rdfs:label "us-west-1a" ;
+    locn:addressArea :N._California .
+
+:us-west-1b a wd:Q671224 ;
+    rdfs:label "us-west-1b" ;
+    locn:addressArea :N._California .
+
+:us-west-1c a wd:Q671224 ;
+    rdfs:label "us-west-1c" ;
+    locn:addressArea :N._California .
+
+:us-west-2a a wd:Q671224 ;
+    rdfs:label "us-west-2a" ;
+    locn:addressArea :Oregon .
+
+:us-west-2b a wd:Q671224 ;
+    rdfs:label "us-west-2b" ;
+    locn:addressArea :Oregon .
+
+:us-west-2c a wd:Q671224 ;
+    rdfs:label "us-west-2c" ;
+    locn:addressArea :Oregon .
+
+:us-west-2d a wd:Q671224 ;
+    rdfs:label "us-west-2d" ;
+    locn:addressArea :Oregon .
+
+:Osaka a locn:Address ;
+    rdfs:label "Osaka" ;
+    rdfs:comment "Asia Pacific (Osaka-Local)" ;
+    locn:addressArea "Osaka" .
+
+:Beijing a locn:Address ;
+    rdfs:label "Beijing" ;
+    rdfs:comment "China (Beijing)" ;
+    locn:addressArea "Beijing" .
+
+:Bahrain a locn:Address ;
+    rdfs:label "Bahrain" ;
+    rdfs:comment "Middle East (Bahrain)" ;
+    locn:addressArea "Bahrain" .
+
+:Canada a locn:Address ;
+    rdfs:label "Canada" ;
+    rdfs:comment "Canada (Central)" ;
+    locn:addressArea "Canada" .
+
+:Cape_Town a locn:Address ;
+    rdfs:label "Cape Town" ;
+    rdfs:comment "Africa (Cape Town)" ;
+    locn:addressArea "Cape Town" .
+
+:Frankfurt a locn:Address ;
+    rdfs:label "Frankfurt" ;
+    rdfs:comment "EU (Frankfurt)" ;
+    locn:addressArea "Frankfurt" .
+
+:GovCloud_East a locn:Address ;
+    rdfs:label "GovCloud East" ;
+    rdfs:comment "AWS GovCloud (US-East)" ;
+    locn:addressArea "GovCloud East" .
+
+:GovCloud_West a locn:Address ;
+    rdfs:label "GovCloud West" ;
+    rdfs:comment "AWS GovCloud (US)" ;
+    locn:addressArea "GovCloud West" .
+
+:Hong_Kong a locn:Address ;
+    rdfs:label "Hong Kong" ;
+    rdfs:comment "Asia Pacific (Hong Kong)" ;
+    locn:addressArea "Hong Kong" .
+
+:Ireland a locn:Address ;
+    rdfs:label "Ireland" ;
+    rdfs:comment "EU (Ireland)" ;
+    locn:addressArea "Ireland" .
+
+:London a locn:Address ;
+    rdfs:label "London" ;
+    rdfs:comment "EU (London)" ;
+    locn:addressArea "London" .
+
+:Milan a locn:Address ;
+    rdfs:label "Milan" ;
+    rdfs:comment "EU (Milan)" ;
+    locn:addressArea "Milan" .
+
+:Mumbai a locn:Address ;
+    rdfs:label "Mumbai" ;
+    rdfs:comment "Asia Pacific (Mumbai)" ;
+    locn:addressArea "Mumbai" .
+
+:N._California a locn:Address ;
+    rdfs:label "N. California" ;
+    rdfs:comment "US West (N. California)" ;
+    locn:addressArea "N. California" .
+
+:Ningxia a locn:Address ;
+    rdfs:label "Ningxia" ;
+    rdfs:comment "China (Ningxia)" ;
+    locn:addressArea "Ningxia" .
+
+:Ohio a locn:Address ;
+    rdfs:label "Ohio" ;
+    rdfs:comment "US East (Ohio)" ;
+    locn:addressArea "Ohio" .
+
+:Paris a locn:Address ;
+    rdfs:label "Paris" ;
+    rdfs:comment "EU (Paris)" ;
+    locn:addressArea "Paris" .
+
+:Seoul a locn:Address ;
+    rdfs:label "Seoul" ;
+    rdfs:comment "Asia Pacific (Seoul)" ;
+    locn:addressArea "Seoul" .
+
+:Singapore a locn:Address ;
+    rdfs:label "Singapore" ;
+    rdfs:comment "Asia Pacific (Singapore)" ;
+    locn:addressArea "Singapore" .
+
+:Stockholm a locn:Address ;
+    rdfs:label "Stockholm" ;
+    rdfs:comment "EU (Stockholm)" ;
+    locn:addressArea "Stockholm" .
+
+:Sydney a locn:Address ;
+    rdfs:label "Sydney" ;
+    rdfs:comment "Asia Pacific (Sydney)" ;
+    locn:addressArea "Sydney" .
+
+:São_Paulo a locn:Address ;
+    rdfs:label "São Paulo" ;
+    rdfs:comment "South America (São Paulo)" ;
+    locn:addressArea "São Paulo" .
+
+:Oregon a locn:Address ;
+    rdfs:label "Oregon" ;
+    rdfs:comment "US West (Oregon)" ;
+    locn:addressArea "Oregon" .
+
+:Tokyo a locn:Address ;
+    rdfs:label "Tokyo" ;
+    rdfs:comment "Asia Pacific (Tokyo)" ;
+    locn:addressArea "Tokyo" .
+
+:N._Virginia a locn:Address ;
+    rdfs:label "N. Virginia" ;
+    rdfs:comment "US East (N. Virginia)" ;
+    locn:addressArea "N. Virginia" .
+
