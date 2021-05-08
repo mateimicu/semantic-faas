@@ -93,6 +93,13 @@ ns2:name rdf:type owl:AnnotationProperty .
          rdfs:comment "CPU Architectures required for the code to work"@en .
 
 
+###  http://www.semantic-faas.com/ontology#datacenter
+:datacenter rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :FaaSExecutionEnvironment ;
+            rdfs:range wd:Q671224 .
+
+
 ###  http://www.semantic-faas.com/ontology#geoRestrictions
 :geoRestrictions rdf:type owl:ObjectProperty ,
                           owl:AsymmetricProperty ,
@@ -137,13 +144,6 @@ ns2:name rdf:type owl:AnnotationProperty .
                                               rdfs:domain :Application ,
                                                           :FaaSExecutionEnvironment ;
                                               rdfs:range :SLA .
-
-
-###  https://www.wikidata.org/entity/Q182933#datacenter
-:datacenter rdf:type owl:ObjectProperty ;
-                                                     rdfs:subPropertyOf owl:topObjectProperty ;
-                                                     rdfs:domain :FaaSExecutionEnvironment ;
-                                                     rdfs:range wd:Q671224 .
 
 
 #################################################################
@@ -306,447 +306,827 @@ wd:Q671224 rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-:af-south-1a a wd:Q671224 ;
-    rdfs:label "af-south-1a" ;
-    locn:addressArea :Cape_Town .
-
-:af-south-1b a wd:Q671224 ;
-    rdfs:label "af-south-1b" ;
-    locn:addressArea :Cape_Town .
-
-:af-south-1c a wd:Q671224 ;
-    rdfs:label "af-south-1c" ;
-    locn:addressArea :Cape_Town .
-
-:ap-east-1a a wd:Q671224 ;
-    rdfs:label "ap-east-1a" ;
-    locn:addressArea :Hong_Kong .
-
-:ap-east-1b a wd:Q671224 ;
-    rdfs:label "ap-east-1b" ;
-    locn:addressArea :Hong_Kong .
-
-:ap-east-1c a wd:Q671224 ;
-    rdfs:label "ap-east-1c" ;
-    locn:addressArea :Hong_Kong .
-
-:ap-northeast-1a a wd:Q671224 ;
-    rdfs:label "ap-northeast-1a" ;
-    locn:addressArea :Tokyo .
-
-:ap-northeast-1b a wd:Q671224 ;
-    rdfs:label "ap-northeast-1b" ;
-    locn:addressArea :Tokyo .
-
-:ap-northeast-1c a wd:Q671224 ;
-    rdfs:label "ap-northeast-1c" ;
-    locn:addressArea :Tokyo .
-
-:ap-northeast-1d a wd:Q671224 ;
-    rdfs:label "ap-northeast-1d" ;
-    locn:addressArea :Tokyo .
-
-:ap-northeast-2a a wd:Q671224 ;
-    rdfs:label "ap-northeast-2a" ;
-    locn:addressArea :Seoul .
-
-:ap-northeast-2b a wd:Q671224 ;
-    rdfs:label "ap-northeast-2b" ;
-    locn:addressArea :Seoul .
-
-:ap-northeast-2c a wd:Q671224 ;
-    rdfs:label "ap-northeast-2c" ;
-    locn:addressArea :Seoul .
-
-:ap-northeast-3a a wd:Q671224 ;
-    rdfs:label "ap-northeast-3a" ;
-    locn:addressArea :Osaka .
-
-:ap-south-1a a wd:Q671224 ;
-    rdfs:label "ap-south-1a" ;
-    locn:addressArea :Mumbai .
-
-:ap-south-1b a wd:Q671224 ;
-    rdfs:label "ap-south-1b" ;
-    locn:addressArea :Mumbai .
-
-:ap-south-1c a wd:Q671224 ;
-    rdfs:label "ap-south-1c" ;
-    locn:addressArea :Mumbai .
-
-:ap-southeast-1a a wd:Q671224 ;
-    rdfs:label "ap-southeast-1a" ;
-    locn:addressArea :Singapore .
-
-:ap-southeast-1b a wd:Q671224 ;
-    rdfs:label "ap-southeast-1b" ;
-    locn:addressArea :Singapore .
-
-:ap-southeast-1c a wd:Q671224 ;
-    rdfs:label "ap-southeast-1c" ;
-    locn:addressArea :Singapore .
-
-:ap-southeast-2a a wd:Q671224 ;
-    rdfs:label "ap-southeast-2a" ;
-    locn:addressArea :Sydney .
-
-:ap-southeast-2b a wd:Q671224 ;
-    rdfs:label "ap-southeast-2b" ;
-    locn:addressArea :Sydney .
-
-:ap-southeast-2c a wd:Q671224 ;
-    rdfs:label "ap-southeast-2c" ;
-    locn:addressArea :Sydney .
-
-:ca-central-1a a wd:Q671224 ;
-    rdfs:label "ca-central-1a" ;
-    locn:addressArea :Canada .
-
-:ca-central-1b a wd:Q671224 ;
-    rdfs:label "ca-central-1b" ;
-    locn:addressArea :Canada .
-
-:ca-central-1c a wd:Q671224 ;
-    rdfs:label "ca-central-1c" ;
-    locn:addressArea :Canada .
-
-:cn-north-1a a wd:Q671224 ;
-    rdfs:label "cn-north-1a" ;
-    locn:addressArea :Beijing .
-
-:cn-north-1b a wd:Q671224 ;
-    rdfs:label "cn-north-1b" ;
-    locn:addressArea :Beijing .
-
-:cn-northwest-1a a wd:Q671224 ;
-    rdfs:label "cn-northwest-1a" ;
-    locn:addressArea :Ningxia .
-
-:cn-northwest-1b a wd:Q671224 ;
-    rdfs:label "cn-northwest-1b" ;
-    locn:addressArea :Ningxia .
-
-:cn-northwest-1c a wd:Q671224 ;
-    rdfs:label "cn-northwest-1c" ;
-    locn:addressArea :Ningxia .
-
-:eu-central-1a a wd:Q671224 ;
-    rdfs:label "eu-central-1a" ;
-    locn:addressArea :Frankfurt .
-
-:eu-central-1b a wd:Q671224 ;
-    rdfs:label "eu-central-1b" ;
-    locn:addressArea :Frankfurt .
-
-:eu-central-1c a wd:Q671224 ;
-    rdfs:label "eu-central-1c" ;
-    locn:addressArea :Frankfurt .
-
-:eu-north-1a a wd:Q671224 ;
-    rdfs:label "eu-north-1a" ;
-    locn:addressArea :Stockholm .
-
-:eu-north-1b a wd:Q671224 ;
-    rdfs:label "eu-north-1b" ;
-    locn:addressArea :Stockholm .
-
-:eu-north-1c a wd:Q671224 ;
-    rdfs:label "eu-north-1c" ;
-    locn:addressArea :Stockholm .
-
-:eu-south-1a a wd:Q671224 ;
-    rdfs:label "eu-south-1a" ;
-    locn:addressArea :Milan .
-
-:eu-south-1b a wd:Q671224 ;
-    rdfs:label "eu-south-1b" ;
-    locn:addressArea :Milan .
-
-:eu-south-1c a wd:Q671224 ;
-    rdfs:label "eu-south-1c" ;
-    locn:addressArea :Milan .
-
-:eu-west-1a a wd:Q671224 ;
-    rdfs:label "eu-west-1a" ;
-    locn:addressArea :Ireland .
-
-:eu-west-1b a wd:Q671224 ;
-    rdfs:label "eu-west-1b" ;
-    locn:addressArea :Ireland .
-
-:eu-west-1c a wd:Q671224 ;
-    rdfs:label "eu-west-1c" ;
-    locn:addressArea :Ireland .
-
-:eu-west-2a a wd:Q671224 ;
-    rdfs:label "eu-west-2a" ;
-    locn:addressArea :London .
-
-:eu-west-2b a wd:Q671224 ;
-    rdfs:label "eu-west-2b" ;
-    locn:addressArea :London .
-
-:eu-west-2c a wd:Q671224 ;
-    rdfs:label "eu-west-2c" ;
-    locn:addressArea :London .
-
-:eu-west-3a a wd:Q671224 ;
-    rdfs:label "eu-west-3a" ;
-    locn:addressArea :Paris .
-
-:eu-west-3b a wd:Q671224 ;
-    rdfs:label "eu-west-3b" ;
-    locn:addressArea :Paris .
-
-:eu-west-3c a wd:Q671224 ;
-    rdfs:label "eu-west-3c" ;
-    locn:addressArea :Paris .
-
-:me-south-1a a wd:Q671224 ;
-    rdfs:label "me-south-1a" ;
-    locn:addressArea :Bahrain .
-
-:me-south-1b a wd:Q671224 ;
-    rdfs:label "me-south-1b" ;
-    locn:addressArea :Bahrain .
-
-:me-south-1c a wd:Q671224 ;
-    rdfs:label "me-south-1c" ;
-    locn:addressArea :Bahrain .
-
-:sa-east-1a a wd:Q671224 ;
-    rdfs:label "sa-east-1a" ;
-    locn:addressArea :São_Paulo .
-
-:sa-east-1b a wd:Q671224 ;
-    rdfs:label "sa-east-1b" ;
-    locn:addressArea :São_Paulo .
-
-:sa-east-1c a wd:Q671224 ;
-    rdfs:label "sa-east-1c" ;
-    locn:addressArea :São_Paulo .
-
-:us-east-1a a wd:Q671224 ;
-    rdfs:label "us-east-1a" ;
-    locn:addressArea :N._Virginia .
-
-:us-east-1b a wd:Q671224 ;
-    rdfs:label "us-east-1b" ;
-    locn:addressArea :N._Virginia .
-
-:us-east-1c a wd:Q671224 ;
-    rdfs:label "us-east-1c" ;
-    locn:addressArea :N._Virginia .
-
-:us-east-1d a wd:Q671224 ;
-    rdfs:label "us-east-1d" ;
-    locn:addressArea :N._Virginia .
-
-:us-east-1e a wd:Q671224 ;
-    rdfs:label "us-east-1e" ;
-    locn:addressArea :N._Virginia .
-
-:us-east-1f a wd:Q671224 ;
-    rdfs:label "us-east-1f" ;
-    locn:addressArea :N._Virginia .
-
-:us-east-2a a wd:Q671224 ;
-    rdfs:label "us-east-2a" ;
-    locn:addressArea :Ohio .
-
-:us-east-2b a wd:Q671224 ;
-    rdfs:label "us-east-2b" ;
-    locn:addressArea :Ohio .
-
-:us-east-2c a wd:Q671224 ;
-    rdfs:label "us-east-2c" ;
-    locn:addressArea :Ohio .
-
-:us-gov-east-1a a wd:Q671224 ;
-    rdfs:label "us-gov-east-1a" ;
-    locn:addressArea :GovCloud_East .
-
-:us-gov-east-1b a wd:Q671224 ;
-    rdfs:label "us-gov-east-1b" ;
-    locn:addressArea :GovCloud_East .
-
-:us-gov-east-1c a wd:Q671224 ;
-    rdfs:label "us-gov-east-1c" ;
-    locn:addressArea :GovCloud_East .
-
-:us-gov-west-1a a wd:Q671224 ;
-    rdfs:label "us-gov-west-1a" ;
-    locn:addressArea :GovCloud_West .
-
-:us-gov-west-1b a wd:Q671224 ;
-    rdfs:label "us-gov-west-1b" ;
-    locn:addressArea :GovCloud_West .
-
-:us-gov-west-1c a wd:Q671224 ;
-    rdfs:label "us-gov-west-1c" ;
-    locn:addressArea :GovCloud_West .
-
-:us-west-1a a wd:Q671224 ;
-    rdfs:label "us-west-1a" ;
-    locn:addressArea :N._California .
-
-:us-west-1b a wd:Q671224 ;
-    rdfs:label "us-west-1b" ;
-    locn:addressArea :N._California .
-
-:us-west-1c a wd:Q671224 ;
-    rdfs:label "us-west-1c" ;
-    locn:addressArea :N._California .
-
-:us-west-2a a wd:Q671224 ;
-    rdfs:label "us-west-2a" ;
-    locn:addressArea :Oregon .
-
-:us-west-2b a wd:Q671224 ;
-    rdfs:label "us-west-2b" ;
-    locn:addressArea :Oregon .
-
-:us-west-2c a wd:Q671224 ;
-    rdfs:label "us-west-2c" ;
-    locn:addressArea :Oregon .
-
-:us-west-2d a wd:Q671224 ;
-    rdfs:label "us-west-2d" ;
-    locn:addressArea :Oregon .
-
-:Osaka a locn:Address ;
-    rdfs:label "Osaka" ;
-    rdfs:comment "Asia Pacific (Osaka-Local)" ;
-    locn:addressArea "Osaka" .
-
-:Beijing a locn:Address ;
-    rdfs:label "Beijing" ;
-    rdfs:comment "China (Beijing)" ;
-    locn:addressArea "Beijing" .
-
-:Bahrain a locn:Address ;
-    rdfs:label "Bahrain" ;
-    rdfs:comment "Middle East (Bahrain)" ;
-    locn:addressArea "Bahrain" .
-
-:Canada a locn:Address ;
-    rdfs:label "Canada" ;
-    rdfs:comment "Canada (Central)" ;
-    locn:addressArea "Canada" .
-
-:Cape_Town a locn:Address ;
-    rdfs:label "Cape Town" ;
-    rdfs:comment "Africa (Cape Town)" ;
-    locn:addressArea "Cape Town" .
-
-:Frankfurt a locn:Address ;
-    rdfs:label "Frankfurt" ;
-    rdfs:comment "EU (Frankfurt)" ;
-    locn:addressArea "Frankfurt" .
-
-:GovCloud_East a locn:Address ;
-    rdfs:label "GovCloud East" ;
-    rdfs:comment "AWS GovCloud (US-East)" ;
-    locn:addressArea "GovCloud East" .
-
-:GovCloud_West a locn:Address ;
-    rdfs:label "GovCloud West" ;
-    rdfs:comment "AWS GovCloud (US)" ;
-    locn:addressArea "GovCloud West" .
-
-:Hong_Kong a locn:Address ;
-    rdfs:label "Hong Kong" ;
-    rdfs:comment "Asia Pacific (Hong Kong)" ;
-    locn:addressArea "Hong Kong" .
-
-:Ireland a locn:Address ;
-    rdfs:label "Ireland" ;
-    rdfs:comment "EU (Ireland)" ;
-    locn:addressArea "Ireland" .
-
-:London a locn:Address ;
-    rdfs:label "London" ;
-    rdfs:comment "EU (London)" ;
-    locn:addressArea "London" .
-
-:Milan a locn:Address ;
-    rdfs:label "Milan" ;
-    rdfs:comment "EU (Milan)" ;
-    locn:addressArea "Milan" .
-
-:Mumbai a locn:Address ;
-    rdfs:label "Mumbai" ;
-    rdfs:comment "Asia Pacific (Mumbai)" ;
-    locn:addressArea "Mumbai" .
-
-:N._California a locn:Address ;
-    rdfs:label "N. California" ;
-    rdfs:comment "US West (N. California)" ;
-    locn:addressArea "N. California" .
-
-:Ningxia a locn:Address ;
-    rdfs:label "Ningxia" ;
-    rdfs:comment "China (Ningxia)" ;
-    locn:addressArea "Ningxia" .
-
-:Ohio a locn:Address ;
-    rdfs:label "Ohio" ;
-    rdfs:comment "US East (Ohio)" ;
-    locn:addressArea "Ohio" .
-
-:Paris a locn:Address ;
-    rdfs:label "Paris" ;
-    rdfs:comment "EU (Paris)" ;
-    locn:addressArea "Paris" .
-
-:Seoul a locn:Address ;
-    rdfs:label "Seoul" ;
-    rdfs:comment "Asia Pacific (Seoul)" ;
-    locn:addressArea "Seoul" .
-
-:Singapore a locn:Address ;
-    rdfs:label "Singapore" ;
-    rdfs:comment "Asia Pacific (Singapore)" ;
-    locn:addressArea "Singapore" .
-
-:Stockholm a locn:Address ;
-    rdfs:label "Stockholm" ;
-    rdfs:comment "EU (Stockholm)" ;
-    locn:addressArea "Stockholm" .
-
-:Sydney a locn:Address ;
-    rdfs:label "Sydney" ;
-    rdfs:comment "Asia Pacific (Sydney)" ;
-    locn:addressArea "Sydney" .
-
-:São_Paulo a locn:Address ;
-    rdfs:label "São Paulo" ;
-    rdfs:comment "South America (São Paulo)" ;
-    locn:addressArea "São Paulo" .
-
-:Oregon a locn:Address ;
-    rdfs:label "Oregon" ;
-    rdfs:comment "US West (Oregon)" ;
-    locn:addressArea "Oregon" .
-
-:Tokyo a locn:Address ;
-    rdfs:label "Tokyo" ;
-    rdfs:comment "Asia Pacific (Tokyo)" ;
-    locn:addressArea "Tokyo" .
-
-:N._Virginia a locn:Address ;
-    rdfs:label "N. Virginia" ;
-    rdfs:comment "US East (N. Virginia)" ;
-    locn:addressArea "N. Virginia" .
-
-
 ###  http://www.semantic-faas.com/ontology#AWSLambda
 :AWSLambda rdf:type owl:NamedIndividual ,
                     :FaaSExecutionEnvironment ;
            :cpuArch wd:Q272629 ;
-           :datacenter <http://www.semantic-faas.com/af-south-1a> ;
+           :datacenter :af-south-1a ,
+                       :af-south-1b ,
+                       :af-south-1c ,
+                       :ap-east-1a ,
+                       :ap-east-1b ,
+                       :ap-east-1c ,
+                       :ap-northeast-1a ,
+                       :ap-northeast-1b ,
+                       :ap-northeast-1c ,
+                       :ap-northeast-1d ,
+                       :ap-northeast-2a ,
+                       :ap-northeast-2b ,
+                       :ap-northeast-2c ,
+                       :ap-northeast-3a ,
+                       :ap-south-1a ,
+                       :ap-south-1b ,
+                       :ap-south-1c ,
+                       :ap-southeast-1a ,
+                       :ap-southeast-1b ,
+                       :ap-southeast-1c ,
+                       :ap-southeast-2a ,
+                       :ap-southeast-2b ,
+                       :ap-southeast-2c ,
+                       :ca-central-1a ,
+                       :ca-central-1b ,
+                       :ca-central-1c ,
+                       :cn-north-1a ,
+                       :cn-north-1b ,
+                       :cn-northwest-1a ,
+                       :cn-northwest-1b ,
+                       :eu-central-1a ,
+                       :eu-central-1b ,
+                       :eu-central-1c ,
+                       :eu-north-1a ,
+                       :eu-north-1b ,
+                       :eu-north-1c ,
+                       :eu-south-1a ,
+                       :eu-south-1b ,
+                       :eu-south-1c ,
+                       :eu-west-1a ,
+                       :eu-west-1b ,
+                       :eu-west-1c ,
+                       :eu-west-2a ,
+                       :eu-west-2b ,
+                       :eu-west-2c ,
+                       :eu-west-3a ,
+                       :eu-west-3b ,
+                       :eu-west-3c ,
+                       :me-south-1a ,
+                       :me-south-1b ,
+                       :me-south-1c ,
+                       :sa-east-1a ,
+                       :sa-east-1b ,
+                       :sa-east-1c ,
+                       :us-east-1a ,
+                       :us-east-1b ,
+                       :us-east-1c ,
+                       :us-east-1d ,
+                       :us-east-1e ,
+                       :us-east-1f ,
+                       :us-east-2a ,
+                       :us-east-2b ,
+                       :us-east-2c ,
+                       :us-gov-east-1a ,
+                       :us-gov-east-1b ,
+                       :us-gov-east-1c ,
+                       :us-gov-west-1a ,
+                       :us-gov-west-1b ,
+                       :us-gov-west-1c ,
+                       :us-west-1a ,
+                       :us-west-1b ,
+                       :us-west-1c ,
+                       :us-west-2a ,
+                       :us-west-2b ,
+                       :us-west-2c ,
+                       :us-west-2d ;
            rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
            rdfs:label "AWS Lambda"^^xsd:string .
+
+
+###  http://www.semantic-faas.com/ontology#Bahrain
+:Bahrain rdf:type owl:NamedIndividual ,
+                  locn:Address ;
+         locn:addressArea "Bahrain" ;
+         rdfs:comment "Middle East (Bahrain)" ;
+         rdfs:label "Bahrain" .
+
+
+###  http://www.semantic-faas.com/ontology#Beijing
+:Beijing rdf:type owl:NamedIndividual ,
+                  locn:Address ;
+         locn:addressArea "Beijing" ;
+         rdfs:comment "China (Beijing)" ;
+         rdfs:label "Beijing" .
+
+
+###  http://www.semantic-faas.com/ontology#Canada
+:Canada rdf:type owl:NamedIndividual ,
+                 locn:Address ;
+        locn:addressArea "Canada" ;
+        rdfs:comment "Canada (Central)" ;
+        rdfs:label "Canada" .
+
+
+###  http://www.semantic-faas.com/ontology#Cape_Town
+:Cape_Town rdf:type owl:NamedIndividual ,
+                    locn:Address ;
+           locn:addressArea "Cape Town" ;
+           rdfs:comment "Africa (Cape Town)" ;
+           rdfs:label "Cape Town" .
+
+
+###  http://www.semantic-faas.com/ontology#Frankfurt
+:Frankfurt rdf:type owl:NamedIndividual ,
+                    locn:Address ;
+           locn:addressArea "Frankfurt" ;
+           rdfs:comment "EU (Frankfurt)" ;
+           rdfs:label "Frankfurt" .
+
+
+###  http://www.semantic-faas.com/ontology#GovCloud_East
+:GovCloud_East rdf:type owl:NamedIndividual ,
+                        locn:Address ;
+               locn:addressArea "GovCloud East" ;
+               rdfs:comment "AWS GovCloud (US-East)" ;
+               rdfs:label "GovCloud East" .
+
+
+###  http://www.semantic-faas.com/ontology#GovCloud_West
+:GovCloud_West rdf:type owl:NamedIndividual ,
+                        locn:Address ;
+               locn:addressArea "GovCloud West" ;
+               rdfs:comment "AWS GovCloud (US)" ;
+               rdfs:label "GovCloud West" .
+
+
+###  http://www.semantic-faas.com/ontology#Hong_Kong
+:Hong_Kong rdf:type owl:NamedIndividual ,
+                    locn:Address ;
+           locn:addressArea "Hong Kong" ;
+           rdfs:comment "Asia Pacific (Hong Kong)" ;
+           rdfs:label "Hong Kong" .
+
+
+###  http://www.semantic-faas.com/ontology#Ireland
+:Ireland rdf:type owl:NamedIndividual ,
+                  locn:Address ;
+         locn:addressArea "Ireland" ;
+         rdfs:comment "EU (Ireland)" ;
+         rdfs:label "Ireland" .
+
+
+###  http://www.semantic-faas.com/ontology#London
+:London rdf:type owl:NamedIndividual ,
+                 locn:Address ;
+        locn:addressArea "London" ;
+        rdfs:comment "EU (London)" ;
+        rdfs:label "London" .
+
+
+###  http://www.semantic-faas.com/ontology#Milan
+:Milan rdf:type owl:NamedIndividual ,
+                locn:Address ;
+       locn:addressArea "Milan" ;
+       rdfs:comment "EU (Milan)" ;
+       rdfs:label "Milan" .
+
+
+###  http://www.semantic-faas.com/ontology#Mumbai
+:Mumbai rdf:type owl:NamedIndividual ,
+                 locn:Address ;
+        locn:addressArea "Mumbai" ;
+        rdfs:comment "Asia Pacific (Mumbai)" ;
+        rdfs:label "Mumbai" .
+
+
+###  http://www.semantic-faas.com/ontology#N._California
+:N._California rdf:type owl:NamedIndividual ,
+                        locn:Address ;
+               locn:addressArea "N. California" ;
+               rdfs:comment "US West (N. California)" ;
+               rdfs:label "N. California" .
+
+
+###  http://www.semantic-faas.com/ontology#N._Virginia
+:N._Virginia rdf:type owl:NamedIndividual ,
+                      locn:Address ;
+             locn:addressArea "N. Virginia" ;
+             rdfs:comment "US East (N. Virginia)" ;
+             rdfs:label "N. Virginia" .
+
+
+###  http://www.semantic-faas.com/ontology#Ningxia
+:Ningxia rdf:type owl:NamedIndividual ,
+                  locn:Address ;
+         locn:addressArea "Ningxia" ;
+         rdfs:comment "China (Ningxia)" ;
+         rdfs:label "Ningxia" .
+
+
+###  http://www.semantic-faas.com/ontology#Ohio
+:Ohio rdf:type owl:NamedIndividual ,
+               locn:Address ;
+      locn:addressArea "Ohio" ;
+      rdfs:comment "US East (Ohio)" ;
+      rdfs:label "Ohio" .
+
+
+###  http://www.semantic-faas.com/ontology#Oregon
+:Oregon rdf:type owl:NamedIndividual ,
+                 locn:Address ;
+        locn:addressArea "Oregon" ;
+        rdfs:comment "US West (Oregon)" ;
+        rdfs:label "Oregon" .
+
+
+###  http://www.semantic-faas.com/ontology#Osaka
+:Osaka rdf:type owl:NamedIndividual ,
+                locn:Address ;
+       locn:addressArea "Osaka" ;
+       rdfs:comment "Asia Pacific (Osaka-Local)" ;
+       rdfs:label "Osaka" .
+
+
+###  http://www.semantic-faas.com/ontology#Paris
+:Paris rdf:type owl:NamedIndividual ,
+                locn:Address ;
+       locn:addressArea "Paris" ;
+       rdfs:comment "EU (Paris)" ;
+       rdfs:label "Paris" .
+
+
+###  http://www.semantic-faas.com/ontology#Seoul
+:Seoul rdf:type owl:NamedIndividual ,
+                locn:Address ;
+       locn:addressArea "Seoul" ;
+       rdfs:comment "Asia Pacific (Seoul)" ;
+       rdfs:label "Seoul" .
+
+
+###  http://www.semantic-faas.com/ontology#Singapore
+:Singapore rdf:type owl:NamedIndividual ,
+                    locn:Address ;
+           locn:addressArea "Singapore" ;
+           rdfs:comment "Asia Pacific (Singapore)" ;
+           rdfs:label "Singapore" .
+
+
+###  http://www.semantic-faas.com/ontology#Stockholm
+:Stockholm rdf:type owl:NamedIndividual ,
+                    locn:Address ;
+           locn:addressArea "Stockholm" ;
+           rdfs:comment "EU (Stockholm)" ;
+           rdfs:label "Stockholm" .
+
+
+###  http://www.semantic-faas.com/ontology#Sydney
+:Sydney rdf:type owl:NamedIndividual ,
+                 locn:Address ;
+        locn:addressArea "Sydney" ;
+        rdfs:comment "Asia Pacific (Sydney)" ;
+        rdfs:label "Sydney" .
+
+
+###  http://www.semantic-faas.com/ontology#São_Paulo
+:São_Paulo rdf:type owl:NamedIndividual ,
+                    locn:Address ;
+           locn:addressArea "São Paulo" ;
+           rdfs:comment "South America (São Paulo)" ;
+           rdfs:label "São Paulo" .
+
+
+###  http://www.semantic-faas.com/ontology#Tokyo
+:Tokyo rdf:type owl:NamedIndividual ,
+                locn:Address ;
+       locn:addressArea "Tokyo" ;
+       rdfs:comment "Asia Pacific (Tokyo)" ;
+       rdfs:label "Tokyo" .
+
+
+###  http://www.semantic-faas.com/ontology#af-south-1a
+:af-south-1a rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "af-south-1a" ;
+             locn:addressArea :Cape_Town .
+
+
+###  http://www.semantic-faas.com/ontology#af-south-1b
+:af-south-1b rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "af-south-1b" ;
+             locn:addressArea :Cape_Town .
+
+
+###  http://www.semantic-faas.com/ontology#af-south-1c
+:af-south-1c rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "af-south-1c" ;
+             locn:addressArea :Cape_Town .
+
+
+###  http://www.semantic-faas.com/ontology#ap-east-1a
+:ap-east-1a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "ap-east-1a" ;
+            locn:addressArea :Hong_Kong .
+
+
+###  http://www.semantic-faas.com/ontology#ap-east-1b
+:ap-east-1b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "ap-east-1b" ;
+            locn:addressArea :Hong_Kong .
+
+
+###  http://www.semantic-faas.com/ontology#ap-east-1c
+:ap-east-1c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "ap-east-1c" ;
+            locn:addressArea :Hong_Kong .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-1a
+:ap-northeast-1a rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-1a" ;
+                 locn:addressArea :Tokyo .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-1b
+:ap-northeast-1b rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-1b" ;
+                 locn:addressArea :Tokyo .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-1c
+:ap-northeast-1c rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-1c" ;
+                 locn:addressArea :Tokyo .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-1d
+:ap-northeast-1d rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-1d" ;
+                 locn:addressArea :Tokyo .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-2a
+:ap-northeast-2a rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-2a" ;
+                 locn:addressArea :Seoul .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-2b
+:ap-northeast-2b rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-2b" ;
+                 locn:addressArea :Seoul .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-2c
+:ap-northeast-2c rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-2c" ;
+                 locn:addressArea :Seoul .
+
+
+###  http://www.semantic-faas.com/ontology#ap-northeast-3a
+:ap-northeast-3a rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-northeast-3a" ;
+                 locn:addressArea :Osaka .
+
+
+###  http://www.semantic-faas.com/ontology#ap-south-1a
+:ap-south-1a rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "ap-south-1a" ;
+             locn:addressArea :Mumbai .
+
+
+###  http://www.semantic-faas.com/ontology#ap-south-1b
+:ap-south-1b rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "ap-south-1b" ;
+             locn:addressArea :Mumbai .
+
+
+###  http://www.semantic-faas.com/ontology#ap-south-1c
+:ap-south-1c rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "ap-south-1c" ;
+             locn:addressArea :Mumbai .
+
+
+###  http://www.semantic-faas.com/ontology#ap-southeast-1a
+:ap-southeast-1a rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-southeast-1a" ;
+                 locn:addressArea :Singapore .
+
+
+###  http://www.semantic-faas.com/ontology#ap-southeast-1b
+:ap-southeast-1b rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-southeast-1b" ;
+                 locn:addressArea :Singapore .
+
+
+###  http://www.semantic-faas.com/ontology#ap-southeast-1c
+:ap-southeast-1c rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-southeast-1c" ;
+                 locn:addressArea :Singapore .
+
+
+###  http://www.semantic-faas.com/ontology#ap-southeast-2a
+:ap-southeast-2a rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-southeast-2a" ;
+                 locn:addressArea :Sydney .
+
+
+###  http://www.semantic-faas.com/ontology#ap-southeast-2b
+:ap-southeast-2b rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-southeast-2b" ;
+                 locn:addressArea :Sydney .
+
+
+###  http://www.semantic-faas.com/ontology#ap-southeast-2c
+:ap-southeast-2c rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "ap-southeast-2c" ;
+                 locn:addressArea :Sydney .
+
+
+###  http://www.semantic-faas.com/ontology#ca-central-1a
+:ca-central-1a rdf:type owl:NamedIndividual ,
+                        wd:Q671224 ;
+               rdfs:label "ca-central-1a" ;
+               locn:addressArea :Canada .
+
+
+###  http://www.semantic-faas.com/ontology#ca-central-1b
+:ca-central-1b rdf:type owl:NamedIndividual ,
+                        wd:Q671224 ;
+               rdfs:label "ca-central-1b" ;
+               locn:addressArea :Canada .
+
+
+###  http://www.semantic-faas.com/ontology#ca-central-1c
+:ca-central-1c rdf:type owl:NamedIndividual ,
+                        wd:Q671224 ;
+               rdfs:label "ca-central-1c" ;
+               locn:addressArea :Canada .
+
+
+###  http://www.semantic-faas.com/ontology#cn-north-1a
+:cn-north-1a rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "cn-north-1a" ;
+             locn:addressArea :Beijing .
+
+
+###  http://www.semantic-faas.com/ontology#cn-north-1b
+:cn-north-1b rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "cn-north-1b" ;
+             locn:addressArea :Beijing .
+
+
+###  http://www.semantic-faas.com/ontology#cn-northwest-1a
+:cn-northwest-1a rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "cn-northwest-1a" ;
+                 locn:addressArea :Ningxia .
+
+
+###  http://www.semantic-faas.com/ontology#cn-northwest-1b
+:cn-northwest-1b rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "cn-northwest-1b" ;
+                 locn:addressArea :Ningxia .
+
+
+###  http://www.semantic-faas.com/ontology#cn-northwest-1c
+:cn-northwest-1c rdf:type owl:NamedIndividual ,
+                          wd:Q671224 ;
+                 rdfs:label "cn-northwest-1c" ;
+                 locn:addressArea :Ningxia .
+
+
+###  http://www.semantic-faas.com/ontology#eu-central-1a
+:eu-central-1a rdf:type owl:NamedIndividual ,
+                        wd:Q671224 ;
+               rdfs:label "eu-central-1a" ;
+               locn:addressArea :Frankfurt .
+
+
+###  http://www.semantic-faas.com/ontology#eu-central-1b
+:eu-central-1b rdf:type owl:NamedIndividual ,
+                        wd:Q671224 ;
+               rdfs:label "eu-central-1b" ;
+               locn:addressArea :Frankfurt .
+
+
+###  http://www.semantic-faas.com/ontology#eu-central-1c
+:eu-central-1c rdf:type owl:NamedIndividual ,
+                        wd:Q671224 ;
+               rdfs:label "eu-central-1c" ;
+               locn:addressArea :Frankfurt .
+
+
+###  http://www.semantic-faas.com/ontology#eu-north-1a
+:eu-north-1a rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "eu-north-1a" ;
+             locn:addressArea :Stockholm .
+
+
+###  http://www.semantic-faas.com/ontology#eu-north-1b
+:eu-north-1b rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "eu-north-1b" ;
+             locn:addressArea :Stockholm .
+
+
+###  http://www.semantic-faas.com/ontology#eu-north-1c
+:eu-north-1c rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "eu-north-1c" ;
+             locn:addressArea :Stockholm .
+
+
+###  http://www.semantic-faas.com/ontology#eu-south-1a
+:eu-south-1a rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "eu-south-1a" ;
+             locn:addressArea :Milan .
+
+
+###  http://www.semantic-faas.com/ontology#eu-south-1b
+:eu-south-1b rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "eu-south-1b" ;
+             locn:addressArea :Milan .
+
+
+###  http://www.semantic-faas.com/ontology#eu-south-1c
+:eu-south-1c rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "eu-south-1c" ;
+             locn:addressArea :Milan .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-1a
+:eu-west-1a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-1a" ;
+            locn:addressArea :Ireland .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-1b
+:eu-west-1b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-1b" ;
+            locn:addressArea :Ireland .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-1c
+:eu-west-1c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-1c" ;
+            locn:addressArea :Ireland .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-2a
+:eu-west-2a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-2a" ;
+            locn:addressArea :London .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-2b
+:eu-west-2b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-2b" ;
+            locn:addressArea :London .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-2c
+:eu-west-2c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-2c" ;
+            locn:addressArea :London .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-3a
+:eu-west-3a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-3a" ;
+            locn:addressArea :Paris .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-3b
+:eu-west-3b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-3b" ;
+            locn:addressArea :Paris .
+
+
+###  http://www.semantic-faas.com/ontology#eu-west-3c
+:eu-west-3c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "eu-west-3c" ;
+            locn:addressArea :Paris .
+
+
+###  http://www.semantic-faas.com/ontology#me-south-1a
+:me-south-1a rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "me-south-1a" ;
+             locn:addressArea :Bahrain .
+
+
+###  http://www.semantic-faas.com/ontology#me-south-1b
+:me-south-1b rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "me-south-1b" ;
+             locn:addressArea :Bahrain .
+
+
+###  http://www.semantic-faas.com/ontology#me-south-1c
+:me-south-1c rdf:type owl:NamedIndividual ,
+                      wd:Q671224 ;
+             rdfs:label "me-south-1c" ;
+             locn:addressArea :Bahrain .
+
+
+###  http://www.semantic-faas.com/ontology#sa-east-1a
+:sa-east-1a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "sa-east-1a" ;
+            locn:addressArea :São_Paulo .
+
+
+###  http://www.semantic-faas.com/ontology#sa-east-1b
+:sa-east-1b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "sa-east-1b" ;
+            locn:addressArea :São_Paulo .
+
+
+###  http://www.semantic-faas.com/ontology#sa-east-1c
+:sa-east-1c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "sa-east-1c" ;
+            locn:addressArea :São_Paulo .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-1a
+:us-east-1a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-1a" ;
+            locn:addressArea :N._Virginia .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-1b
+:us-east-1b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-1b" ;
+            locn:addressArea :N._Virginia .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-1c
+:us-east-1c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-1c" ;
+            locn:addressArea :N._Virginia .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-1d
+:us-east-1d rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-1d" ;
+            locn:addressArea :N._Virginia .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-1e
+:us-east-1e rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-1e" ;
+            locn:addressArea :N._Virginia .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-1f
+:us-east-1f rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-1f" ;
+            locn:addressArea :N._Virginia .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-2a
+:us-east-2a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-2a" ;
+            locn:addressArea :Ohio .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-2b
+:us-east-2b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-2b" ;
+            locn:addressArea :Ohio .
+
+
+###  http://www.semantic-faas.com/ontology#us-east-2c
+:us-east-2c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-east-2c" ;
+            locn:addressArea :Ohio .
+
+
+###  http://www.semantic-faas.com/ontology#us-gov-east-1a
+:us-gov-east-1a rdf:type owl:NamedIndividual ,
+                         wd:Q671224 ;
+                rdfs:label "us-gov-east-1a" ;
+                locn:addressArea :GovCloud_East .
+
+
+###  http://www.semantic-faas.com/ontology#us-gov-east-1b
+:us-gov-east-1b rdf:type owl:NamedIndividual ,
+                         wd:Q671224 ;
+                rdfs:label "us-gov-east-1b" ;
+                locn:addressArea :GovCloud_East .
+
+
+###  http://www.semantic-faas.com/ontology#us-gov-east-1c
+:us-gov-east-1c rdf:type owl:NamedIndividual ,
+                         wd:Q671224 ;
+                rdfs:label "us-gov-east-1c" ;
+                locn:addressArea :GovCloud_East .
+
+
+###  http://www.semantic-faas.com/ontology#us-gov-west-1a
+:us-gov-west-1a rdf:type owl:NamedIndividual ,
+                         wd:Q671224 ;
+                rdfs:label "us-gov-west-1a" ;
+                locn:addressArea :GovCloud_West .
+
+
+###  http://www.semantic-faas.com/ontology#us-gov-west-1b
+:us-gov-west-1b rdf:type owl:NamedIndividual ,
+                         wd:Q671224 ;
+                rdfs:label "us-gov-west-1b" ;
+                locn:addressArea :GovCloud_West .
+
+
+###  http://www.semantic-faas.com/ontology#us-gov-west-1c
+:us-gov-west-1c rdf:type owl:NamedIndividual ,
+                         wd:Q671224 ;
+                rdfs:label "us-gov-west-1c" ;
+                locn:addressArea :GovCloud_West .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-1a
+:us-west-1a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-1a" ;
+            locn:addressArea :N._California .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-1b
+:us-west-1b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-1b" ;
+            locn:addressArea :N._California .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-1c
+:us-west-1c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-1c" ;
+            locn:addressArea :N._California .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-2a
+:us-west-2a rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-2a" ;
+            locn:addressArea :Oregon .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-2b
+:us-west-2b rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-2b" ;
+            locn:addressArea :Oregon .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-2c
+:us-west-2c rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-2c" ;
+            locn:addressArea :Oregon .
+
+
+###  http://www.semantic-faas.com/ontology#us-west-2d
+:us-west-2d rdf:type owl:NamedIndividual ,
+                     wd:Q671224 ;
+            rdfs:label "us-west-2d" ;
+            locn:addressArea :Oregon .
 
 
 ###  http://www.wikidata.org/entity/Q272629
