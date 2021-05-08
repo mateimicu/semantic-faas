@@ -19,9 +19,34 @@ Ontology to interact and parse function as a service providers and also define a
    *  [ ] AWSLambda
      * [x] model all datacenters
        * [ ] link them with wikidata objects
+     * [ ] model pricing
+     * [ ] model concurenty model
+     * [ ] model concurenty
+     * [ ] model exection time restrictions
+     * [ ] model memory capability
+     * [ ] model storage capability
    *  [ ] GoogleFunctions
+     * [ ] model all datacenters
+       * [ ] link them with wikidata objects
+     * [ ] model pricing
+     * [ ] model concurenty model
+     * [ ] model concurenty
+     * [ ] model exection time restrictions
+     * [ ] model memory capability
+     * [ ] model storage capability
    *  [ ] LocalCloudFaaS (implemanted using Knative for example)
+     * [ ] model the single region (Probably Romania)
+       * [ ] link them with wikidata objects
+     * [ ] model pricing
+     * [ ] model concurenty model
+     * [ ] model concurenty
+     * [ ] model exection time restrictions
+     * [ ] model memory capability
+     * [ ] model storage capability
 * [ ] Model 3 functions
+  * [ ] TBD
+  * [ ] TBD
+  * [ ] TBD
 * [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
 
 
