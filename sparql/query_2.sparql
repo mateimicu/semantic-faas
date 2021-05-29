@@ -1,0 +1,16 @@
+#
+# Get all execution environments that have at least two datacenters
+#
+#
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+
+SELECT  DISTINCT ?subject
+WHERE {
+  ?subject rdf:type owl:NamedIndividual .
+  ?subject rdf:type faas:FaaSExecutionEnvironment .
+  ?subject faas:datacenter ?datacenter .
+}
+GROUP BY ?subject
+HAVING (count(distinct ?datacenter) >= 2)

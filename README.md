@@ -1,5 +1,14 @@
 # Function as a service Ontology
-Ontology to interact and parse function as a service providers and also define application that can be deployed.
+Ontology to describing Function as a Service providers and application requirements.
+
+- [Function as a service Ontology](#function-as-a-service-ontology)
+  * [Examples](#examples)
+    + [Model AWS Lambda](#model-aws-lambda)
+    + [Model an OpenFaaS environment](#model-an-openfaas-environment)
+    + [CovidTracker Application](#covidtracker-application)
+    + [EchoServer](#echoserver)
+  * [SPARQL Examples](#sparql-examples)
+    + [Get all execution environments](#get-all-execution-environments)
 
 
 Here is the [Roadmap](./ROADMAP.md) for the development
@@ -15,8 +24,11 @@ Resources we leveraged in our ontology:
 
 ## Examples
 
-#### Model AWS Lambda
+### Model AWS Lambda
 
+For the full ontology see [this](./faas.owl).
+
+For now the Tbox and Abox are mixed in one file, we need to split them up for clarity.
 
 ```rdf
 ###  http://www.semantic-faas.com/ontology#AWSLambda
@@ -116,7 +128,7 @@ Resources we leveraged in our ontology:
            rdfs:label "AWS Lambda"^^xsd:string .
 ```
 
-#### Model a OpenFaaS environment
+### Model an OpenFaaS environment
 
 ```rdf
 ###  http://www.semantic-faas.com/ontology#OpenFaaS
@@ -136,7 +148,7 @@ Resources we leveraged in our ontology:
           rdfs:label "OpenFaaS"^^xsd:string .
 ```
 
-#### CovidTracker Application
+### CovidTracker Application
 
 This application has geographical requirements but because of it's sensitivity we don't care about the cost.
 We only impose a timeout per request of 30s as a best practice (also this is an app produced by Romania Gourmand, we don't expect it to be efficient)
@@ -165,7 +177,7 @@ We only impose a timeout per request of 30s as a best practice (also this is an 
                :maxTimeAllowed "360"^^xsd:positiveInteger .
 ```
 
-#### EchoServer
+### EchoServer
 
 This application has more complex requirements:
 
@@ -212,9 +224,11 @@ This application has more complex requirements:
 ```
 
 
-### SPARQL Examples
+## SPARQL Examples
 
-#### Get all execution environments
+For more example see [this list](./sparql)
+
+### Get all execution environments
 
 ```sparql
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -226,116 +240,8 @@ WHERE {
 }
 ```
 
-#### Get all execution environments that have at least two datacenter (for reliability)
-
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX faas: <http://www.semantic-faas.com/ontology#>
-SELECT  DISTINCT ?subject
-WHERE {
-  ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:FaaSExecutionEnvironment .
-  ?subject faas:datacenter ?datacenter .
-}
-GROUP BY ?subject
-HAVING (count(distinct ?datacenter) >= 2)
-```
-
-#### Get a suitable execution environment for CovidTracker
-
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX locn: <http://www.w3.org/ns/locn#>
-
-PREFIX faas: <http://www.semantic-faas.com/ontology#>
-SELECT  DISTINCT ?subject
-WHERE {
-  VALUES ?targetApplication { faas:CovidTracker }
-
-  #### Filter for Geo Restrictions
-  ?targetApplication faas:requirements ?geoRequirement .
-  ?geoRequirement rdf:type faas:GeographicalRequirement .
-  ?geoRequirement wdt:P361 ?desiredLocation .
-
-  ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:FaaSExecutionEnvironment .
-  ?subject faas:datacenter ?datacenter .
-
-  # at least one datacenter respects the geo restriction
-  ?datacenter locn:addressArea ?addressArea .
-  # P361 = part of
-  ?addressArea wdt:P361 ?desiredLocation .
-
-  #### Filter for ExecutionTime Restrictions
-
-  ?targetApplication faas:requirements ?executionTIme .
-  ?executionTIme rdf:type faas:ExecutionTimeRequirement .
-  ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
-
-  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
-
-  FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?maxTimeAllowed))
-}
-```
-
-#### Get a suitable execution environment for EchoServer
-
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX locn: <http://www.w3.org/ns/locn#>
-
-PREFIX faas: <http://www.semantic-faas.com/ontology#>
-SELECT  DISTINCT ?subject
-WHERE {
-  VALUES ?targetApplication { faas:EchoServer }
-
-  ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:FaaSExecutionEnvironment .
-
-  #### Filter for ExecutionTime Restrictions
-  ?targetApplication faas:requirements ?executionTIme .
-  ?executionTIme rdf:type faas:ExecutionTimeRequirement .
-  ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
-
-  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
-
-  FILTER (xsd:integer(?SubjectMaxTimeAllowed) <= xsd:integer(?maxTimeAllowed))
-
-  #### Filter for concurency
-  ?targetApplication faas:requirements ?ConcurrencyRequirement .
-  ?ConcurrencyRequirement rdf:type faas:ConcurrencyRequirement .
-  ?ConcurrencyRequirement faas:minConcurrency ?minConcurrency .
-
-  ?subject faas:maxConcurrency ?SubjectMaxConcurency .
-  FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?minConcurrency))
-
-  #### Filter for CPU
-  ?targetApplication faas:requirements ?CPURequirement .
-  ?CPURequirement rdf:type faas:CPURequirement .
-  ?CPURequirement faas:cpuArch ?cpuArch .
-
-  ?subject faas:cpuArch ?cpuArch .
-
-  #### Filter for CPU
-  ?targetApplication faas:requirements ?MemoryRequirement .
-  ?MemoryRequirement rdf:type faas:MemoryRequirement .
-  ?MemoryRequirement faas:maxAllowedRAM ?maxAllowedRAM .
-
-  ?subject faas:maxRAM ?SubjectMaxRAM .
-  FILTER (xsd:integer(?SubjectMaxRAM) >= xsd:integer(?maxAllowedRAM))
-}
-
-```
-
-
-[terms]: <http://purl.org/dc/terms/
-[foaf]: <http://xmlns.com/foaf/0.1/
+[terms]: http://purl.org/dc/terms/
+[foaf]: http://xmlns.com/foaf/0.1/
 [dc]: http://purl.org/dc/elements/1.1/
 [owl]: http://www.w3.org/2002/07/owl#
 [rdf]: http://www.w3.org/1999/02/22-rdf-syntax-ns#

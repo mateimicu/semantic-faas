@@ -17,8 +17,8 @@ def get_label(elem):
 
 
 def main():
-    ontology_file = "diz.owl"
-    ontology_file_output = "diz.owl"
+    ontology_file = "faas.owl"
+    ontology_file_output = "faas.owl"
 
     g = Graph()
     g.parse(ontology_file, format="n3")

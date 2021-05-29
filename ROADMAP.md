@@ -45,7 +45,7 @@
   * [x] Get all execution environments
   * [x] Get all execution environments that have at least two datacenters
   * [x] Get a suitable execution environment for CovidTracker
-  * [ ] Get a suitable execution environment for EchoServer
+  * [x] Get a suitable execution environment for EchoServer
 * [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
 
 
@@ -57,6 +57,7 @@
  * [ ] HTTP
  * [ ] QUEUE invocation
 * [ ] SLA provided by the platform
+* [ ] SLA requirements
 * [ ] split info about individuals and ontology/vocabulary (Abox and Tbox)
 * [ ] Link datacenters with locations from wikidata
 
