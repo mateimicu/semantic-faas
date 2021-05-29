@@ -1,157 +1,227 @@
 # Function as a service Ontology
 Ontology to interact and parse function as a service providers and also define application that can be deployed.
 
-## Questions / usecase we want to support
 
-#### For Phase I (release 0.1.0):
+Here is the [Roadmap](./ROADMAP.md) for the development
 
-* [x] Ability to define an application and using SPARQL query to find a list of suitable providers
-   *  [x] RAM requirements
-   *  [x] CPU requirements
-   *  [x] Storage Requirements
-   *  [x] Supported Languages (and versions)
-   *  [x] Geographical restrictions
-   *  [x] Cost restrictions
-   *  [x] Available metrics (not every platform offers the same metrics)
-   *  [x] Concurrency requirements
-* [x] Model 2
-   *  [x] AWSLambda
-     * [x] model all datacenters
-     * [x] model pricing
-     * [x] model concurenty
-     * [x] model exection time restrictions
-     * [x] model memory capability
-     * [x] model storage capability
-     * [x] what can it run
-   *  [x] LocalCloudFaaS (implemanted using OpenFaaS for example)
-     * [x] model the single region
-     * [x] model pricing
-     * [x] model concurenty model
-     * [x] model concurenty
-     * [x] model exection time restrictions
-     * [x] model memory capability
-     * [x] model storage capability
-* [x] Model 2 functions
-  * [x] EchoServer
-    * [x] CPU requirement x86
-    * [x] Max 10s of runtime
-    * [x] At least 100 concurrent replicas
-    * [x] Max 512MB ram
-    * [x] Packaging Docker
-  * [x] CovidTracker
-    * [x] Geographical restriction only for Romania
-    * [x] Max 30s of runtime
-    * [x] Packaging Python
-        * [x] Specify sourcecode
-* [x] Example SPARQL query's
-  * [ ] Get all execution environments
-  * [ ] Get all execution environments that have at least two datacenters
-  * [ ] Get a suitable execution environment for CovidTracker
-  * [ ] Get a suitable execution environment for EchoServer
-* [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
+Resources we leveraged in our ontology:
+
+* [time][time] is used to model execution times and other temporal attributes
+* [locn][locn] is used to model location attributes (for example data center location or geographical restrictions)
+* [dave][dave] is used to model relationships between metrics (the ones required by the application or provided by the Execution Environment)
+* [wd][wd]  used to fetch existing concepts (locations, programming languages, cpu architecture)
+* [wdt][wdt] used to integrate with existing properties (`part of` for example)
+* [DCMI Metadata Terms][terms], [FOAF][foaf], [DCMI Metadata elements][dc], [OWL][owl], [RDF][rdf], [RDFS][rdfs], [XSD][xsd] as the base for most relationships/meta-data and restrictions
+
+## Examples
+
+#### Model AWS Lambda
 
 
-
-Example:
-
+```rdf
+###  http://www.semantic-faas.com/ontology#AWSLambda
+:AWSLambda rdf:type owl:NamedIndividual ,
+                    :FaaSExecutionEnvironment ;
+           :cpuArch wd:Q272629 ;
+           :datacenter :af-south-1a ,
+                       :af-south-1b ,
+                       :af-south-1c ,
+                       :ap-east-1a ,
+                       :ap-east-1b ,
+                       :ap-east-1c ,
+                       :ap-northeast-1a ,
+                       :ap-northeast-1b ,
+                       :ap-northeast-1c ,
+                       :ap-northeast-1d ,
+                       :ap-northeast-2a ,
+                       :ap-northeast-2b ,
+                       :ap-northeast-2c ,
+                       :ap-northeast-3a ,
+                       :ap-south-1a ,
+                       :ap-south-1b ,
+                       :ap-south-1c ,
+                       :ap-southeast-1a ,
+                       :ap-southeast-1b ,
+                       :ap-southeast-1c ,
+                       :ap-southeast-2a ,
+                       :ap-southeast-2b ,
+                       :ap-southeast-2c ,
+                       :ca-central-1a ,
+                       :ca-central-1b ,
+                       :ca-central-1c ,
+                       :cn-north-1a ,
+                       :cn-north-1b ,
+                       :cn-northwest-1a ,
+                       :cn-northwest-1b ,
+                       :eu-central-1a ,
+                       :eu-central-1b ,
+                       :eu-central-1c ,
+                       :eu-north-1a ,
+                       :eu-north-1b ,
+                       :eu-north-1c ,
+                       :eu-south-1a ,
+                       :eu-south-1b ,
+                       :eu-south-1c ,
+                       :eu-west-1a ,
+                       :eu-west-1b ,
+                       :eu-west-1c ,
+                       :eu-west-2a ,
+                       :eu-west-2b ,
+                       :eu-west-2c ,
+                       :eu-west-3a ,
+                       :eu-west-3b ,
+                       :eu-west-3c ,
+                       :me-south-1a ,
+                       :me-south-1b ,
+                       :me-south-1c ,
+                       :sa-east-1a ,
+                       :sa-east-1b ,
+                       :sa-east-1c ,
+                       :us-east-1a ,
+                       :us-east-1b ,
+                       :us-east-1c ,
+                       :us-east-1d ,
+                       :us-east-1e ,
+                       :us-east-1f ,
+                       :us-east-2a ,
+                       :us-east-2b ,
+                       :us-east-2c ,
+                       :us-gov-east-1a ,
+                       :us-gov-east-1b ,
+                       :us-gov-east-1c ,
+                       :us-gov-west-1a ,
+                       :us-gov-west-1b ,
+                       :us-gov-west-1c ,
+                       :us-west-1a ,
+                       :us-west-1b ,
+                       :us-west-1c ,
+                       :us-west-2a ,
+                       :us-west-2b ,
+                       :us-west-2c ,
+                       :us-west-2d ;
+           :pricingModel :AWSLambdaPricing ;
+           :supportedPackages wd:Q15206305 ,
+                              wd:Q161053 ,
+                              wd:Q21622213 ,
+                              wd:Q251 ,
+                              wd:Q28865 ,
+                              wd:Q37227 ,
+                              wd:Q756100 ;
+           :maxAllowedRAM "10240"^^xsd:positiveInteger ;
+           :maxAllowedStorage "75"^^xsd:positiveInteger ;
+           :maxConccurency "1000"^^xsd:positiveInteger ;
+           :maxTimeAllowed "900"^^xsd:positiveInteger ;
+           :minRequiredRAM "128"^^xsd:positiveInteger ;
+           rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
+           rdfs:label "AWS Lambda"^^xsd:string .
 ```
-    AWSLambda
-    GovAwsLambda ?
-    Google Functions
-    LocalCloudFaaS
 
-    EchoServer:
-     - 128Mb RAM
-     - time to run 5s
-     - code
-        - python 3.5+
-     - UpTime 99.9+
-     - pay up to 0.01$ per req
+#### Model a OpenFaaS environment
 
-    GovSchedule (rest api)
-     - 512Mb Ram
-     - time to run 20s
-     - code
-       - javascript ecmascript ==5
-     - uptime required 99.99
-     - pay
-       * up to 0.5$ per req
-       * no more then 0.0000000083$ per 512 MB per 1 ms of runtime ??????
-       * no more then 10 000$ / month
-     - cpuArch: x86 (c++ library requirement)
-     - geoRestrictions
-       - only EU data centers
+```rdf
+###  http://www.semantic-faas.com/ontology#OpenFaaS
+:OpenFaaS rdf:type owl:NamedIndividual ,
+                   :FaaSExecutionEnvironment ;
+          :cpuArch wd:Q272629 ;
+          :datacenter :FIIDatacenter ;
+          :supportedPackages wd:Q15206305 ,
+                             wd:Q28865 ;
+          :maxAllowedRAM "2048"^^xsd:positiveInteger ;
+          :maxAllowedStorage "10"^^xsd:positiveInteger ;
+          :maxConccurency "5"^^xsd:positiveInteger ;
+          :maxTimeAllowed "360"^^xsd:positiveInteger ;
+          :minRequiredRAM "128"^^xsd:positiveInteger ;
+          rdfs:comment "A custom instalation of OpenFaas datacenter on commodity hardware."^^xsd:string ,
+                       "https://www.openfaas.com/"^^xsd:anyURI ;
+          rdfs:label "OpenFaaS"^^xsd:string .
+```
+
+#### CovidTracker Application
+
+This application has geographical requirements but because of it's sensitivity we don't care about the cost.
+We only impose a timeout per request of 30s as a best practice (also this is an app produced by Romania Gourmand, we don't expect it to be efficient)
+
+```rdf
+:CovidTracker rdf:type owl:NamedIndividual ,
+                       :Application ;
+              :code :CovidTrackerCode ;
+              :requirements :Max30sRuntime ,
+                            :OnlyRomaniaGeoRestriction ;
+              :maxPricePerMillionExecution "0.0"^^xsd:double .
+
+
+###  http://www.semantic-faas.com/ontology#CovidTrackerCode
+:CovidTrackerCode rdf:type owl:NamedIndividual ,
+                           :Code ;
+                  :programmingLanguage wd:Q28865 ;
+                  :sourceCode "cHJpbnQoJ0NvdmlkIFRyYWNrZXInKQo="^^xsd:base64Binary .
+
+:OnlyRomaniaGeoRestriction rdf:type owl:NamedIndividual ,
+                                    :GeographicalRequirement ;
+                           wdt:P361 wd:Q218 .
+
+:Max30sRuntime rdf:type owl:NamedIndividual ,
+                        :ExecutionTimeRequirement ;
+               :maxTimeAllowed "360"^^xsd:positiveInteger .
+```
+
+#### EchoServer
+
+This application has more complex requirements:
+
+* max 10s of execution time
+* Only x86 architecture
+* Max 512MB ram
+* Also a cost requirement
+
+
+```rdf
+:EchoServer rdf:type owl:NamedIndividual ,
+                     :Application ;
+            :code :EchoServerCode ;
+            :requirements :AtLeast100Replicas ,
+                          :Cpu_x86 ,
+                          :Max10seconds ,
+                          :Max512MB ;
+            :maxPricePerMillionExecution "75.0"^^xsd:double .
+
+
+###  http://www.semantic-faas.com/ontology#EchoServerCode
+:EchoServerCode rdf:type owl:NamedIndividual ,
+                         :Code ;
+                :programmingLanguage wdt:Q15206305 ,
+                                     wdt:Q28865 ;
+                rdfs:comment "Docker File with a echo server" ;
+                foaf:homepage "https://hub.docker.com/r/ealen/echo-server"^^xsd:anyURI .
+
+:AtLeast100Replicas rdf:type owl:NamedIndividual ,
+                             :ConcurrencyRequirement ;
+                    :minConcurrency "100"^^xsd:positiveInteger .
+
+:Cpu_x86 rdf:type owl:NamedIndividual ,
+                  :CPURequirement ;
+         :cpuArch wd:Q272629 .
+
+:Max10seconds rdf:type owl:NamedIndividual ,
+                       :ExecutionTimeRequirement ;
+              :maxTimeAllowed "10"^^xsd:positiveInteger .
+
+:Max512MB rdf:type owl:NamedIndividual ,
+                   :MemoryRequirement ;
+          :maxAllowedRAM "512"^^xsd:positiveInteger .
 ```
 
 
+[terms]: <http://purl.org/dc/terms/
+[foaf]: <http://xmlns.com/foaf/0.1/
+[dc]: http://purl.org/dc/elements/1.1/
+[owl]: http://www.w3.org/2002/07/owl#
+[rdf]: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+[time]: http://www.w3.org/2006/time#
+[locn]: http://www.w3.org/ns/locn#
+[dave]: http://theme-e.adaptcentre.ie/dave#
+[wd]: http://www.wikidata.org/entity/
+[wdt]: http://www.wikidata.org/prop/direct/
+[xsd]: http://www.w3.org/2001/XMLSchema#
+[rdfs]: http://www.w3.org/2000/01/rdf-schema#
 
-
-
-#### For Phase II (release 0.2.0):
-
-* [ ] What services can the FaaS provider interact with ?
- * [ ] here for example Lambda can interact with S3, DynamoDB etc ... we should create another ontology for (Object storage, databases etc ...)
-* [ ] invocation methods
- * [ ] HTTP
- * [ ] QUEUE invocation
-* [ ] SLA provided by the platform
-* [ ] split info about individuals and ontology/vocabulary (Abox and Tbox)
-* [ ] Link datacenters with locations from wikidata
-
-#### For Phase III (release 0.3.0):
-
-* [ ] Here we should start looking at providing an abstraction over multiple FaaS providers using our model
-
-
-## Raw Objects
-
-- FaaSExecutionEnvironment
-  - minRAM
-  - maxRAM
-  - maxTimeAllowed
-  - supportedPackages -> Union[ SoftwareLanguage... ] and [wikidata:contaier]
-  - maxConccurency
-  - availableRegions - [ lista de concepte existente ]
-  - pricingModel
-  - SLA's
-  - metrics
-
-- Application
-  - code -> Code
-  - Requirements
-  - SLA's
-
-
-
-
-- Code
-  - programmingLanguage -> SoftwareLanguage
-  -
-
-- SoftwareLanguage
-  - InterpretedSoftware
-      - version
-      - <ce mai gasim despre conceptul asta public>
-  - CompiledSoftware
-      - version
-      - <ce mai gasim despre conceptul asta public>
-
-- Requirement
-  - minRequiredRAM
-  - maxAllowedRAM
-  - maxTimeAllowed
-  - maxConccurency
-  - geoRestrictions
-  - cpuArch <- daca e specificat; daca nu fallback pe Language info
-
-- SLA's
-  - <search and figure out how to model this>
-
-- PricingModel
-  - pay by CPU
-    - fractie CPU / moneda
-  - pay by Memory
-    - x Mb / moneda
-
-- Metrics
-  - tipul de metrica; granularitatea; unitatea de masura
