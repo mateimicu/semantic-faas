@@ -259,7 +259,6 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 ###  http://www.semantic-faas.com/ontology#sourceCode
 :sourceCode rdf:type owl:DatatypeProperty ;
             rdfs:domain :Code ;
-            rdfs:range xsd:base64Binary ;
             rdfs:comment "The actuam source files encoded"@en .
 
 
@@ -445,9 +444,9 @@ wd:Q671224 rdf:type owl:Class ;
                               wd:Q28865 ,
                               wd:Q37227 ,
                               wd:Q756100 ;
-           :maxAllowedRAM "10240"^^xsd:positiveInteger ;
            :maxAllowedStorage "75"^^xsd:positiveInteger ;
            :maxConcurrency "1000"^^xsd:positiveInteger ;
+           :maxRAM "10240"^^xsd:positiveInteger ;
            :maxTimeAllowed "900"^^xsd:positiveInteger ;
            :minRequiredRAM "128"^^xsd:positiveInteger ;
            rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
