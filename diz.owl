@@ -10,11 +10,13 @@
 @prefix dave: <http://theme-e.adaptcentre.ie/dave#> .
 @prefix locn: <http://www.w3.org/ns/locn#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @base <http://www.semantic-faas.com/ontology> .
 
 <http://www.semantic-faas.com/ontology> rdf:type owl:Ontology ;
                                          owl:versionIRI <http://www.semantic-faas.com/ontology/0.0.1> ;
                                          owl:imports dave: ,
+                                                     <http://www.w3.org/2006/time#2016> ,
                                                      <http://www.w3.org/ns/locn> ;
                                          ns3:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a FaaS provider."@en ;
                                          ns1:creator "Matei-Marius Micu <micumatei@gmail.com>"@en ,
@@ -107,6 +109,13 @@ ns2:name rdf:type owl:AnnotationProperty .
                  rdfs:domain :GeographicalRequirement .
 
 
+###  http://www.semantic-faas.com/ontology#maxTimeAllowed
+:maxTimeAllowed rdf:type owl:ObjectProperty ;
+                rdfs:domain :ExecutionTimeRequirement ,
+                            :FaaSExecutionEnvironment ;
+                rdfs:range time:seconds .
+
+
 ###  http://www.semantic-faas.com/ontology#pricingModel
 :pricingModel rdf:type owl:ObjectProperty ,
                        owl:AsymmetricProperty ,
@@ -181,10 +190,8 @@ ns2:name rdf:type owl:AnnotationProperty .
 
 ###  http://www.semantic-faas.com/ontology#maxTimeAllowed
 :maxTimeAllowed rdf:type owl:DatatypeProperty ;
-                rdfs:domain :ExecutionTimeRequirement ,
-                            :FaaSExecutionEnvironment ;
-                rdfs:range xsd:positiveInteger ;
-                rdfs:comment "The maximum time in ms of execution time."@en .
+                rdfs:subPropertyOf time:second ;
+                rdfs:range xsd:positiveInteger .
 
 
 ###  http://www.semantic-faas.com/ontology#minRAM
@@ -214,6 +221,16 @@ ns2:name rdf:type owl:AnnotationProperty .
             rdfs:domain :Code ;
             rdfs:range xsd:base64Binary ;
             rdfs:comment "The actuam source files encoded"@en .
+
+
+###  https://www.wikidata.org/entity/Q182933#PricePerGBofMemoryPerSecond
+:PricePerGBofMemoryPerSecond rdf:type owl:DatatypeProperty .
+
+
+###  https://www.wikidata.org/entity/Q182933#PricePerMillionRequests
+:PricePerMillionRequests rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :PricingModel ;
+                            rdfs:range xsd:positiveInteger .
 
 
 #################################################################
@@ -290,6 +307,10 @@ dave:Metric rdf:type owl:Class ;
 ###  http://www.semantic-faas.com/ontology#StorageRequirement
 :StorageRequirement rdf:type owl:Class ;
                     rdfs:subClassOf :Requirement .
+
+
+###  http://www.w3.org/2006/time#seconds
+time:seconds rdf:type owl:Class .
 
 
 ###  http://www.wikidata.org/entity/Q272683
@@ -386,6 +407,19 @@ wd:Q671224 rdf:type owl:Class ;
                        :us-west-2b ,
                        :us-west-2c ,
                        :us-west-2d ;
+           :pricingModel :AWSLambdaPricing ;
+           :supportedPackages wd:Q15206305 ,
+                              wd:Q161053 ,
+                              wd:Q21622213 ,
+                              wd:Q251 ,
+                              wd:Q28865 ,
+                              wd:Q37227 ,
+                              wd:Q756100 ;
+           :maxAllowedRAM "10240"^^xsd:positiveInteger ;
+           :maxAllowedStorage "75"^^xsd:positiveInteger ;
+           :maxConccurency "1000"^^xsd:positiveInteger ;
+           :maxTimeAllowed "900"^^xsd:positiveInteger ;
+           :minRequiredRAM "128"^^xsd:positiveInteger ;
            rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
            rdfs:label "AWS Lambda"^^xsd:string .
 
@@ -1129,9 +1163,58 @@ wd:Q671224 rdf:type owl:Class ;
             locn:addressArea :Oregon .
 
 
+###  http://www.wikidata.org/entity/Q15206305
+wd:Q15206305 rdf:type owl:NamedIndividual ;
+             rdfs:label "Docker" .
+
+
+###  http://www.wikidata.org/entity/Q161053
+wd:Q161053 rdf:type owl:NamedIndividual ;
+           rdfs:label "Ruby" .
+
+
+###  http://www.wikidata.org/entity/Q21622213
+wd:Q21622213 rdf:type owl:NamedIndividual ;
+             rdfs:label ".NET" .
+
+
+###  http://www.wikidata.org/entity/Q251
+wd:Q251 rdf:type owl:NamedIndividual ;
+        rdfs:label "Java" .
+
+
 ###  http://www.wikidata.org/entity/Q272629
 wd:Q272629 rdf:type owl:NamedIndividual ;
            rdfs:label "x86_64" .
+
+
+###  http://www.wikidata.org/entity/Q28865
+wd:Q28865 rdf:type owl:NamedIndividual ;
+          rdfs:label "Python" .
+
+
+###  http://www.wikidata.org/entity/Q37227
+wd:Q37227 rdf:type owl:NamedIndividual ;
+          rdfs:label "Go" .
+
+
+###  http://www.wikidata.org/entity/Q756100
+wd:Q756100 rdf:type owl:NamedIndividual ;
+           rdfs:label "Node.js" .
+
+
+###  https://www.wikidata.org/entity/Q182933#AWSLambdaPricing
+:AWSLambdaPricing rdf:type owl:NamedIndividual ,
+                              :PricingModel ;
+                     :PricePerGBofMemoryPerSecond "1.67E-8"^^xsd:double ;
+                     :PricePerMillionRequests 0.20 .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:maxTimeAllowed rdfs:comment "The maximum time in ms of execution time."@en .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
