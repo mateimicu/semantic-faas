@@ -5,7 +5,6 @@ Ontology to interact and parse function as a service providers and also define a
 
 #### For Phase I (release 0.1.0):
 
-* [ ] Basic query / compression of FaaS providers
 * [x] Ability to define an application and using SPARQL query to find a list of suitable providers
    *  [x] RAM requirements
    *  [x] CPU requirements
@@ -15,38 +14,40 @@ Ontology to interact and parse function as a service providers and also define a
    *  [x] Cost restrictions
    *  [x] Available metrics (not every platform offers the same metrics)
    *  [x] Concurrency requirements
-* [ ] Model a subset of environments
-   *  [ ] AWSLambda
+* [x] Model 2
+   *  [x] AWSLambda
      * [x] model all datacenters
-       * [ ] link them with wikidata objects
-     * [ ] model pricing
-     * [ ] model concurenty model
-     * [ ] model concurenty
-     * [ ] model exection time restrictions
-     * [ ] model memory capability
-     * [ ] model storage capability
-   *  [ ] GoogleFunctions
-     * [ ] model all datacenters
-       * [ ] link them with wikidata objects
-     * [ ] model pricing
-     * [ ] model concurenty model
-     * [ ] model concurenty
-     * [ ] model exection time restrictions
-     * [ ] model memory capability
-     * [ ] model storage capability
-   *  [ ] LocalCloudFaaS (implemanted using Knative for example)
-     * [ ] model the single region (Probably Romania)
-       * [ ] link them with wikidata objects
-     * [ ] model pricing
-     * [ ] model concurenty model
-     * [ ] model concurenty
-     * [ ] model exection time restrictions
-     * [ ] model memory capability
-     * [ ] model storage capability
-* [ ] Model 3 functions
-  * [ ] TBD
-  * [ ] TBD
-  * [ ] TBD
+     * [x] model pricing
+     * [x] model concurenty
+     * [x] model exection time restrictions
+     * [x] model memory capability
+     * [x] model storage capability
+     * [x] what can it run
+   *  [x] LocalCloudFaaS (implemanted using OpenFaaS for example)
+     * [x] model the single region
+     * [x] model pricing
+     * [x] model concurenty model
+     * [x] model concurenty
+     * [x] model exection time restrictions
+     * [x] model memory capability
+     * [x] model storage capability
+* [x] Model 2 functions
+  * [x] EchoServer
+    * [x] CPU requirement x86
+    * [x] Max 10s of runtime
+    * [x] At least 100 concurrent replicas
+    * [x] Max 512MB ram
+    * [x] Packaging Docker
+  * [x] CovidTracker
+    * [x] Geographical restriction only for Romania
+    * [x] Max 30s of runtime
+    * [x] Packaging Python
+        * [x] Specify sourcecode
+* [x] Example SPARQL query's
+  * [ ] Get all execution environments
+  * [ ] Get all execution environments that have at least two datacenters
+  * [ ] Get a suitable execution environment for CovidTracker
+  * [ ] Get a suitable execution environment for EchoServer
 * [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
 
 
@@ -95,6 +96,7 @@ Example:
  * [ ] QUEUE invocation
 * [ ] SLA provided by the platform
 * [ ] split info about individuals and ontology/vocabulary (Abox and Tbox)
+* [ ] Link datacenters with locations from wikidata
 
 #### For Phase III (release 0.3.0):
 
