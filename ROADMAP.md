@@ -42,9 +42,9 @@
     * [x] Packaging Python
         * [x] Specify sourcecode
 * [x] Example SPARQL query's
-  * [ ] Get all execution environments
-  * [ ] Get all execution environments that have at least two datacenters
-  * [ ] Get a suitable execution environment for CovidTracker
+  * [x] Get all execution environments
+  * [x] Get all execution environments that have at least two datacenters
+  * [x] Get a suitable execution environment for CovidTracker
   * [ ] Get a suitable execution environment for EchoServer
 * [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
 

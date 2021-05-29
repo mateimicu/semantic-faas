@@ -212,6 +212,128 @@ This application has more complex requirements:
 ```
 
 
+### SPARQL Examples
+
+#### Get all execution environments
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+SELECT  DISTINCT ?subject
+WHERE {
+  ?subject rdf:type owl:NamedIndividual .
+  ?subject rdf:type faas:FaaSExecutionEnvironment .
+}
+```
+
+#### Get all execution environments that have at least two datacenter (for reliability)
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+SELECT  DISTINCT ?subject
+WHERE {
+  ?subject rdf:type owl:NamedIndividual .
+  ?subject rdf:type faas:FaaSExecutionEnvironment .
+  ?subject faas:datacenter ?datacenter .
+}
+GROUP BY ?subject
+HAVING (count(distinct ?datacenter) >= 2)
+```
+
+#### Get a suitable execution environment for CovidTracker
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+SELECT  DISTINCT ?subject
+WHERE {
+  VALUES ?targetApplication { faas:CovidTracker }
+
+  #### Filter for Geo Restrictions
+  ?targetApplication faas:requirements ?geoRequirement .
+  ?geoRequirement rdf:type faas:GeographicalRequirement .
+  ?geoRequirement wdt:P361 ?desiredLocation .
+
+  ?subject rdf:type owl:NamedIndividual .
+  ?subject rdf:type faas:FaaSExecutionEnvironment .
+  ?subject faas:datacenter ?datacenter .
+
+  # at least one datacenter respects the geo restriction
+  ?datacenter locn:addressArea ?addressArea .
+  # P361 = part of
+  ?addressArea wdt:P361 ?desiredLocation .
+
+  #### Filter for ExecutionTime Restrictions
+
+  ?targetApplication faas:requirements ?executionTIme .
+  ?executionTIme rdf:type faas:ExecutionTimeRequirement .
+  ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
+
+  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
+
+  FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?maxTimeAllowed))
+}
+```
+
+#### Get a suitable execution environment for EchoServer
+
+```sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+SELECT  DISTINCT ?subject
+WHERE {
+  VALUES ?targetApplication { faas:EchoServer }
+
+  ?subject rdf:type owl:NamedIndividual .
+  ?subject rdf:type faas:FaaSExecutionEnvironment .
+
+  #### Filter for ExecutionTime Restrictions
+  ?targetApplication faas:requirements ?executionTIme .
+  ?executionTIme rdf:type faas:ExecutionTimeRequirement .
+  ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
+
+  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
+
+  FILTER (xsd:integer(?SubjectMaxTimeAllowed) <= xsd:integer(?maxTimeAllowed))
+
+  #### Filter for concurency
+  ?targetApplication faas:requirements ?ConcurrencyRequirement .
+  ?ConcurrencyRequirement rdf:type faas:ConcurrencyRequirement .
+  ?ConcurrencyRequirement faas:minConcurrency ?minConcurrency .
+
+  ?subject faas:maxConcurrency ?SubjectMaxConcurency .
+  FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?minConcurrency))
+
+  #### Filter for CPU
+  ?targetApplication faas:requirements ?CPURequirement .
+  ?CPURequirement rdf:type faas:CPURequirement .
+  ?CPURequirement faas:cpuArch ?cpuArch .
+
+  ?subject faas:cpuArch ?cpuArch .
+
+  #### Filter for CPU
+  ?targetApplication faas:requirements ?MemoryRequirement .
+  ?MemoryRequirement rdf:type faas:MemoryRequirement .
+  ?MemoryRequirement faas:maxAllowedRAM ?maxAllowedRAM .
+
+  ?subject faas:maxRAM ?SubjectMaxRAM .
+  FILTER (xsd:integer(?SubjectMaxRAM) >= xsd:integer(?maxAllowedRAM))
+}
+
+```
+
+
 [terms]: <http://purl.org/dc/terms/
 [foaf]: <http://xmlns.com/foaf/0.1/
 [dc]: http://purl.org/dc/elements/1.1/
