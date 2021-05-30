@@ -1,0 +1,20 @@
+{
+  "name": "owl-wikidata-q-label-autocomplete",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "ava"
+  },
+  "author": "Stefan Gordin <stefangordindev@gmail.com>",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "4.17.1",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0"
+  }
+}
