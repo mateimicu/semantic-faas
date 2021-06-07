@@ -75,6 +75,36 @@ foaf:name rdf:type owl:AnnotationProperty .
                   rdfs:domain :FaaSExecutionEnvironment ;
                   rdfs:label "supportedRegions"@en .
 
+:InvocationMethod rdf:type owl:Class .
+
+###  http://www.semantic-faas.com/ontology#invocationMethod
+:hasInvocationMethod rdf:type owl:ObjectProperty ,
+                           owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain :FaaSExecutionEnvironment ;
+                  rdfs:range :InvocationMethod ;
+                  rdfs:label "hasInvocationMethod"@en .
+
+###  http://www.semantic-faas.com/ontology#CPURequirement
+:InvocationMethodRequirement rdf:type owl:Class ;
+                rdfs:subClassOf :Requirement .
+
+###  http://www.semantic-faas.com/ontology#invocationMethod
+:requiredInvocationMethod rdf:type owl:ObjectProperty ,
+                           owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain :InvocationMethodRequirement ;
+                  rdfs:range :InvocationMethod ;
+                  rdfs:label "requiredInvocationMethod"@en .
+
+
+###  http://www.semantic-faas.com/ontology#HTTPInvocationMethod
+:HTTPInvocationMethod rdfs:subClassOf :InvocationRequirement ;
+                  rdfs:label "HTTPInvocationMethod"@en .
+
+###  http://www.semantic-faas.com/ontology#queueInvocationMethod
+:queueInvocationMethod rdfs:subClassOf :InvocationRequirement ;
+                  rdfs:label "queueInvocationMethod"@en .
 
 ###  http://www.semantic-faas.com/ontology#canIntegrateWith
 :canIntegrateWith rdf:type owl:ObjectProperty ;
@@ -536,6 +566,8 @@ wd:Q671224 rdf:type owl:Class ;
            :minRequiredRAM "128"^^xsd:positiveInteger ;
            rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
            :hasSLA :AWSLambdaAvailability ;
+           :hasInvocationMethod :HTTPInvocationMethod,
+                             :queueInvocationMethod;
            rdfs:label "AWS Lambda"^^xsd:string .
 
 
@@ -646,6 +678,10 @@ wd:Q671224 rdf:type owl:Class ;
                   :CPURequirement ;
          :cpuArch wd:Q272629 .
 
+###  http://www.semantic-faas.com/ontology#Cpu_x86
+:mustHaveHTTPInvocationMethod rdf:type owl:NamedIndividual ,
+                  :InvocationMethodRequirement ;
+         :requiredInvocationMethod :HTTPInvocationMethod .
 
 ###  http://www.semantic-faas.com/ontology#EchoServer
 :EchoServer rdf:type owl:NamedIndividual ,
@@ -654,8 +690,9 @@ wd:Q671224 rdf:type owl:Class ;
             :requirements :AtLeast100Replicas ,
                           :Cpu_x86 ,
                           :Max10seconds ,
+                          :mustHaveHTTPInvocationMethod ,
                           :Max512MB ;
-         :requirements <http://www.semantic-faas.com/ontology#98UptimeRequirement> ;
+            :requirements <http://www.semantic-faas.com/ontology#98UptimeRequirement> ;
             :maxPricePerMillionExecution "75.0"^^xsd:double .
 
 
