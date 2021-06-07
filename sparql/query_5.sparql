@@ -1,0 +1,72 @@
+#
+# Get a suitable execution environment for EchoServer
+#
+#
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+
+SELECT  DISTINCT  ?subject  ?disturbanceTreshold ?threshold ?minPercentageRefund ?refundPercentage
+WHERE {
+  VALUES ?targetApplication { faas:EchoServer }
+
+  ?subject rdf:type owl:NamedIndividual .
+  ?subject rdf:type faas:FaaSExecutionEnvironment .
+
+  #### Filter for ExecutionTime Restrictions
+  ?targetApplication faas:requirements ?executionTIme .
+  ?executionTIme rdf:type faas:ExecutionTimeRequirement .
+  ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
+
+  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
+
+   FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?maxTimeAllowed))
+
+  #### Filter for concurency
+  ?targetApplication faas:requirements ?ConcurrencyRequirement .
+  ?ConcurrencyRequirement rdf:type faas:ConcurrencyRequirement .
+  ?ConcurrencyRequirement faas:minConcurrency ?minConcurrency .
+
+  ?subject faas:maxConcurrency ?SubjectMaxConcurency .
+   FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?minConcurrency))
+
+  #### Filter for CPU
+  ?targetApplication faas:requirements ?CPURequirement .
+  ?CPURequirement rdf:type faas:CPURequirement .
+  ?CPURequirement faas:cpuArch ?cpuArch .
+
+  ?subject faas:cpuArch ?cpuArch .
+
+  #### Filter for CPU
+  ?targetApplication faas:requirements ?MemoryRequirement .
+  ?MemoryRequirement rdf:type faas:MemoryRequirement .
+  ?MemoryRequirement faas:maxAllowedRAM ?maxAllowedRAM .
+
+  ?subject faas:maxRAM ?SubjectMaxRAM .
+   FILTER (xsd:integer(?SubjectMaxRAM) >= xsd:integer(?maxAllowedRAM))
+
+  #### Filter for CPU
+  ?targetApplication faas:requirements ?SLARequirement .
+  ?SLARequirement rdf:type faas:SLA_Credit_Requirement .
+  ?SLARequirement faas:disturbanceTreshold ?disturbanceTreshold .
+  ?SLARequirement faas:minPercentageRefund ?minPercentageRefund .
+  ?SLARequirement faas:SLAMetric ?metric .
+
+  ?subject faas:hasSLA ?sla .
+  ?sla faas:SLAMetric ?metric .
+  ?sla rdf:type faas:SLA .
+  ?sla faas:penalty ?penalty .
+  ?fenalty rdf:type faas:CreditRefund .
+
+  ?penalty faas:refundPercentage ?refundPercentage .
+  ?penalty faas:threshold ?threshold .
+
+   FILTER (xsd:float(?disturbanceTreshold) <= xsd:float(?threshold))
+   FILTER (xsd:float(?minPercentageRefund) <= xsd:float(?refundPercentage))
+}
+
