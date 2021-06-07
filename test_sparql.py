@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from rdflib import Graph
 
 QUERY = [
@@ -6,10 +6,11 @@ QUERY = [
     'sparql/query_2.sparql',
     'sparql/query_3.sparql',
     'sparql/query_4.sparql',
+    'sparql/query_5.sparql',
 ]
 
 def main():
-    ontology_file = "diz.owl"
+    ontology_file = "faas.owl"
     graph = Graph()
     graph.parse(ontology_file, format="n3")
 

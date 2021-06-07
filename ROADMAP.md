@@ -48,6 +48,13 @@
     * [x] Get a suitable execution environment for EchoServer
 * [x] Tool to fetch all label from WikiData (this is used to make working with protege more intuit)
 
+  * SLA requirements
+  * SLA Requirements
+    * disturbance
+    * penalty requirements
+* Abox
+* SPARQL query that includes filters for SLA requirements
+
 
 #### For Phase II (release 0.2.0):
 
@@ -59,8 +66,12 @@
 * [ ] invocation methods
     * [ ] HTTP
     * [ ] QUEUE invocation
-* [ ] Model SLA provided by the platform
-* [ ] Model SLA requirements
+* [x] Model SLA provided by the platform
+    * [x] Implement SLA specification for AWS Lambda
+* [x] Model SLA requirements
+    * [x] SLA penalty
+    * [x] SLA refund (also with refund types)
+    * [x] Implement SLA requirements for Echo Server
 * [ ] split info about individuals and ontology/vocabulary (Abox and Tbox)
 
 #### For Phase III (release 0.3.0):
