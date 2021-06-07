@@ -59,12 +59,13 @@ foaf:name rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
-###  http://www.semantic-faas.com/ontology#Metrics
-:Metrics rdf:type owl:ObjectProperty ,
-                  owl:AsymmetricProperty ,
-                  owl:IrreflexiveProperty ;
-         rdfs:domain :FaaSExecutionEnvironment ;
-         rdfs:range :Metric .
+
+###  http://www.semantic-faas.com/ontology#SLAMetric
+:SLAMetric rdf:type owl:ObjectProperty ;
+           rdfs:domain :SLA ,
+            :SLARequirement ;
+           rdfs:range :Metric ;
+           rdfs:label "SLA Metric"@en .
 
 
 ###  http://www.semantic-faas.com/ontology#availableRegions
@@ -121,6 +122,12 @@ foaf:name rdf:type owl:AnnotationProperty .
                 rdfs:range time:seconds .
 
 
+###  http://www.semantic-faas.com/ontology#penalty
+:penalty rdf:type owl:ObjectProperty ;
+         rdfs:domain :SLA ;
+         rdfs:range :SLAPenalty .
+
+
 ###  http://www.semantic-faas.com/ontology#pricingModel
 :pricingModel rdf:type owl:ObjectProperty ,
                        owl:AsymmetricProperty ,
@@ -151,13 +158,14 @@ foaf:name rdf:type owl:AnnotationProperty .
                    rdfs:domain :FaaSExecutionEnvironment .
 
 
-###  http://www.semantic-faas.com/ontology#SLA's
-<http://www.semantic-faas.com/ontology#SLA's> rdf:type owl:ObjectProperty ,
+###  http://www.semantic-faas.com/ontology#SLA
+:hasSLA rdf:type owl:ObjectProperty ,
                                                        owl:AsymmetricProperty ,
                                                        owl:IrreflexiveProperty ;
                                               rdfs:domain :Application ,
                                                           :FaaSExecutionEnvironment ;
-                                              rdfs:range :SLA .
+                                              rdfs:range :SLA ;
+                                              rdfs:label "SLA"@en .
 
 
 ###  http://www.wikidata.org/prop/direct/P361
@@ -185,6 +193,26 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 :PricePerMillionRequests rdf:type owl:DatatypeProperty ;
                          rdfs:domain :PricingModel ;
                          rdfs:range xsd:double .
+
+
+###  http://www.semantic-faas.com/ontology#SLADescription
+:SLADescription rdf:type owl:DatatypeProperty ;
+                rdfs:domain :SLA ;
+                rdfs:range xsd:string ;
+                rdfs:label "SLA Description"@en .
+
+
+###  http://www.semantic-faas.com/ontology#SLAName
+:SLAName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :SLA ;
+         rdfs:range xsd:string ;
+         rdfs:label "SLA Name"@en .
+
+
+###  http://www.semantic-faas.com/ontology#disturbanceTreshold
+:disturbanceTreshold rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :SLARequirement ;
+                     rdfs:range xsd:float .
 
 
 ###  http://www.semantic-faas.com/ontology#maxAllowedRAM
@@ -234,6 +262,12 @@ wdt:P527 rdf:type owl:ObjectProperty ;
                 rdfs:range xsd:positiveInteger .
 
 
+###  http://www.semantic-faas.com/ontology#minPercentageRefund
+:minPercentageRefund rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :SLARequirement ;
+                     rdfs:range xsd:float .
+
+
 ###  http://www.semantic-faas.com/ontology#minRAM
 :minRAM rdf:type owl:DatatypeProperty ;
         rdfs:domain :FaaSExecutionEnvironment ;
@@ -256,20 +290,32 @@ wdt:P527 rdf:type owl:ObjectProperty ;
                     rdfs:comment "Minimum amount of storage need for operations."@en .
 
 
+###  http://www.semantic-faas.com/ontology#refundPercentage
+:refundPercentage rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :SLAPenalty ;
+                  rdfs:range xsd:float ;
+                  rdfs:comment "Percentage of refund (0-100%)"@en ;
+                  rdfs:label "Refund percentage"@en .
+
+
 ###  http://www.semantic-faas.com/ontology#sourceCode
 :sourceCode rdf:type owl:DatatypeProperty ;
             rdfs:domain :Code ;
             rdfs:comment "The actuam source files encoded"@en .
 
 
+###  http://www.semantic-faas.com/ontology#threshold
+:threshold rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :SLAPenalty ;
+           rdfs:range xsd:float ;
+           rdfs:comment "Upper threshold under witch the penalty effects start"@en ;
+           rdfs:label "Threshold"@en .
+
+
 #################################################################
 #    Classes
 #################################################################
-
-###  http://theme-e.adaptcentre.ie/dave#Metric
-dave:Metric rdf:type owl:Class ;
-            owl:equivalentClass :Metric .
-
 
 ###  http://www.semantic-faas.com/ontology#Application
 :Application rdf:type owl:Class ;
@@ -290,6 +336,12 @@ dave:Metric rdf:type owl:Class ;
 ###  http://www.semantic-faas.com/ontology#ConcurrencyRequirement
 :ConcurrencyRequirement rdf:type owl:Class ;
                         rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#CreditRefund
+:CreditRefund rdf:type owl:Class ;
+              rdfs:subClassOf :SLAPenalty ;
+              rdfs:label "Credit Refund"@en .
 
 
 ###  http://www.semantic-faas.com/ontology#ExecutionTimeRequirement
@@ -318,6 +370,12 @@ dave:Metric rdf:type owl:Class ;
         rdfs:label "Metric"@en .
 
 
+###  http://www.semantic-faas.com/ontology#MoneyRefund
+:MoneyRefund rdf:type owl:Class ;
+             rdfs:subClassOf :SLAPenalty ;
+             rdfs:label "Money Refund"@en .
+
+
 ###  http://www.semantic-faas.com/ontology#PricingModel
 :PricingModel rdf:type owl:Class ;
               rdfs:comment "Definition of a pricing method for FaaS environments"@en ;
@@ -331,6 +389,27 @@ dave:Metric rdf:type owl:Class ;
 ###  http://www.semantic-faas.com/ontology#SLA
 :SLA rdf:type owl:Class ;
      rdfs:label "Service Level Agreements"@en .
+
+
+###  http://www.semantic-faas.com/ontology#SLAPenalty
+:SLAPenalty rdf:type owl:Class ;
+            rdfs:label "SLAPenalty" .
+
+
+###  http://www.semantic-faas.com/ontology#SLARequirement
+:SLARequirement rdf:type owl:Class ;
+                rdfs:subClassOf :Requirement ;
+                rdfs:label "SLA Requirement"@en .
+
+
+###  http://www.semantic-faas.com/ontology#SLA_Credit_Requirement
+:SLA_Credit_Requirement rdf:type owl:Class ;
+                        rdfs:subClassOf :SLARequirement .
+
+
+###  http://www.semantic-faas.com/ontology#SLA_Money_Requirement
+:SLA_Money_Requirement rdf:type owl:Class ;
+                       rdfs:subClassOf :SLARequirement .
 
 
 ###  http://www.semantic-faas.com/ontology#StorageRequirement
@@ -355,6 +434,12 @@ wd:Q671224 rdf:type owl:Class ;
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://www.semantic-faas.com/ontology#AWSAvailability
+:AWSAvailability rdf:type owl:NamedIndividual ,
+                          :Metric ;
+                 rdfs:label "AWSAvailability"@en .
+
 
 ###  http://www.semantic-faas.com/ontology#AWSLambda
 :AWSLambda rdf:type owl:NamedIndividual ,
@@ -450,12 +535,54 @@ wd:Q671224 rdf:type owl:Class ;
            :maxTimeAllowed "900"^^xsd:positiveInteger ;
            :minRequiredRAM "128"^^xsd:positiveInteger ;
            rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
+           :hasSLA :AWSLambdaAvailability ;
            rdfs:label "AWS Lambda"^^xsd:string .
+
+
+###  http://www.semantic-faas.com/ontology#AWSLambdaAvailability
+:AWSLambdaAvailability rdf:type owl:NamedIndividual ,
+                                :SLA ;
+                       :SLAMetric :AWSAvailability ;
+                       :SLADescription "AWS Lambda Service Level Agreement"^^xsd:string ;
+                       :SLAName "AWS Lambda Service Level Agreement"^^xsd:string ;
+                      :penalty :AWSLambdaPenalty95 ,
+                               :AWSLambdaPenalty99 ,
+                               :AWSLambdaPenalty99.5 ;
+                       foaf:homepage "AWS Lambda Availability"@en ,
+                                     "https://aws.amazon.com/lambda/sla/" .
+
+
+###  http://www.semantic-faas.com/ontology#AWSLambdaPenalty100
+:AWSLambdaPenalty100 rdf:type owl:NamedIndividual ;
+                     :refundPercentage "0.0"^^xsd:float ;
+                     :threshold "100.0"^^xsd:float .
+
+
+###  http://www.semantic-faas.com/ontology#AWSLambdaPenalty95
+:AWSLambdaPenalty95 rdf:type owl:NamedIndividual ,
+                             :CreditRefund ;
+                    :refundPercentage "100.0"^^xsd:float ;
+                    :threshold "95.0"^^xsd:float .
+
+
+###  http://www.semantic-faas.com/ontology#AWSLambdaPenalty99
+:AWSLambdaPenalty99 rdf:type owl:NamedIndividual ,
+                             :CreditRefund ;
+                    :refundPercentage "25.0"^^xsd:float ;
+                    :threshold "99.0"^^xsd:float .
+
+
+###  http://www.semantic-faas.com/ontology#AWSLambdaPenalty99.5
+:AWSLambdaPenalty99.5 rdf:type owl:NamedIndividual ,
+                               :CreditRefund ;
+                      :refundPercentage "10.0"^^xsd:float ;
+                      :threshold "99.5"^^xsd:float .
 
 
 ###  http://www.semantic-faas.com/ontology#AWSLambdaPricing
 :AWSLambdaPricing rdf:type owl:NamedIndividual ,
                            :PricingModel ;
+                  :penalty :AWSLambdaPenalty99.5 ;
                   :PricePerGBofMemoryPerSecond "1.67E-8"^^xsd:double ;
                   :PricePerMillionRequests "0.2"^^xsd:double .
 
@@ -528,6 +655,7 @@ wd:Q671224 rdf:type owl:Class ;
                           :Cpu_x86 ,
                           :Max10seconds ,
                           :Max512MB ;
+         :requirements <http://www.semantic-faas.com/ontology#98UptimeRequirement> ;
             :maxPricePerMillionExecution "75.0"^^xsd:double .
 
 
@@ -1310,6 +1438,14 @@ wd:Q671224 rdf:type owl:Class ;
                      wd:Q671224 ;
             rdfs:label "us-west-2d" ;
             locn:addressArea :Oregon .
+
+
+###  http://www.semantic-faas.com/ontology#98UptimeRequirement
+<http://www.semantic-faas.com/ontology#98UptimeRequirement> rdf:type owl:NamedIndividual ,
+                                                                     :SLA_Credit_Requirement;
+                                                            :disturbanceTreshold "98.0"^^xsd:float ;
+                                                            :SLAMetric :AWSAvailability ;
+                                                            :minPercentageRefund "20.0"^^xsd:float .
 
 
 ###  http://www.wikidata.org/entity/Q15206305
