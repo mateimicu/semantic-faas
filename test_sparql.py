@@ -7,6 +7,7 @@ QUERY = [
     'sparql/query_3.sparql',
     'sparql/query_4.sparql',
     'sparql/query_5.sparql',
+    'sparql/query_6.sparql',
 ]
 
 def main():

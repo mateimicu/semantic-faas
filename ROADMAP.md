@@ -63,9 +63,9 @@
     * [ ] Link existing data centers with WikiData locations
 * [ ] Model what services can the FaaS provider interact with ?
     * [ ] here for example Lambda can interact with S3, DynamoDB etc ... we should create another ontology for (Object storage, databases etc ...)
-* [ ] invocation methods
-    * [ ] HTTP
-    * [ ] QUEUE invocation
+* [x] invocation methods
+    * [x] HTTP
+    * [x] QUEUE invocation
 * [x] Model SLA provided by the platform
     * [x] Implement SLA specification for AWS Lambda
 * [x] Model SLA requirements
