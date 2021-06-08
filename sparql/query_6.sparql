@@ -1,6 +1,5 @@
 #
-# Get a suitable execution environment for EchoServer
-#
+# Get a suitable execution environment for EchoServer using SLA requirements for better backend filtering AND specifying desired invocation methods
 #
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -50,7 +49,7 @@ WHERE {
   ?subject faas:maxRAM ?SubjectMaxRAM .
    FILTER (xsd:integer(?SubjectMaxRAM) >= xsd:integer(?maxAllowedRAM))
 
-  #### Filter for CPU
+  #### Filter for SLA
   ?targetApplication faas:requirements ?SLARequirement .
   ?SLARequirement rdf:type faas:SLA_Credit_Requirement .
   ?SLARequirement faas:disturbanceTreshold ?disturbanceTreshold .

@@ -2,6 +2,7 @@
 Ontology to describing Function as a Service providers and application requirements.
 
 - [Function as a service Ontology](#function-as-a-service-ontology)
+  * [Roadmap](./ROADMAP.md)
   * [Examples](#examples)
     + [Model AWS Lambda](#model-aws-lambda)
     + [Model an OpenFaaS environment](#model-an-openfaas-environment)
@@ -9,6 +10,7 @@ Ontology to describing Function as a Service providers and application requireme
     + [EchoServer](#echoserver)
   * [SPARQL Examples](#sparql-examples)
     + [Get all execution environments](#get-all-execution-environments)
+    + [Full list of SPARQL examples](./sparql)
 
 
 Here is the [Roadmap](./ROADMAP.md) for the development
@@ -252,4 +254,3 @@ WHERE {
 [wdt]: http://www.wikidata.org/prop/direct/
 [xsd]: http://www.w3.org/2001/XMLSchema#
 [rdfs]: http://www.w3.org/2000/01/rdf-schema#
-
