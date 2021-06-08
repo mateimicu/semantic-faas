@@ -1,0 +1,14 @@
+#
+# Get all aplications that are accesible via queue invocation
+#
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT  DISTINCT ?application
+WHERE {
+  ?application rdf:type owl:NamedIndividual .
+  ?application rdf:type faas:Application .
+  ?application faas:requirements ?invocationMethodRequirement .
+  ?invocationMethodRequirement rdf:type faas:InvocationMethodRequirement .
+  ?invocationMethodRequirement faas:requiredInvocationMethod faas:queueInvocationMethod .
+}
