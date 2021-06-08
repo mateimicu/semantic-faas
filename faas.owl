@@ -662,7 +662,8 @@ wd:Q671224 rdf:type owl:Class ;
                        :Application ;
               :code :CovidTrackerCode ;
               :requirements :Max30sRuntime ,
-                            :OnlyRomaniaGeoRestriction ;
+                            :OnlyRomaniaGeoRestriction ,
+                            :mustHaveQueueInvocationMethod ;
               :maxPricePerMillionExecution "0.0"^^xsd:double .
 
 
@@ -682,6 +683,10 @@ wd:Q671224 rdf:type owl:Class ;
 :mustHaveHTTPInvocationMethod rdf:type owl:NamedIndividual ,
                   :InvocationMethodRequirement ;
          :requiredInvocationMethod :HTTPInvocationMethod .
+
+:mustHaveQueueInvocationMethod rdf:type owl:NamedIndividual ,
+                  :InvocationMethodRequirement ;
+         :requiredInvocationMethod :queueInvocationMethod .
 
 ###  http://www.semantic-faas.com/ontology#EchoServer
 :EchoServer rdf:type owl:NamedIndividual ,
