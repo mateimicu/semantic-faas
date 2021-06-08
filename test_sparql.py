@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
+import pathlib
+
+
 from rdflib import Graph
 
-QUERY = [
-    'sparql/query_1.sparql',
-    'sparql/query_2.sparql',
-    'sparql/query_3.sparql',
-    'sparql/query_4.sparql',
-    'sparql/query_5.sparql',
-    'sparql/query_6.sparql',
-]
+QUERY = pathlib.Path("./sparql").rglob("*.sparql")
 
 def main():
     ontology_file = "faas.owl"
@@ -17,15 +13,13 @@ def main():
 
     for query in QUERY:
         results = graph.query(open(query).read())
-        print(query)
-        print()
+        print(query, end="\n"*2)
         for row in results:
             print(row)
-        print()
-        print()
-        print()
+        print(end="\n"*2)
+        print(f"Suitable results: {len(results)}")
+        print("-"*80, end="\n"*2)
 
 
 if __name__  == '__main__':
     main()
-
