@@ -21,7 +21,7 @@ WHERE {
   ?geoRequirement wdt:P361 ?desiredLocation .
 
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:FaaSExecutionEnvironment .
+  ?subject rdf:type faas:ServerlessExecutionEnvironment .
   ?subject faas:datacenter ?datacenter .
 
   # at least one datacenter respects the geo restriction

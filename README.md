@@ -35,7 +35,7 @@ For now the Tbox and Abox are mixed in one file, we need to split them up for cl
 ```rdf
 ###  http://www.semantic-faas.com/ontology#AWSLambda
 :AWSLambda rdf:type owl:NamedIndividual ,
-                    :FaaSExecutionEnvironment ;
+                    :ServerlessExecutionEnvironment ;
            :cpuArch wd:Q272629 ;
            :datacenter :af-south-1a ,
                        :af-south-1b ,
@@ -132,10 +132,10 @@ For now the Tbox and Abox are mixed in one file, we need to split them up for cl
 
 ### Model an OpenFaaS environment
 
-```rdf
+```ttl
 ###  http://www.semantic-faas.com/ontology#OpenFaaS
 :OpenFaaS rdf:type owl:NamedIndividual ,
-                   :FaaSExecutionEnvironment ;
+                   :ServerlessExecutionEnvironment ;
           :cpuArch wd:Q272629 ;
           :datacenter :FIIDatacenter ;
           :supportedPackages wd:Q15206305 ,
@@ -238,7 +238,7 @@ PREFIX faas: <http://www.semantic-faas.com/ontology#>
 SELECT  DISTINCT ?subject
 WHERE {
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:FaaSExecutionEnvironment .
+  ?subject rdf:type faas:ServerlessExecutionEnvironment .
 }
 ```
 
