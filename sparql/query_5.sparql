@@ -61,7 +61,7 @@ WHERE {
   ?sla faas:SLAMetric ?metric .
   ?sla rdf:type faas:SLA .
   ?sla faas:penalty ?penalty .
-  ?fenalty rdf:type faas:CreditRefund .
+  ?penalty rdf:type faas:CreditRefund .
 
   ?penalty faas:refundPercentage ?refundPercentage .
   ?penalty faas:threshold ?threshold .
