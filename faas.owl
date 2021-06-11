@@ -1,4 +1,4 @@
-@prefix : <http://www.semantic-faas.com/ontology#> .
+@prefix faas: <http://www.semantic-faas.com/ontology#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix wd: <http://www.wikidata.org/entity/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -59,11 +59,10 @@ foaf:name rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
-
 ###  http://www.semantic-faas.com/ontology#SLAMetric
 :SLAMetric rdf:type owl:ObjectProperty ;
            rdfs:domain :SLA ,
-            :SLARequirement ;
+                       :SLARequirement ;
            rdfs:range :Metric ;
            rdfs:label "SLA Metric"@en .
 
@@ -75,36 +74,6 @@ foaf:name rdf:type owl:AnnotationProperty .
                   rdfs:domain :ServerlessExecutionEnvironment ;
                   rdfs:label "supportedRegions"@en .
 
-:InvocationMethod rdf:type owl:Class .
-
-###  http://www.semantic-faas.com/ontology#invocationMethod
-:hasInvocationMethod rdf:type owl:ObjectProperty ,
-                           owl:AsymmetricProperty ,
-                           owl:IrreflexiveProperty ;
-                  rdfs:domain :ServerlessExecutionEnvironment ;
-                  rdfs:range :InvocationMethod ;
-                  rdfs:label "hasInvocationMethod"@en .
-
-###  http://www.semantic-faas.com/ontology#CPURequirement
-:InvocationMethodRequirement rdf:type owl:Class ;
-                rdfs:subClassOf :Requirement .
-
-###  http://www.semantic-faas.com/ontology#invocationMethod
-:requiredInvocationMethod rdf:type owl:ObjectProperty ,
-                           owl:AsymmetricProperty ,
-                           owl:IrreflexiveProperty ;
-                  rdfs:domain :InvocationMethodRequirement ;
-                  rdfs:range :InvocationMethod ;
-                  rdfs:label "requiredInvocationMethod"@en .
-
-
-###  http://www.semantic-faas.com/ontology#HTTPInvocationMethod
-:HTTPInvocationMethod rdfs:subClassOf :InvocationRequirement ;
-                  rdfs:label "HTTPInvocationMethod"@en .
-
-###  http://www.semantic-faas.com/ontology#queueInvocationMethod
-:queueInvocationMethod rdfs:subClassOf :InvocationRequirement ;
-                  rdfs:label "queueInvocationMethod"@en .
 
 ###  http://www.semantic-faas.com/ontology#canIntegrateWith
 :canIntegrateWith rdf:type owl:ObjectProperty ;
@@ -135,7 +104,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 :datacenter rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
             rdfs:domain :ServerlessExecutionEnvironment ;
-            rdfs:range wd:Q671224 .
+            rdfs:range :Datacenter .
 
 
 ###  http://www.semantic-faas.com/ontology#geoRestrictions
@@ -145,11 +114,23 @@ foaf:name rdf:type owl:AnnotationProperty .
                  rdfs:domain :GeographicalRequirement .
 
 
-###  http://www.semantic-faas.com/ontology#maxTimeAllowed
-:maxTimeAllowed rdf:type owl:ObjectProperty ;
-                rdfs:domain :ExecutionTimeRequirement ,
-                            :ServerlessExecutionEnvironment ;
-                rdfs:range time:seconds .
+###  http://www.semantic-faas.com/ontology#hasInvocationMethod
+:hasInvocationMethod rdf:type owl:ObjectProperty ,
+                              owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain :ServerlessExecutionEnvironment ;
+                     rdfs:range :InvocationMethod ;
+                     rdfs:label "hasInvocationMethod"@en .
+
+
+###  http://www.semantic-faas.com/ontology#hasSLA
+:hasSLA rdf:type owl:ObjectProperty ,
+                 owl:AsymmetricProperty ,
+                 owl:IrreflexiveProperty ;
+        rdfs:domain :Application ,
+                    :ServerlessExecutionEnvironment ;
+        rdfs:range :SLA ;
+        rdfs:label "hasSLA"@en .
 
 
 ###  http://www.semantic-faas.com/ontology#penalty
@@ -173,6 +154,15 @@ foaf:name rdf:type owl:AnnotationProperty .
                      rdfs:domain :Code .
 
 
+###  http://www.semantic-faas.com/ontology#requiredInvocationMethod
+:requiredInvocationMethod rdf:type owl:ObjectProperty ,
+                                   owl:AsymmetricProperty ,
+                                   owl:IrreflexiveProperty ;
+                          rdfs:domain :InvocationMethodRequirement ;
+                          rdfs:range :InvocationMethod ;
+                          rdfs:label "requiredInvocationMethod"@en .
+
+
 ###  http://www.semantic-faas.com/ontology#requirements
 :requirements rdf:type owl:ObjectProperty ,
                        owl:AsymmetricProperty ,
@@ -186,16 +176,6 @@ foaf:name rdf:type owl:AnnotationProperty .
                             owl:AsymmetricProperty ,
                             owl:IrreflexiveProperty ;
                    rdfs:domain :ServerlessExecutionEnvironment .
-
-
-###  http://www.semantic-faas.com/ontology#SLA
-:hasSLA rdf:type owl:ObjectProperty ,
-                                                       owl:AsymmetricProperty ,
-                                                       owl:IrreflexiveProperty ;
-                                              rdfs:domain :Application ,
-                                                          :ServerlessExecutionEnvironment ;
-                                              rdfs:range :SLA ;
-                                              rdfs:label "SLA"@en .
 
 
 ###  http://www.wikidata.org/prop/direct/P361
@@ -283,7 +263,8 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 ###  http://www.semantic-faas.com/ontology#maxTimeAllowed
 :maxTimeAllowed rdf:type owl:DatatypeProperty ;
                 rdfs:subPropertyOf time:second ;
-                rdfs:range xsd:positiveInteger .
+                rdfs:range xsd:positiveInteger ;
+                rdfs:comment "The maximum time in ms of execution time."@en .
 
 
 ###  http://www.semantic-faas.com/ontology#minConcurrency
@@ -374,20 +355,57 @@ wdt:P527 rdf:type owl:ObjectProperty ;
               rdfs:label "Credit Refund"@en .
 
 
+###  http://www.semantic-faas.com/ontology#DataCenter
+:DataCenter rdf:type owl:Class ;
+            owl:equivalentClass owl:Thing .
+
+
+###  http://www.semantic-faas.com/ontology#Datacenter
+:Datacenter rdf:type owl:Class ;
+            rdfs:label "data center" .
+
+
 ###  http://www.semantic-faas.com/ontology#ExecutionTimeRequirement
 :ExecutionTimeRequirement rdf:type owl:Class ;
                           rdfs:subClassOf :Requirement .
 
 
-###  http://www.semantic-faas.com/ontology#ServerlessExecutionEnvironment
-:ServerlessExecutionEnvironment rdf:type owl:Class ;
-                          rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en ;
-                          rdfs:label "Function as a Service Execution Environment"@en .
-
-
 ###  http://www.semantic-faas.com/ontology#GeographicalRequirement
 :GeographicalRequirement rdf:type owl:Class ;
                          rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#HTTPInvocationMethod
+:HTTPInvocationMethod rdf:type owl:Class ;
+                      rdfs:subClassOf :InvocationMethod .
+
+
+###  http://www.semantic-faas.com/ontology#HostedServerlessExecutionEnvironment
+:HostedServerlessExecutionEnvironment rdf:type owl:Class ;
+                                      rdfs:subClassOf :ServerlessExecutionEnvironment .
+
+
+###  http://www.semantic-faas.com/ontology#InstallableServerlessExecutionEnvironment
+:InstallableServerlessExecutionEnvironment rdf:type owl:Class ;
+                                           rdfs:subClassOf :ServerlessExecutionEnvironment .
+
+
+###  http://www.semantic-faas.com/ontology#InvocationMethod
+:InvocationMethod rdf:type owl:Class .
+
+
+###  http://www.semantic-faas.com/ontology#InvocationMethodRequirement
+:InvocationMethodRequirement rdf:type owl:Class ;
+                             rdfs:subClassOf :Requirement .
+
+
+###  http://www.semantic-faas.com/ontology#InvocationRequirement
+:InvocationRequirement rdf:type owl:Class .
+
+
+###  http://www.semantic-faas.com/ontology#ItegrationInvocationMethod
+:ItegrationInvocationMethod rdf:type owl:Class ;
+                            rdfs:subClassOf :InvocationMethod .
 
 
 ###  http://www.semantic-faas.com/ontology#MemoryRequirement
@@ -442,10 +460,23 @@ wdt:P527 rdf:type owl:ObjectProperty ;
                        rdfs:subClassOf :SLARequirement .
 
 
+###  http://www.semantic-faas.com/ontology#ServerlessExecutionEnvironment
+:ServerlessExecutionEnvironment rdf:type owl:Class ;
+                                rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en ;
+                                rdfs:label "Serverless Execution Environment"@en .
+
+
 ###  http://www.semantic-faas.com/ontology#StorageRequirement
 :StorageRequirement rdf:type owl:Class ;
                     rdfs:subClassOf :Requirement .
 
+
+###  http://www.semantic-faas.com/ontology#queueInvocationMethod
+:queueInvocationMethod rdf:type owl:Class ;
+                       rdfs:subClassOf :InvocationMethod .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
 
 ###  http://www.w3.org/2006/time#seconds
 time:seconds rdf:type owl:Class .
@@ -454,11 +485,6 @@ time:seconds rdf:type owl:Class .
 ###  http://www.wikidata.org/entity/Q272683
 wd:Q272683 rdf:type owl:Class ;
            rdfs:label "instruction set architecture" .
-
-
-###  http://www.wikidata.org/entity/Q671224
-wd:Q671224 rdf:type owl:Class ;
-           rdfs:label "data center" .
 
 
 #################################################################
@@ -473,7 +499,7 @@ wd:Q671224 rdf:type owl:Class ;
 
 ###  http://www.semantic-faas.com/ontology#AWSLambda
 :AWSLambda rdf:type owl:NamedIndividual ,
-                    :ServerlessExecutionEnvironment ;
+                    :HostedServerlessExecutionEnvironment ;
            :cpuArch wd:Q272629 ;
            :datacenter :af-south-1a ,
                        :af-south-1b ,
@@ -551,6 +577,9 @@ wd:Q671224 rdf:type owl:Class ;
                        :us-west-2b ,
                        :us-west-2c ,
                        :us-west-2d ;
+           :hasInvocationMethod :HTTPInvocationMethod ,
+                                :queueInvocationMethod ;
+           :hasSLA :AWSLambdaAvailability ;
            :pricingModel :AWSLambdaPricing ;
            :supportedPackages wd:Q15206305 ,
                               wd:Q161053 ,
@@ -565,9 +594,6 @@ wd:Q671224 rdf:type owl:Class ;
            :maxTimeAllowed "900"^^xsd:positiveInteger ;
            :minRequiredRAM "128"^^xsd:positiveInteger ;
            rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
-           :hasSLA :AWSLambdaAvailability ;
-           :hasInvocationMethod :HTTPInvocationMethod,
-                             :queueInvocationMethod;
            rdfs:label "AWS Lambda"^^xsd:string .
 
 
@@ -575,11 +601,11 @@ wd:Q671224 rdf:type owl:Class ;
 :AWSLambdaAvailability rdf:type owl:NamedIndividual ,
                                 :SLA ;
                        :SLAMetric :AWSAvailability ;
+                       :penalty :AWSLambdaPenalty95 ,
+                                :AWSLambdaPenalty99 ,
+                                :AWSLambdaPenalty99.5 ;
                        :SLADescription "AWS Lambda Service Level Agreement"^^xsd:string ;
                        :SLAName "AWS Lambda Service Level Agreement"^^xsd:string ;
-                      :penalty :AWSLambdaPenalty95 ,
-                               :AWSLambdaPenalty99 ,
-                               :AWSLambdaPenalty99.5 ;
                        foaf:homepage "AWS Lambda Availability"@en ,
                                      "https://aws.amazon.com/lambda/sla/" .
 
@@ -679,14 +705,6 @@ wd:Q671224 rdf:type owl:Class ;
                   :CPURequirement ;
          :cpuArch wd:Q272629 .
 
-###  http://www.semantic-faas.com/ontology#Cpu_x86
-:mustHaveHTTPInvocationMethod rdf:type owl:NamedIndividual ,
-                  :InvocationMethodRequirement ;
-         :requiredInvocationMethod :HTTPInvocationMethod .
-
-:mustHaveQueueInvocationMethod rdf:type owl:NamedIndividual ,
-                  :InvocationMethodRequirement ;
-         :requiredInvocationMethod :queueInvocationMethod .
 
 ###  http://www.semantic-faas.com/ontology#EchoServer
 :EchoServer rdf:type owl:NamedIndividual ,
@@ -695,9 +713,9 @@ wd:Q671224 rdf:type owl:Class ;
             :requirements :AtLeast100Replicas ,
                           :Cpu_x86 ,
                           :Max10seconds ,
+                          :Max512MB ,
                           :mustHaveHTTPInvocationMethod ,
-                          :Max512MB ;
-            :requirements <http://www.semantic-faas.com/ontology#98UptimeRequirement> ;
+                          <http://www.semantic-faas.com/ontology#98UptimeRequirement> ;
             :maxPricePerMillionExecution "75.0"^^xsd:double .
 
 
@@ -712,7 +730,7 @@ wd:Q671224 rdf:type owl:Class ;
 
 ###  http://www.semantic-faas.com/ontology#FIIDatacenter
 :FIIDatacenter rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "FII Datacenter" ;
                locn:addressArea :Iasi .
 
@@ -741,6 +759,10 @@ wd:Q671224 rdf:type owl:Class ;
                rdfs:label "GovCloud West" .
 
 
+###  http://www.semantic-faas.com/ontology#HTTPInvocationMethod
+:HTTPInvocationMethod rdf:type owl:NamedIndividual .
+
+
 ###  http://www.semantic-faas.com/ontology#Hong_Kong
 :Hong_Kong rdf:type owl:NamedIndividual ,
                     locn:Address ;
@@ -761,18 +783,18 @@ wd:Q671224 rdf:type owl:Class ;
 ###  http://www.semantic-faas.com/ontology#Ireland
 :Ireland rdf:type owl:NamedIndividual ,
                   locn:Address ;
+         wdt:P361 wd:Q90 ;
          locn:addressArea "Ireland" ;
          rdfs:comment "EU (Ireland)" ;
-         wdt:P361 wd:Q90 ;
          rdfs:label "Ireland" .
 
 
 ###  http://www.semantic-faas.com/ontology#London
 :London rdf:type owl:NamedIndividual ,
                  locn:Address ;
+        wdt:P361 wd:Q27 ;
         locn:addressArea "London" ;
         rdfs:comment "EU (London)" ;
-         wdt:P361 wd:Q27;
         rdfs:label "London" .
 
 
@@ -892,9 +914,9 @@ wd:Q671224 rdf:type owl:Class ;
 ###  http://www.semantic-faas.com/ontology#Paris
 :Paris rdf:type owl:NamedIndividual ,
                 locn:Address ;
+       wdt:P361 <http://www.wikidata.org/prop/direct/90> ;
        locn:addressArea "Paris" ;
        rdfs:comment "EU (Paris)" ;
-       wdt:P361 wdt:90 ;
        rdfs:label "Paris" .
 
 
@@ -948,548 +970,565 @@ wd:Q671224 rdf:type owl:Class ;
 
 ###  http://www.semantic-faas.com/ontology#af-south-1a
 :af-south-1a rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :DataCenter ,
+                      :Datacenter ;
              rdfs:label "af-south-1a" ;
              locn:addressArea :Cape_Town .
 
 
 ###  http://www.semantic-faas.com/ontology#af-south-1b
 :af-south-1b rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "af-south-1b" ;
              locn:addressArea :Cape_Town .
 
 
 ###  http://www.semantic-faas.com/ontology#af-south-1c
 :af-south-1c rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "af-south-1c" ;
              locn:addressArea :Cape_Town .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-east-1a
 :ap-east-1a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "ap-east-1a" ;
             locn:addressArea :Hong_Kong .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-east-1b
 :ap-east-1b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "ap-east-1b" ;
             locn:addressArea :Hong_Kong .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-east-1c
 :ap-east-1c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "ap-east-1c" ;
             locn:addressArea :Hong_Kong .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-1a
 :ap-northeast-1a rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-1a" ;
                  locn:addressArea :Tokyo .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-1b
 :ap-northeast-1b rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-1b" ;
                  locn:addressArea :Tokyo .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-1c
 :ap-northeast-1c rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-1c" ;
                  locn:addressArea :Tokyo .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-1d
 :ap-northeast-1d rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-1d" ;
                  locn:addressArea :Tokyo .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-2a
 :ap-northeast-2a rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-2a" ;
                  locn:addressArea :Seoul .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-2b
 :ap-northeast-2b rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-2b" ;
                  locn:addressArea :Seoul .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-2c
 :ap-northeast-2c rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-2c" ;
                  locn:addressArea :Seoul .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-northeast-3a
 :ap-northeast-3a rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-northeast-3a" ;
                  locn:addressArea :Osaka .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-south-1a
 :ap-south-1a rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "ap-south-1a" ;
              locn:addressArea :Mumbai .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-south-1b
 :ap-south-1b rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "ap-south-1b" ;
              locn:addressArea :Mumbai .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-south-1c
 :ap-south-1c rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "ap-south-1c" ;
              locn:addressArea :Mumbai .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-southeast-1a
 :ap-southeast-1a rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-southeast-1a" ;
                  locn:addressArea :Singapore .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-southeast-1b
 :ap-southeast-1b rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-southeast-1b" ;
                  locn:addressArea :Singapore .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-southeast-1c
 :ap-southeast-1c rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-southeast-1c" ;
                  locn:addressArea :Singapore .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-southeast-2a
 :ap-southeast-2a rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-southeast-2a" ;
                  locn:addressArea :Sydney .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-southeast-2b
 :ap-southeast-2b rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-southeast-2b" ;
                  locn:addressArea :Sydney .
 
 
 ###  http://www.semantic-faas.com/ontology#ap-southeast-2c
 :ap-southeast-2c rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "ap-southeast-2c" ;
                  locn:addressArea :Sydney .
 
 
 ###  http://www.semantic-faas.com/ontology#ca-central-1a
 :ca-central-1a rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "ca-central-1a" ;
                locn:addressArea :Canada .
 
 
 ###  http://www.semantic-faas.com/ontology#ca-central-1b
 :ca-central-1b rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "ca-central-1b" ;
                locn:addressArea :Canada .
 
 
 ###  http://www.semantic-faas.com/ontology#ca-central-1c
 :ca-central-1c rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "ca-central-1c" ;
                locn:addressArea :Canada .
 
 
 ###  http://www.semantic-faas.com/ontology#cn-north-1a
 :cn-north-1a rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "cn-north-1a" ;
              locn:addressArea :Beijing .
 
 
 ###  http://www.semantic-faas.com/ontology#cn-north-1b
 :cn-north-1b rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "cn-north-1b" ;
              locn:addressArea :Beijing .
 
 
 ###  http://www.semantic-faas.com/ontology#cn-northwest-1a
 :cn-northwest-1a rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "cn-northwest-1a" ;
                  locn:addressArea :Ningxia .
 
 
 ###  http://www.semantic-faas.com/ontology#cn-northwest-1b
 :cn-northwest-1b rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "cn-northwest-1b" ;
                  locn:addressArea :Ningxia .
 
 
 ###  http://www.semantic-faas.com/ontology#cn-northwest-1c
 :cn-northwest-1c rdf:type owl:NamedIndividual ,
-                          wd:Q671224 ;
+                          :Datacenter ;
                  rdfs:label "cn-northwest-1c" ;
                  locn:addressArea :Ningxia .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-central-1a
 :eu-central-1a rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "eu-central-1a" ;
                locn:addressArea :Frankfurt .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-central-1b
 :eu-central-1b rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "eu-central-1b" ;
                locn:addressArea :Frankfurt .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-central-1c
 :eu-central-1c rdf:type owl:NamedIndividual ,
-                        wd:Q671224 ;
+                        :Datacenter ;
                rdfs:label "eu-central-1c" ;
                locn:addressArea :Frankfurt .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-north-1a
 :eu-north-1a rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "eu-north-1a" ;
              locn:addressArea :Stockholm .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-north-1b
 :eu-north-1b rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "eu-north-1b" ;
              locn:addressArea :Stockholm .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-north-1c
 :eu-north-1c rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "eu-north-1c" ;
              locn:addressArea :Stockholm .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-south-1a
 :eu-south-1a rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "eu-south-1a" ;
              locn:addressArea :Milan .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-south-1b
 :eu-south-1b rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "eu-south-1b" ;
              locn:addressArea :Milan .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-south-1c
 :eu-south-1c rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "eu-south-1c" ;
              locn:addressArea :Milan .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-1a
 :eu-west-1a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-1a" ;
             locn:addressArea :Ireland .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-1b
 :eu-west-1b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-1b" ;
             locn:addressArea :Ireland .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-1c
 :eu-west-1c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-1c" ;
             locn:addressArea :Ireland .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-2a
 :eu-west-2a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-2a" ;
             locn:addressArea :London .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-2b
 :eu-west-2b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-2b" ;
             locn:addressArea :London .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-2c
 :eu-west-2c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-2c" ;
             locn:addressArea :London .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-3a
 :eu-west-3a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-3a" ;
             locn:addressArea :Paris .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-3b
 :eu-west-3b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-3b" ;
             locn:addressArea :Paris .
 
 
 ###  http://www.semantic-faas.com/ontology#eu-west-3c
 :eu-west-3c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "eu-west-3c" ;
             locn:addressArea :Paris .
 
 
 ###  http://www.semantic-faas.com/ontology#me-south-1a
 :me-south-1a rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "me-south-1a" ;
              locn:addressArea :Bahrain .
 
 
 ###  http://www.semantic-faas.com/ontology#me-south-1b
 :me-south-1b rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "me-south-1b" ;
              locn:addressArea :Bahrain .
 
 
 ###  http://www.semantic-faas.com/ontology#me-south-1c
 :me-south-1c rdf:type owl:NamedIndividual ,
-                      wd:Q671224 ;
+                      :Datacenter ;
              rdfs:label "me-south-1c" ;
              locn:addressArea :Bahrain .
 
 
+###  http://www.semantic-faas.com/ontology#mustHaveHTTPInvocationMethod
+:mustHaveHTTPInvocationMethod rdf:type owl:NamedIndividual ,
+                                       :InvocationMethodRequirement ;
+                              :requiredInvocationMethod :HTTPInvocationMethod .
+
+
+###  http://www.semantic-faas.com/ontology#mustHaveQueueInvocationMethod
+:mustHaveQueueInvocationMethod rdf:type owl:NamedIndividual ,
+                                        :InvocationMethodRequirement ;
+                               :requiredInvocationMethod :queueInvocationMethod .
+
+
+###  http://www.semantic-faas.com/ontology#queueInvocationMethod
+:queueInvocationMethod rdf:type owl:NamedIndividual .
+
+
 ###  http://www.semantic-faas.com/ontology#sa-east-1a
 :sa-east-1a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "sa-east-1a" ;
             locn:addressArea :São_Paulo .
 
 
 ###  http://www.semantic-faas.com/ontology#sa-east-1b
 :sa-east-1b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "sa-east-1b" ;
             locn:addressArea :São_Paulo .
 
 
 ###  http://www.semantic-faas.com/ontology#sa-east-1c
 :sa-east-1c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "sa-east-1c" ;
             locn:addressArea :São_Paulo .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-1a
 :us-east-1a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-1a" ;
             locn:addressArea :N._Virginia .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-1b
 :us-east-1b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-1b" ;
             locn:addressArea :N._Virginia .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-1c
 :us-east-1c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-1c" ;
             locn:addressArea :N._Virginia .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-1d
 :us-east-1d rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-1d" ;
             locn:addressArea :N._Virginia .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-1e
 :us-east-1e rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-1e" ;
             locn:addressArea :N._Virginia .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-1f
 :us-east-1f rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-1f" ;
             locn:addressArea :N._Virginia .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-2a
 :us-east-2a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-2a" ;
             locn:addressArea :Ohio .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-2b
 :us-east-2b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-2b" ;
             locn:addressArea :Ohio .
 
 
 ###  http://www.semantic-faas.com/ontology#us-east-2c
 :us-east-2c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-east-2c" ;
             locn:addressArea :Ohio .
 
 
 ###  http://www.semantic-faas.com/ontology#us-gov-east-1a
 :us-gov-east-1a rdf:type owl:NamedIndividual ,
-                         wd:Q671224 ;
+                         :Datacenter ;
                 rdfs:label "us-gov-east-1a" ;
                 locn:addressArea :GovCloud_East .
 
 
 ###  http://www.semantic-faas.com/ontology#us-gov-east-1b
 :us-gov-east-1b rdf:type owl:NamedIndividual ,
-                         wd:Q671224 ;
+                         :Datacenter ;
                 rdfs:label "us-gov-east-1b" ;
                 locn:addressArea :GovCloud_East .
 
 
 ###  http://www.semantic-faas.com/ontology#us-gov-east-1c
 :us-gov-east-1c rdf:type owl:NamedIndividual ,
-                         wd:Q671224 ;
+                         :Datacenter ;
                 rdfs:label "us-gov-east-1c" ;
                 locn:addressArea :GovCloud_East .
 
 
 ###  http://www.semantic-faas.com/ontology#us-gov-west-1a
 :us-gov-west-1a rdf:type owl:NamedIndividual ,
-                         wd:Q671224 ;
+                         :Datacenter ;
                 rdfs:label "us-gov-west-1a" ;
                 locn:addressArea :GovCloud_West .
 
 
 ###  http://www.semantic-faas.com/ontology#us-gov-west-1b
 :us-gov-west-1b rdf:type owl:NamedIndividual ,
-                         wd:Q671224 ;
+                         :Datacenter ;
                 rdfs:label "us-gov-west-1b" ;
                 locn:addressArea :GovCloud_West .
 
 
 ###  http://www.semantic-faas.com/ontology#us-gov-west-1c
 :us-gov-west-1c rdf:type owl:NamedIndividual ,
-                         wd:Q671224 ;
+                         :Datacenter ;
                 rdfs:label "us-gov-west-1c" ;
                 locn:addressArea :GovCloud_West .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-1a
 :us-west-1a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-1a" ;
             locn:addressArea :N._California .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-1b
 :us-west-1b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-1b" ;
             locn:addressArea :N._California .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-1c
 :us-west-1c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-1c" ;
             locn:addressArea :N._California .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-2a
 :us-west-2a rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-2a" ;
             locn:addressArea :Oregon .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-2b
 :us-west-2b rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-2b" ;
             locn:addressArea :Oregon .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-2c
 :us-west-2c rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-2c" ;
             locn:addressArea :Oregon .
 
 
 ###  http://www.semantic-faas.com/ontology#us-west-2d
 :us-west-2d rdf:type owl:NamedIndividual ,
-                     wd:Q671224 ;
+                     :Datacenter ;
             rdfs:label "us-west-2d" ;
             locn:addressArea :Oregon .
 
 
 ###  http://www.semantic-faas.com/ontology#98UptimeRequirement
 <http://www.semantic-faas.com/ontology#98UptimeRequirement> rdf:type owl:NamedIndividual ,
-                                                                     :SLA_Credit_Requirement;
-                                                            :disturbanceTreshold "98.0"^^xsd:float ;
+                                                                     :SLA_Credit_Requirement ;
                                                             :SLAMetric :AWSAvailability ;
+                                                            :disturbanceTreshold "98.0"^^xsd:float ;
                                                             :minPercentageRefund "20.0"^^xsd:float .
 
 
@@ -1518,6 +1557,10 @@ wd:Q251 rdf:type owl:NamedIndividual ;
         rdfs:label "Java" .
 
 
+###  http://www.wikidata.org/entity/Q27
+wd:Q27 rdf:type owl:NamedIndividual .
+
+
 ###  http://www.wikidata.org/entity/Q272629
 wd:Q272629 rdf:type owl:NamedIndividual ;
            rdfs:label "x86_64" .
@@ -1538,6 +1581,10 @@ wd:Q756100 rdf:type owl:NamedIndividual ;
            rdfs:label "Node.js" .
 
 
+###  http://www.wikidata.org/entity/Q90
+wd:Q90 rdf:type owl:NamedIndividual .
+
+
 ###  http://www.wikidata.org/prop/direct/Q15206305
 wdt:Q15206305 rdf:type owl:NamedIndividual .
 
@@ -1546,11 +1593,18 @@ wdt:Q15206305 rdf:type owl:NamedIndividual .
 wdt:Q28865 rdf:type owl:NamedIndividual .
 
 
+###  http://www.wikidata.org/prop/direct/90
+<http://www.wikidata.org/prop/direct/90> rdf:type owl:NamedIndividual .
+
+
 #################################################################
 #    Annotations
 #################################################################
 
-:maxTimeAllowed rdfs:comment "The maximum time in ms of execution time."@en .
+:HTTPInvocationMethod rdfs:label "HTTPInvocationMethod"@en .
+
+
+:queueInvocationMethod rdfs:label "queueInvocationMethod"@en .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
