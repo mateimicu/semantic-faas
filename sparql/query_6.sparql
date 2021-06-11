@@ -15,7 +15,7 @@ WHERE {
   VALUES ?targetApplication { faas:EchoServer }
 
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:FaaSExecutionEnvironment .
+  ?subject rdf:type faas:ServerlessExecutionEnvironment .
 
   #### Filter for ExecutionTime Restrictions
   ?targetApplication faas:requirements ?executionTIme .

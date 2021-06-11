@@ -19,7 +19,7 @@
                                          owl:imports dave: ,
                                                      <http://www.w3.org/2006/time#2016> ,
                                                      <http://www.w3.org/ns/locn> ;
-                                         dc:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a FaaS provider."@en ;
+                                         dc:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a Serverless provider."@en ;
                                          terms:creator "Matei-Marius Micu <micumatei@gmail.com>"@en ,
                                                        "Stefan Gordin <stefangordindev@gmail.com>"@en ;
                                          terms:title "Function as a Service Ontology"@en ;
@@ -72,7 +72,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 :availableRegions rdf:type owl:ObjectProperty ,
                            owl:AsymmetricProperty ,
                            owl:IrreflexiveProperty ;
-                  rdfs:domain :FaaSExecutionEnvironment ;
+                  rdfs:domain :ServerlessExecutionEnvironment ;
                   rdfs:label "supportedRegions"@en .
 
 :InvocationMethod rdf:type owl:Class .
@@ -81,7 +81,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 :hasInvocationMethod rdf:type owl:ObjectProperty ,
                            owl:AsymmetricProperty ,
                            owl:IrreflexiveProperty ;
-                  rdfs:domain :FaaSExecutionEnvironment ;
+                  rdfs:domain :ServerlessExecutionEnvironment ;
                   rdfs:range :InvocationMethod ;
                   rdfs:label "hasInvocationMethod"@en .
 
@@ -108,7 +108,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 
 ###  http://www.semantic-faas.com/ontology#canIntegrateWith
 :canIntegrateWith rdf:type owl:ObjectProperty ;
-                  rdfs:domain :FaaSExecutionEnvironment ;
+                  rdfs:domain :ServerlessExecutionEnvironment ;
                   rdfs:comment "What software can be integrated with this execution environment."@en .
 
 
@@ -126,7 +126,7 @@ foaf:name rdf:type owl:AnnotationProperty .
                   owl:AsymmetricProperty ,
                   owl:IrreflexiveProperty ;
          rdfs:domain :CPURequirement ,
-                     :FaaSExecutionEnvironment ;
+                     :ServerlessExecutionEnvironment ;
          rdfs:range wd:Q272683 ;
          rdfs:comment "CPU Architectures required for the code to work"@en .
 
@@ -134,7 +134,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 ###  http://www.semantic-faas.com/ontology#datacenter
 :datacenter rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
-            rdfs:domain :FaaSExecutionEnvironment ;
+            rdfs:domain :ServerlessExecutionEnvironment ;
             rdfs:range wd:Q671224 .
 
 
@@ -148,7 +148,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 ###  http://www.semantic-faas.com/ontology#maxTimeAllowed
 :maxTimeAllowed rdf:type owl:ObjectProperty ;
                 rdfs:domain :ExecutionTimeRequirement ,
-                            :FaaSExecutionEnvironment ;
+                            :ServerlessExecutionEnvironment ;
                 rdfs:range time:seconds .
 
 
@@ -162,7 +162,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 :pricingModel rdf:type owl:ObjectProperty ,
                        owl:AsymmetricProperty ,
                        owl:IrreflexiveProperty ;
-              rdfs:domain :FaaSExecutionEnvironment ;
+              rdfs:domain :ServerlessExecutionEnvironment ;
               rdfs:range :PricingModel .
 
 
@@ -185,7 +185,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 :supportedPackages rdf:type owl:ObjectProperty ,
                             owl:AsymmetricProperty ,
                             owl:IrreflexiveProperty ;
-                   rdfs:domain :FaaSExecutionEnvironment .
+                   rdfs:domain :ServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#SLA
@@ -193,7 +193,7 @@ foaf:name rdf:type owl:AnnotationProperty .
                                                        owl:AsymmetricProperty ,
                                                        owl:IrreflexiveProperty ;
                                               rdfs:domain :Application ,
-                                                          :FaaSExecutionEnvironment ;
+                                                          :ServerlessExecutionEnvironment ;
                                               rdfs:range :SLA ;
                                               rdfs:label "SLA"@en .
 
@@ -262,7 +262,7 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 ###  http://www.semantic-faas.com/ontology#maxConcurrency
 :maxConcurrency rdf:type owl:DatatypeProperty ;
                 rdfs:domain :ConcurrencyRequirement ,
-                            :FaaSExecutionEnvironment ;
+                            :ServerlessExecutionEnvironment ;
                 rdfs:range xsd:positiveInteger ;
                 rdfs:comment "Maximum number of concurent executions."@en .
 
@@ -275,7 +275,7 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 
 ###  http://www.semantic-faas.com/ontology#maxRAM
 :maxRAM rdf:type owl:DatatypeProperty ;
-        rdfs:domain :FaaSExecutionEnvironment ;
+        rdfs:domain :ServerlessExecutionEnvironment ;
         rdfs:range xsd:positiveInteger ;
         rdfs:comment "The maximum RAM the environment can provide to a single function."@en .
 
@@ -300,7 +300,7 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 
 ###  http://www.semantic-faas.com/ontology#minRAM
 :minRAM rdf:type owl:DatatypeProperty ;
-        rdfs:domain :FaaSExecutionEnvironment ;
+        rdfs:domain :ServerlessExecutionEnvironment ;
         rdfs:range xsd:positiveInteger ;
         rdfs:comment "The smallest RAM allocation for a single function."@en .
 
@@ -379,8 +379,8 @@ wdt:P527 rdf:type owl:ObjectProperty ;
                           rdfs:subClassOf :Requirement .
 
 
-###  http://www.semantic-faas.com/ontology#FaaSExecutionEnvironment
-:FaaSExecutionEnvironment rdf:type owl:Class ;
+###  http://www.semantic-faas.com/ontology#ServerlessExecutionEnvironment
+:ServerlessExecutionEnvironment rdf:type owl:Class ;
                           rdfs:comment "Entity that can run function \"Function as a service\" type of capability"@en ;
                           rdfs:label "Function as a Service Execution Environment"@en .
 
@@ -408,7 +408,7 @@ wdt:P527 rdf:type owl:ObjectProperty ;
 
 ###  http://www.semantic-faas.com/ontology#PricingModel
 :PricingModel rdf:type owl:Class ;
-              rdfs:comment "Definition of a pricing method for FaaS environments"@en ;
+              rdfs:comment "Definition of a pricing method for Serverless environments"@en ;
               rdfs:label "Pricing Model"@en .
 
 
@@ -473,7 +473,7 @@ wd:Q671224 rdf:type owl:Class ;
 
 ###  http://www.semantic-faas.com/ontology#AWSLambda
 :AWSLambda rdf:type owl:NamedIndividual ,
-                    :FaaSExecutionEnvironment ;
+                    :ServerlessExecutionEnvironment ;
            :cpuArch wd:Q272629 ;
            :datacenter :af-south-1a ,
                        :af-south-1b ,
@@ -763,6 +763,7 @@ wd:Q671224 rdf:type owl:Class ;
                   locn:Address ;
          locn:addressArea "Ireland" ;
          rdfs:comment "EU (Ireland)" ;
+         wdt:P361 wd:Q90 ;
          rdfs:label "Ireland" .
 
 
@@ -771,6 +772,7 @@ wd:Q671224 rdf:type owl:Class ;
                  locn:Address ;
         locn:addressArea "London" ;
         rdfs:comment "EU (London)" ;
+         wdt:P361 wd:Q27;
         rdfs:label "London" .
 
 
@@ -848,7 +850,7 @@ wd:Q671224 rdf:type owl:Class ;
 
 ###  http://www.semantic-faas.com/ontology#OpenFaaS
 :OpenFaaS rdf:type owl:NamedIndividual ,
-                   :FaaSExecutionEnvironment ;
+                   :ServerlessExecutionEnvironment ;
           :cpuArch wd:Q272629 ;
           :datacenter :FIIDatacenter ;
           :supportedPackages wd:Q15206305 ,
@@ -892,6 +894,7 @@ wd:Q671224 rdf:type owl:Class ;
                 locn:Address ;
        locn:addressArea "Paris" ;
        rdfs:comment "EU (Paris)" ;
+       wdt:P361 wdt:90 ;
        rdfs:label "Paris" .
 
 

@@ -1,0 +1,48 @@
+#
+# Get All Execution Environments that have:
+# * [x] at least 3 datacenters
+#   * located in diferite contries but in EU (to follow GDPR restrictions)
+# * defines an SLA
+# * [x] support Python
+# * [x] supports invocation Method HTTP
+#
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+
+#SELECT  DISTINCT  ?executionEnvironment
+SELECT  DISTINCT ?datacenterCount
+WHERE {
+  VALUES ?desiredInvocationMethod { faas:HTTPInvocationMethod }
+  VALUES ?desiredPackage { wd:Q28865 }
+  VALUES ?minDatacenters { "3" }
+
+  ?executionEnvironment rdf:type owl:NamedIndividual .
+  ?executionEnvironment rdf:type faas:ServerlessExecutionEnvironment .
+
+  # make sure the executionEnvironment supports the desired invocationMethod
+  ?executionEnvironment faas:hasInvocationMethod ?desiredInvocationMethod .
+
+  # make sure the executionEnvironment supports the desired package (in our case Python)
+  ?executionEnvironment faas:supportedPackages ?desiredPackage .
+
+  # make sure the executionEnvironment
+  ?executionEnvironment faas:hasSLA ?SLA .
+
+   #make sure execution environment has at least ?minDatacenters number of datacenters
+  {
+  SELECT ?executionEnvironment (COUNT(?datacenter) AS ?datacenterCount)
+    WHERE
+    {
+      ?executionEnvironment faas:datacenter ?datacenter .
+    }
+    GROUP BY ?executionEnvironment
+  }
+  FILTER (xsd:integer(?datacenterCount) >= xsd:integer(?minDatacenters))
+}
+
