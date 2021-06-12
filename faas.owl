@@ -749,7 +749,7 @@ faas:CovidTracker rdf:type owl:NamedIndividual ,
 faas:CovidTrackerCode rdf:type owl:NamedIndividual ,
                                faas:Code ;
                       faas:programmingLanguage wd:Q28865 ;
-                      faas:sourceCode "print('Covid Tracker')" .
+                      faas:sourceCode "cHJpbnQoJ0NvdmlkIFRyYWNrZXInKQo=" .
 
 
 ###  http://www.semantic-faas.com/ontology#Cpu_x86
