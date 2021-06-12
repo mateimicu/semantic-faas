@@ -44,6 +44,10 @@ terms:creator rdf:type owl:AnnotationProperty .
 terms:title rdf:type owl:AnnotationProperty .
 
 
+###  http://www.semantic-faas.com/ontology#StartupType
+faas:StartupType rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.semantic-faas.com/ontology#type
 faas:type rdf:type owl:AnnotationProperty .
 
@@ -140,6 +144,13 @@ faas:hasStartType rdf:type owl:ObjectProperty ;
                   rdfs:range faas:StartupType .
 
 
+###  http://www.semantic-faas.com/ontology#objectToCheck
+faas:objectToCheck rdf:type owl:ObjectProperty ;
+                   rdfs:domain faas:PricingModel ;
+                   rdfs:comment "Check if the target of faas:propCheck is this object."^^xsd:string ;
+                   rdfs:label "ObjectCheck"^^xsd:string .
+
+
 ###  http://www.semantic-faas.com/ontology#penalty
 faas:penalty rdf:type owl:ObjectProperty ;
              rdfs:domain faas:SLA ;
@@ -159,6 +170,13 @@ faas:programmingLanguage rdf:type owl:ObjectProperty ,
                                   owl:AsymmetricProperty ,
                                   owl:IrreflexiveProperty ;
                          rdfs:domain faas:Code .
+
+
+###  http://www.semantic-faas.com/ontology#propCheck
+faas:propCheck rdf:type owl:ObjectProperty ;
+               rdfs:domain faas:PricingModel ;
+               rdfs:comment "Property to check if it exists targeting a specific object"^^xsd:string ;
+               rdfs:label "Property Check"^^xsd:string .
 
 
 ###  http://www.semantic-faas.com/ontology#requiredInvocationMethod
@@ -514,6 +532,10 @@ wd:Q272683 rdf:type owl:Class ;
            rdfs:label "instruction set architecture" .
 
 
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class .
+
+
 #################################################################
 #    Individuals
 #################################################################
@@ -527,6 +549,8 @@ faas:AWSAvailability rdf:type owl:NamedIndividual ,
 ###  http://www.semantic-faas.com/ontology#AWSLambda
 faas:AWSLambda rdf:type owl:NamedIndividual ,
                         faas:HostedServerlessExecutionEnvironment ;
+               faas:canIntegrateWith wd:Q22908871 ,
+                                     wd:Q2593067 ;
                faas:cpuArch wd:Q272629 ;
                faas:datacenter faas:af-south-1a ,
                                faas:af-south-1b ,
@@ -620,6 +644,7 @@ faas:AWSLambda rdf:type owl:NamedIndividual ,
                faas:maxRAM "10240"^^xsd:positiveInteger ;
                faas:maxTimeAllowed "900"^^xsd:positiveInteger ;
                faas:minRequiredRAM "128"^^xsd:positiveInteger ;
+               faas:StartupType faas:ColdStart ;
                rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
                rdfs:label "AWS Lambda"^^xsd:string .
 
@@ -762,6 +787,14 @@ faas:FIIDatacenter rdf:type owl:NamedIndividual ,
                    locn:addressArea faas:Iasi .
 
 
+###  http://www.semantic-faas.com/ontology#FIIStudentGroup
+faas:FIIStudentGroup rdf:type owl:NamedIndividual ,
+                              foaf:Organization ;
+                     rdfs:comment "Group of activ FII Students"^^xsd:string ;
+                     rdfs:label "FII Student Group"^^xsd:string ;
+                     foaf:homepage "https://www.info.uaic.ro/"^^xsd:anyURI .
+
+
 ###  http://www.semantic-faas.com/ontology#Frankfurt
 faas:Frankfurt rdf:type owl:NamedIndividual ,
                         locn:Address ;
@@ -897,25 +930,30 @@ faas:OnlyRomaniaGeoRestriction rdf:type owl:NamedIndividual ,
                                wdt:P361 wd:Q218 .
 
 
-###  http://www.semantic-faas.com/ontology#OpenFaaS
-faas:OpenFaaS rdf:type owl:NamedIndividual ,
-                       faas:ServerlessExecutionEnvironment ;
-              faas:cpuArch wd:Q272629 ;
-              faas:datacenter faas:FIIDatacenter ;
-              faas:supportedPackages wd:Q15206305 ,
-                                     wd:Q28865 ;
-              faas:maxAllowedRAM "2048"^^xsd:positiveInteger ;
-              faas:maxAllowedStorage "10"^^xsd:positiveInteger ;
-              faas:maxConcurrency "5"^^xsd:positiveInteger ;
-              faas:maxTimeAllowed "360"^^xsd:positiveInteger ;
-              faas:minRequiredRAM "128"^^xsd:positiveInteger ;
-              rdfs:comment "A custom instalation of OpenFaas datacenter on commodity hardware."^^xsd:string ,
-                           "https://www.openfaas.com/"^^xsd:anyURI ;
-              rdfs:label "OpenFaaS"^^xsd:string .
+###  http://www.semantic-faas.com/ontology#OpenFaaSFIICloud
+faas:OpenFaaSFIICloud rdf:type owl:NamedIndividual ,
+                               faas:ServerlessExecutionEnvironment ;
+                      faas:canIntegrateWith wd:Q25327044 ;
+                      faas:cpuArch wd:Q272629 ;
+                      faas:datacenter faas:FIIDatacenter ;
+                      faas:supportedPackages wd:Q15206305 ,
+                                             wd:Q28865 ;
+                      faas:maxAllowedRAM "2048"^^xsd:positiveInteger ;
+                      faas:maxAllowedStorage "10"^^xsd:positiveInteger ;
+                      faas:maxConcurrency "5"^^xsd:positiveInteger ;
+                      faas:maxTimeAllowed "360"^^xsd:positiveInteger ;
+                      faas:minRequiredRAM "128"^^xsd:positiveInteger ;
+                      faas:StartupType faas:ColdStart ,
+                                       faas:WarmStart ;
+                      rdfs:comment "A custom instalation of OpenFaas datacenter on commodity hardware."^^xsd:string ,
+                                   "https://www.openfaas.com/"^^xsd:anyURI ;
+                      rdfs:label "OpenFaaS"^^xsd:string .
 
 
 ###  http://www.semantic-faas.com/ontology#OpenFaaSPricingModel
 faas:OpenFaaSPricingModel rdf:type owl:NamedIndividual ;
+                          faas:objectToCheck faas:FIIStudentGroup ;
+                          faas:propCheck foaf:member ;
                           faas:PricePerGBofMemoryPerSecond "0.0"^^xsd:double ;
                           faas:PricePerMillionRequests "0.0"^^xsd:double ;
                           faas:type faas:PricingModel ,
@@ -1579,13 +1617,29 @@ wd:Q218 rdf:type owl:NamedIndividual ;
         rdfs:label "Romania" .
 
 
+###  http://www.wikidata.org/entity/Q22908871
+wd:Q22908871 rdf:type owl:NamedIndividual ;
+             rdfs:label "Amazon Simple Notification Service" .
+
+
 ###  http://www.wikidata.org/entity/Q251
 wd:Q251 rdf:type owl:NamedIndividual ;
         rdfs:label "Java" .
 
 
+###  http://www.wikidata.org/entity/Q25327044
+wd:Q25327044 rdf:type owl:NamedIndividual ;
+             rdfs:label "NATS" .
+
+
+###  http://www.wikidata.org/entity/Q2593067
+wd:Q2593067 rdf:type owl:NamedIndividual ;
+            rdfs:label "Amazon S3" .
+
+
 ###  http://www.wikidata.org/entity/Q27
-wd:Q27 rdf:type owl:NamedIndividual .
+wd:Q27 rdf:type owl:NamedIndividual ;
+       rdfs:label "Ireland" .
 
 
 ###  http://www.wikidata.org/entity/Q272629
@@ -1609,7 +1663,8 @@ wd:Q756100 rdf:type owl:NamedIndividual ;
 
 
 ###  http://www.wikidata.org/entity/Q90
-wd:Q90 rdf:type owl:NamedIndividual .
+wd:Q90 rdf:type owl:NamedIndividual ;
+       rdfs:label "Paris" .
 
 
 ###  http://www.wikidata.org/prop/direct/Q15206305
@@ -1622,6 +1677,10 @@ wdt:Q28865 rdf:type owl:NamedIndividual .
 
 ###  http://www.wikidata.org/prop/direct/90
 <http://www.wikidata.org/prop/direct/90> rdf:type owl:NamedIndividual .
+
+
+###  http://xmlns.com/foaf/0.1/member
+foaf:member rdf:type owl:NamedIndividual .
 
 
 #################################################################
