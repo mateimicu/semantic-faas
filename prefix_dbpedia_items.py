@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Utility to parse a .owl document and add labels to all WikiData elements.
 """
