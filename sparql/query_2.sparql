@@ -9,7 +9,7 @@ PREFIX faas: <http://www.semantic-faas.com/ontology#>
 SELECT  DISTINCT ?subject
 WHERE {
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:ServerlessExecutionEnvironment .
+  ?subject rdf:type faas:HostedServerlessExecutionEnvironment.
   ?subject faas:datacenter ?datacenter .
 }
 GROUP BY ?subject

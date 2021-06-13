@@ -1,7 +1,7 @@
 #
 # Get a suitable execution environment for EchoServer
 #
-#
+
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
@@ -16,14 +16,14 @@ WHERE {
   VALUES ?targetApplication { faas:EchoServer }
 
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:ServerlessExecutionEnvironment .
+  ?subject rdf:type faas:HostedServerlessExecutionEnvironment.
 
   #### Filter for ExecutionTime Restrictions
   ?targetApplication faas:requirements ?executionTIme .
   ?executionTIme rdf:type faas:ExecutionTimeRequirement .
   ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
 
-  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
+  ?subject faas:maxExecutionTime ?SubjectMaxTimeAllowed .
 
   FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?maxTimeAllowed))
 
@@ -38,11 +38,11 @@ WHERE {
   #### Filter for CPU
   ?targetApplication faas:requirements ?CPURequirement .
   ?CPURequirement rdf:type faas:CPURequirement .
-  ?CPURequirement faas:cpuArch ?cpuArch .
+  ?CPURequirement faas:requiredCPUArch ?cpuArch .
 
   ?subject faas:cpuArch ?cpuArch .
 
-  #### Filter for CPU
+  ##### Filter for RAM
   ?targetApplication faas:requirements ?MemoryRequirement .
   ?MemoryRequirement rdf:type faas:MemoryRequirement .
   ?MemoryRequirement faas:maxAllowedRAM ?maxAllowedRAM .

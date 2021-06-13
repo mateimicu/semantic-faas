@@ -11,7 +11,7 @@ PREFIX locn: <http://www.w3.org/ns/locn#>
 
 PREFIX faas: <http://www.semantic-faas.com/ontology#>
 
-SELECT  DISTINCT ?subject
+SELECT  DISTINCT  *
 WHERE {
   VALUES ?targetApplication { faas:CovidTracker }
 
@@ -21,7 +21,7 @@ WHERE {
   ?geoRequirement wdt:P361 ?desiredLocation .
 
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:ServerlessExecutionEnvironment .
+  ?subject rdf:type faas:HostedServerlessExecutionEnvironment.
   ?subject faas:datacenter ?datacenter .
 
   # at least one datacenter respects the geo restriction
@@ -35,7 +35,7 @@ WHERE {
   ?executionTIme rdf:type faas:ExecutionTimeRequirement .
   ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
 
-  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
+  ?subject faas:maxExecutionTime ?SubjectMaxTimeAllowed .
 
   FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?maxTimeAllowed))
 }
