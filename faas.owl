@@ -161,8 +161,7 @@ faas:penalty rdf:type owl:ObjectProperty ;
 faas:pricingModel rdf:type owl:ObjectProperty ,
                            owl:AsymmetricProperty ,
                            owl:IrreflexiveProperty ;
-                  rdfs:domain faas:ServerlessExecutionEnvironment ;
-                  rdfs:range faas:PricingModel .
+                  rdfs:domain faas:HostedServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#programmingLanguage
@@ -387,8 +386,7 @@ faas:CreditRefund rdf:type owl:Class ;
 
 
 ###  http://www.semantic-faas.com/ontology#DataCenter
-faas:DataCenter rdf:type owl:Class ;
-                owl:equivalentClass owl:Thing .
+faas:DataCenter rdf:type owl:Class .
 
 
 ###  http://www.semantic-faas.com/ontology#Datacenter
@@ -413,7 +411,8 @@ faas:HTTPInvocationMethod rdf:type owl:Class ;
 
 ###  http://www.semantic-faas.com/ontology#HostedServerlessExecutionEnvironment
 faas:HostedServerlessExecutionEnvironment rdf:type owl:Class ;
-                                          rdfs:subClassOf faas:ServerlessExecutionEnvironment .
+                                          rdfs:subClassOf faas:ServerlessExecutionEnvironment ;
+                                          owl:disjointWith faas:InstallableServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#InstallableServerlessExecutionEnvironment
@@ -521,15 +520,33 @@ faas:queueInvocationMethod rdf:type owl:Class ;
                            rdfs:subClassOf faas:InvocationMethod .
 
 
-###  http://www.w3.org/2002/07/owl#Thing
-
 ###  http://www.w3.org/2006/time#seconds
 time:seconds rdf:type owl:Class .
+
+
+###  http://www.wikidata.org/entity/Q15206305
+wd:Q15206305 rdf:type owl:Class .
+
+
+###  http://www.wikidata.org/entity/Q161053
+wd:Q161053 rdf:type owl:Class .
+
+
+###  http://www.wikidata.org/entity/Q251
+wd:Q251 rdf:type owl:Class .
 
 
 ###  http://www.wikidata.org/entity/Q272683
 wd:Q272683 rdf:type owl:Class ;
            rdfs:label "instruction set architecture" .
+
+
+###  http://www.wikidata.org/entity/Q28865
+wd:Q28865 rdf:type owl:Class .
+
+
+###  http://www.wikidata.org/entity/Q37227
+wd:Q37227 rdf:type owl:Class .
 
 
 ###  http://xmlns.com/foaf/0.1/Organization
@@ -697,10 +714,20 @@ faas:AWSLambdaPricing rdf:type owl:NamedIndividual ,
                       faas:PricePerMillionRequests "0.2"^^xsd:double .
 
 
+###  http://www.semantic-faas.com/ontology#AlibabaCloudFunctionCompute
+faas:AlibabaCloudFunctionCompute rdf:type owl:NamedIndividual ,
+                                          faas:HostedServerlessExecutionEnvironment .
+
+
 ###  http://www.semantic-faas.com/ontology#AtLeast100Replicas
 faas:AtLeast100Replicas rdf:type owl:NamedIndividual ,
                                  faas:ConcurrencyRequirement ;
                         faas:minConcurrency "100"^^xsd:positiveInteger .
+
+
+###  http://www.semantic-faas.com/ontology#AzureFunctions
+faas:AzureFunctions rdf:type owl:NamedIndividual ,
+                             faas:HostedServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#Bahrain
@@ -735,6 +762,11 @@ faas:Cape_Town rdf:type owl:NamedIndividual ,
                rdfs:label "Cape Town" .
 
 
+###  http://www.semantic-faas.com/ontology#CloudFlareWorkers
+faas:CloudFlareWorkers rdf:type owl:NamedIndividual ,
+                                faas:HostedServerlessExecutionEnvironment .
+
+
 ###  http://www.semantic-faas.com/ontology#CovidTracker
 faas:CovidTracker rdf:type owl:NamedIndividual ,
                            faas:Application ;
@@ -756,6 +788,11 @@ faas:CovidTrackerCode rdf:type owl:NamedIndividual ,
 faas:Cpu_x86 rdf:type owl:NamedIndividual ,
                       faas:CPURequirement ;
              faas:cpuArch wd:Q272629 .
+
+
+###  http://www.semantic-faas.com/ontology#Docker
+faas:Docker rdf:type owl:NamedIndividual ;
+            owl:sameAs wd:Q15206305 .
 
 
 ###  http://www.semantic-faas.com/ontology#EchoServer
@@ -795,12 +832,27 @@ faas:FIIStudentGroup rdf:type owl:NamedIndividual ,
                      foaf:homepage "https://www.info.uaic.ro/"^^xsd:anyURI .
 
 
+###  http://www.semantic-faas.com/ontology#Fission
+faas:Fission rdf:type owl:NamedIndividual ,
+                      faas:InstallableServerlessExecutionEnvironment .
+
+
 ###  http://www.semantic-faas.com/ontology#Frankfurt
 faas:Frankfurt rdf:type owl:NamedIndividual ,
                         locn:Address ;
                locn:addressArea "Frankfurt" ;
                rdfs:comment "EU (Frankfurt)" ;
                rdfs:label "Frankfurt" .
+
+
+###  http://www.semantic-faas.com/ontology#Go
+faas:Go rdf:type owl:NamedIndividual ;
+        owl:sameAs wd:Q37227 .
+
+
+###  http://www.semantic-faas.com/ontology#GoogleCloudFunctions
+faas:GoogleCloudFunctions rdf:type owl:NamedIndividual ,
+                                   faas:HostedServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#GovCloud_East
@@ -831,6 +883,21 @@ faas:Hong_Kong rdf:type owl:NamedIndividual ,
                rdfs:label "Hong Kong" .
 
 
+###  http://www.semantic-faas.com/ontology#IBMCloudFunction
+faas:IBMCloudFunction rdf:type owl:NamedIndividual ,
+                               faas:HostedServerlessExecutionEnvironment .
+
+
+###  http://www.semantic-faas.com/ontology#IBMCloudFunctions
+faas:IBMCloudFunctions rdf:type owl:NamedIndividual ;
+                       faas:pricingModel faas:IBMCloudFunctionsPricingModel .
+
+
+###  http://www.semantic-faas.com/ontology#IBMCloudFunctionsPricingModel
+faas:IBMCloudFunctionsPricingModel rdf:type owl:NamedIndividual ;
+                                   faas:PricePerGBofMemoryPerSecond "1.7E-5"^^xsd:double .
+
+
 ###  http://www.semantic-faas.com/ontology#Iasi
 faas:Iasi rdf:type owl:NamedIndividual ,
                    locn:Address ;
@@ -847,6 +914,27 @@ faas:Ireland rdf:type owl:NamedIndividual ,
              locn:addressArea "Ireland" ;
              rdfs:comment "EU (Ireland)" ;
              rdfs:label "Ireland" .
+
+
+###  http://www.semantic-faas.com/ontology#Java
+faas:Java rdf:type owl:NamedIndividual ;
+          owl:sameAs wd:Q251 .
+
+
+###  http://www.semantic-faas.com/ontology#Knative
+faas:Knative rdf:type owl:NamedIndividual ;
+             faas:supportedPackages wd:Q15206305 ,
+                                    wd:Q161053 ,
+                                    wd:Q21622213 ,
+                                    wd:Q251 ,
+                                    wd:Q28865 ,
+                                    wd:Q37227 ,
+                                    wd:Q756100 .
+
+
+###  http://www.semantic-faas.com/ontology#Kubeless
+faas:Kubeless rdf:type owl:NamedIndividual ,
+                       faas:InstallableServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#London
@@ -930,12 +1018,26 @@ faas:OnlyRomaniaGeoRestriction rdf:type owl:NamedIndividual ,
                                wdt:P361 wd:Q218 .
 
 
+###  http://www.semantic-faas.com/ontology#OpenFaaS
+faas:OpenFaaS rdf:type owl:NamedIndividual ,
+                       faas:InstallableServerlessExecutionEnvironment ;
+              faas:canIntegrateWith wd:Q25327044 ;
+              faas:cpuArch wd:Q272629 ;
+              faas:supportedPackages wd:Q15206305 ,
+                                     wd:Q28865 ;
+              faas:StartupType faas:ColdStart ,
+                               faas:WarmStart ;
+              rdfs:comment "https://www.openfaas.com/"^^xsd:anyURI ;
+              rdfs:label "OpenFaaS"^^xsd:string .
+
+
 ###  http://www.semantic-faas.com/ontology#OpenFaaSFIICloud
 faas:OpenFaaSFIICloud rdf:type owl:NamedIndividual ,
-                               faas:ServerlessExecutionEnvironment ;
+                               faas:HostedServerlessExecutionEnvironment ;
                       faas:canIntegrateWith wd:Q25327044 ;
                       faas:cpuArch wd:Q272629 ;
                       faas:datacenter faas:FIIDatacenter ;
+                      faas:pricingModel faas:OpenFaaSPricingModel ;
                       faas:supportedPackages wd:Q15206305 ,
                                              wd:Q28865 ;
                       faas:maxAllowedRAM "2048"^^xsd:positiveInteger ;
@@ -946,6 +1048,7 @@ faas:OpenFaaSFIICloud rdf:type owl:NamedIndividual ,
                       faas:StartupType faas:ColdStart ,
                                        faas:WarmStart ;
                       rdfs:comment "A custom instalation of OpenFaas datacenter on commodity hardware."^^xsd:string ,
+                                   "https://www.info.uaic.ro/"^^xsd:anyURI ,
                                    "https://www.openfaas.com/"^^xsd:anyURI ;
                       rdfs:label "OpenFaaS"^^xsd:string .
 
@@ -958,6 +1061,11 @@ faas:OpenFaaSPricingModel rdf:type owl:NamedIndividual ;
                           faas:PricePerMillionRequests "0.0"^^xsd:double ;
                           faas:type faas:PricingModel ,
                                     owl:NamedIndividual .
+
+
+###  http://www.semantic-faas.com/ontology#OpenWhisk
+faas:OpenWhisk rdf:type owl:NamedIndividual ,
+                        faas:InstallableServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#Oregon
@@ -983,6 +1091,16 @@ faas:Paris rdf:type owl:NamedIndividual ,
            locn:addressArea "Paris" ;
            rdfs:comment "EU (Paris)" ;
            rdfs:label "Paris" .
+
+
+###  http://www.semantic-faas.com/ontology#Python
+faas:Python rdf:type owl:NamedIndividual ;
+            owl:sameAs wd:Q28865 .
+
+
+###  http://www.semantic-faas.com/ontology#Ruby
+faas:Ruby rdf:type owl:NamedIndividual ;
+          owl:sameAs wd:Q161053 .
 
 
 ###  http://www.semantic-faas.com/ontology#Seoul
@@ -1031,6 +1149,11 @@ faas:Tokyo rdf:type owl:NamedIndividual ,
            locn:addressArea "Tokyo" ;
            rdfs:comment "Asia Pacific (Tokyo)" ;
            rdfs:label "Tokyo" .
+
+
+###  http://www.semantic-faas.com/ontology#VirtualKubelet
+faas:VirtualKubelet rdf:type owl:NamedIndividual ,
+                             faas:InstallableServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#af-south-1a
@@ -1589,6 +1712,11 @@ faas:us-west-2d rdf:type owl:NamedIndividual ,
                 locn:addressArea faas:Oregon .
 
 
+###  http://www.semantic-faas.com/ontology#.net
+<http://www.semantic-faas.com/ontology#.net> rdf:type owl:NamedIndividual ;
+                                             owl:sameAs wd:Q21622213 .
+
+
 ###  http://www.semantic-faas.com/ontology#98UptimeRequirement
 <http://www.semantic-faas.com/ontology#98UptimeRequirement> rdf:type owl:NamedIndividual ,
                                                                      faas:SLA_Credit_Requirement ;
@@ -1598,13 +1726,11 @@ faas:us-west-2d rdf:type owl:NamedIndividual ,
 
 
 ###  http://www.wikidata.org/entity/Q15206305
-wd:Q15206305 rdf:type owl:NamedIndividual ;
-             rdfs:label "Docker" .
+wd:Q15206305 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.wikidata.org/entity/Q161053
-wd:Q161053 rdf:type owl:NamedIndividual ;
-           rdfs:label "Ruby" .
+wd:Q161053 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.wikidata.org/entity/Q21622213
@@ -1623,8 +1749,7 @@ wd:Q22908871 rdf:type owl:NamedIndividual ;
 
 
 ###  http://www.wikidata.org/entity/Q251
-wd:Q251 rdf:type owl:NamedIndividual ;
-        rdfs:label "Java" .
+wd:Q251 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.wikidata.org/entity/Q25327044
@@ -1648,13 +1773,11 @@ wd:Q272629 rdf:type owl:NamedIndividual ;
 
 
 ###  http://www.wikidata.org/entity/Q28865
-wd:Q28865 rdf:type owl:NamedIndividual ;
-          rdfs:label "Python" .
+wd:Q28865 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.wikidata.org/entity/Q37227
-wd:Q37227 rdf:type owl:NamedIndividual ;
-          rdfs:label "Go" .
+wd:Q37227 rdf:type owl:NamedIndividual .
 
 
 ###  http://www.wikidata.org/entity/Q756100
@@ -1690,7 +1813,31 @@ foaf:member rdf:type owl:NamedIndividual .
 faas:HTTPInvocationMethod rdfs:label "HTTPInvocationMethod"@en .
 
 
+faas:TwilioFunctions faas:type faas:HostedServerlessExecutionEnvironment .
+
+
 faas:queueInvocationMethod rdfs:label "queueInvocationMethod"@en .
+
+
+wd:Q15206305 rdfs:label "Docker" .
+
+
+wd:Q161053 rdfs:label "Ruby" .
+
+
+wd:Q2407 rdfs:label "C++" .
+
+
+wd:Q251 rdfs:label "Java" .
+
+
+wd:Q28865 rdfs:label "Python" .
+
+
+wd:Q37227 rdfs:label "Go" .
+
+
+wd:Q840410 rdfs:label "PowerShell" .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
