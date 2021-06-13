@@ -54,7 +54,7 @@ WHERE {
   ?SLARequirement rdf:type faas:SLA_Credit_Requirement .
   ?SLARequirement faas:disturbanceTreshold ?disturbanceTreshold .
   ?SLARequirement faas:minPercentageRefund ?minPercentageRefund .
-  ?SLARequirement faas:SLAMetric ?metric .
+  ?SLARequirement faas:targetMetric ?metric .
 
   ?subject faas:hasSLA ?sla .
   ?sla faas:SLAMetric ?metric .
