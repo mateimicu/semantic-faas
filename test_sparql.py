@@ -12,6 +12,8 @@ def get_args(args):
     parser.add_argument(
         "--sparql-regex-query", help="Regex to filter desired files from --sparql-dir",
         default="*.sparql")
+    parser.add_argument("--inferences", help="RDF triples with interventions",
+                        default=None)
 
     return parser.parse_args(args)
 
@@ -24,6 +26,8 @@ def main():
     query_list = sorted(pathlib.Path(args.sparql_dir).rglob(args.sparql_regex_query))
     graph = Graph()
     graph.parse(args.ontology, format="n3")
+    if args.inferences:
+        graph.parse(args.inferences)
 
     for query in query_list:
         results = graph.query(open(query).read())
