@@ -23,6 +23,7 @@
                                           dc:description "Framework for describing Function as a Sevice providers and application requirements that can take advantage of a Serverless provider."@en ;
                                           terms:creator "Matei-Marius Micu <micumatei@gmail.com>"@en ,
                                                         "Stefan Gordin <stefangordindev@gmail.com>"@en ;
+                                          terms:license "MIT" ;
                                           terms:title "Function as a Service Ontology"@en ;
                                           owl:versionInfo "0.0.1" ;
                                           foaf:homepage "semantic-faas.com"@en ;
@@ -66,8 +67,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 
 ###  http://www.semantic-faas.com/ontology#SLAMetric
 faas:SLAMetric rdf:type owl:ObjectProperty ;
-               rdfs:domain faas:SLA ,
-                           faas:SLARequirement ;
+               rdfs:domain faas:SLA ;
                rdfs:range faas:Metric ;
                rdfs:label "SLA Metric"@en .
 
@@ -81,7 +81,8 @@ faas:availableRegions rdf:type owl:ObjectProperty ,
 
 
 ###  http://www.semantic-faas.com/ontology#canIntegrateWith
-faas:canIntegrateWith rdf:type owl:ObjectProperty ;
+faas:canIntegrateWith rdf:type owl:ObjectProperty ,
+                               owl:TransitiveProperty ;
                       rdfs:domain faas:ServerlessExecutionEnvironment ;
                       rdfs:comment "What software can be integrated with this execution environment."@en .
 
@@ -99,8 +100,7 @@ faas:code rdf:type owl:ObjectProperty ,
 faas:cpuArch rdf:type owl:ObjectProperty ,
                       owl:AsymmetricProperty ,
                       owl:IrreflexiveProperty ;
-             rdfs:domain faas:CPURequirement ,
-                         faas:ServerlessExecutionEnvironment ;
+             rdfs:domain faas:ServerlessExecutionEnvironment ;
              rdfs:range wd:Q272683 ;
              rdfs:comment "CPU Architectures required for the code to work"@en .
 
@@ -132,8 +132,7 @@ faas:hasInvocationMethod rdf:type owl:ObjectProperty ,
 faas:hasSLA rdf:type owl:ObjectProperty ,
                      owl:AsymmetricProperty ,
                      owl:IrreflexiveProperty ;
-            rdfs:domain faas:Application ,
-                        faas:ServerlessExecutionEnvironment ;
+            rdfs:domain faas:ServerlessExecutionEnvironment ;
             rdfs:range faas:SLA ;
             rdfs:label "hasSLA"@en .
 
@@ -149,6 +148,10 @@ faas:objectToCheck rdf:type owl:ObjectProperty ;
                    rdfs:domain faas:PricingModel ;
                    rdfs:comment "Check if the target of faas:propCheck is this object."^^xsd:string ;
                    rdfs:label "ObjectCheck"^^xsd:string .
+
+
+###  http://www.semantic-faas.com/ontology#partOf
+faas:partOf rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semantic-faas.com/ontology#penalty
@@ -178,6 +181,12 @@ faas:propCheck rdf:type owl:ObjectProperty ;
                rdfs:label "Property Check"^^xsd:string .
 
 
+###  http://www.semantic-faas.com/ontology#requiredCPUArch
+faas:requiredCPUArch rdf:type owl:ObjectProperty ;
+                     rdfs:domain faas:CPURequirement ;
+                     rdfs:range wd:Q272683 .
+
+
 ###  http://www.semantic-faas.com/ontology#requiredInvocationMethod
 faas:requiredInvocationMethod rdf:type owl:ObjectProperty ,
                                        owl:AsymmetricProperty ,
@@ -202,9 +211,16 @@ faas:supportedPackages rdf:type owl:ObjectProperty ,
                        rdfs:domain faas:ServerlessExecutionEnvironment .
 
 
+###  http://www.semantic-faas.com/ontology#targetMetric
+faas:targetMetric rdf:type owl:ObjectProperty ;
+                  rdfs:domain faas:SLARequirement ;
+                  rdfs:range faas:Metric .
+
+
 ###  http://www.wikidata.org/prop/direct/P361
 wdt:P361 rdf:type owl:ObjectProperty ;
          owl:inverseOf wdt:P527 ;
+         rdf:type owl:TransitiveProperty ;
          rdfs:label "part of" .
 
 
@@ -258,17 +274,29 @@ faas:maxAllowedRAM rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semantic-faas.com/ontology#maxAllowedStorage
 faas:maxAllowedStorage rdf:type owl:DatatypeProperty ;
-                       rdfs:domain faas:StorageRequirement ;
+                       rdfs:domain faas:ServerlessExecutionEnvironment ;
                        rdfs:range xsd:positiveInteger ;
                        rdfs:comment "Maximum storage allowed to be used."@en .
 
 
 ###  http://www.semantic-faas.com/ontology#maxConcurrency
 faas:maxConcurrency rdf:type owl:DatatypeProperty ;
-                    rdfs:domain faas:ConcurrencyRequirement ,
-                                faas:ServerlessExecutionEnvironment ;
+                    rdfs:domain faas:ServerlessExecutionEnvironment ;
                     rdfs:range xsd:positiveInteger ;
                     rdfs:comment "Maximum number of concurent executions."@en .
+
+
+###  http://www.semantic-faas.com/ontology#maxExecutionTime
+faas:maxExecutionTime rdf:type owl:DatatypeProperty ;
+                      rdfs:domain faas:ServerlessExecutionEnvironment ;
+                      rdfs:range xsd:positiveInteger .
+
+
+###  http://www.semantic-faas.com/ontology#maxNeededConcurrency
+faas:maxNeededConcurrency rdf:type owl:DatatypeProperty ;
+                          rdfs:domain faas:ConcurrencyRequirement ;
+                          rdfs:range xsd:integer ;
+                          rdfs:label "max Needed Concurrency" .
 
 
 ###  http://www.semantic-faas.com/ontology#maxPricePerMillionExecution
@@ -286,8 +314,8 @@ faas:maxRAM rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semantic-faas.com/ontology#maxTimeAllowed
 faas:maxTimeAllowed rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf time:second ;
-                    rdfs:domain faas:ServerlessExecutionEnvironment ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain faas:ExecutionTimeRequirement ;
                     rdfs:range xsd:positiveInteger ;
                     rdfs:comment "The maximum time in ms of execution time."@en .
 
@@ -313,7 +341,7 @@ faas:minRAM rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semantic-faas.com/ontology#minRequiredRAM
 faas:minRequiredRAM rdf:type owl:DatatypeProperty ;
-                    rdfs:domain faas:MemoryRequirement ;
+                    rdfs:domain faas:ServerlessExecutionEnvironment ;
                     rdfs:range xsd:positiveInteger ;
                     rdfs:comment "The minimum RAM required for normal operations."@en .
 
@@ -355,6 +383,7 @@ faas:threshold rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semantic-faas.com/ontology#Application
 faas:Application rdf:type owl:Class ;
+                 owl:disjointWith faas:ServerlessExecutionEnvironment ;
                  rdfs:comment "Definition of a functional application, it is more then the source code, it contains also infrastructure requirements."@en .
 
 
@@ -461,7 +490,8 @@ faas:PricingModel rdf:type owl:Class ;
 
 
 ###  http://www.semantic-faas.com/ontology#Requirement
-faas:Requirement rdf:type owl:Class .
+faas:Requirement rdf:type owl:Class ;
+                 owl:disjointWith faas:ServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#SLA
@@ -658,8 +688,8 @@ faas:AWSLambda rdf:type owl:NamedIndividual ,
                                       wd:Q756100 ;
                faas:maxAllowedStorage "75"^^xsd:positiveInteger ;
                faas:maxConcurrency "1000"^^xsd:positiveInteger ;
+               faas:maxExecutionTime "900"^^xsd:positiveInteger ;
                faas:maxRAM "10240"^^xsd:positiveInteger ;
-               faas:maxTimeAllowed "900"^^xsd:positiveInteger ;
                faas:minRequiredRAM "128"^^xsd:positiveInteger ;
                faas:StartupType faas:ColdStart ;
                rdfs:comment "https://aws.amazon.com/lambda/"^^xsd:anyURI ;
@@ -716,7 +746,9 @@ faas:AWSLambdaPricing rdf:type owl:NamedIndividual ,
 
 ###  http://www.semantic-faas.com/ontology#AlibabaCloudFunctionCompute
 faas:AlibabaCloudFunctionCompute rdf:type owl:NamedIndividual ,
-                                          faas:HostedServerlessExecutionEnvironment .
+                                          faas:HostedServerlessExecutionEnvironment ;
+                                 faas:supportedPackages faas:Python ,
+                                                        wd:Q161053 .
 
 
 ###  http://www.semantic-faas.com/ontology#AtLeast100Replicas
@@ -787,7 +819,7 @@ faas:CovidTrackerCode rdf:type owl:NamedIndividual ,
 ###  http://www.semantic-faas.com/ontology#Cpu_x86
 faas:Cpu_x86 rdf:type owl:NamedIndividual ,
                       faas:CPURequirement ;
-             faas:cpuArch wd:Q272629 .
+             faas:requiredCPUArch wd:Q272629 .
 
 
 ###  http://www.semantic-faas.com/ontology#Docker
@@ -881,11 +913,6 @@ faas:Hong_Kong rdf:type owl:NamedIndividual ,
                locn:addressArea "Hong Kong" ;
                rdfs:comment "Asia Pacific (Hong Kong)" ;
                rdfs:label "Hong Kong" .
-
-
-###  http://www.semantic-faas.com/ontology#IBMCloudFunction
-faas:IBMCloudFunction rdf:type owl:NamedIndividual ,
-                               faas:HostedServerlessExecutionEnvironment .
 
 
 ###  http://www.semantic-faas.com/ontology#IBMCloudFunctions
@@ -1040,10 +1067,10 @@ faas:OpenFaaSFIICloud rdf:type owl:NamedIndividual ,
                       faas:pricingModel faas:OpenFaaSPricingModel ;
                       faas:supportedPackages wd:Q15206305 ,
                                              wd:Q28865 ;
-                      faas:maxAllowedRAM "2048"^^xsd:positiveInteger ;
                       faas:maxAllowedStorage "10"^^xsd:positiveInteger ;
                       faas:maxConcurrency "5"^^xsd:positiveInteger ;
-                      faas:maxTimeAllowed "360"^^xsd:positiveInteger ;
+                      faas:maxExecutionTime "360"^^xsd:positiveInteger ;
+                      faas:maxRAM "2048"^^xsd:positiveInteger ;
                       faas:minRequiredRAM "128"^^xsd:positiveInteger ;
                       faas:StartupType faas:ColdStart ,
                                        faas:WarmStart ;
@@ -1440,6 +1467,7 @@ faas:eu-south-1c rdf:type owl:NamedIndividual ,
 ###  http://www.semantic-faas.com/ontology#eu-west-1a
 faas:eu-west-1a rdf:type owl:NamedIndividual ,
                          faas:Datacenter ;
+                locn:location faas:Ireland ;
                 rdfs:label "eu-west-1a" ;
                 locn:addressArea faas:Ireland .
 
@@ -1447,6 +1475,7 @@ faas:eu-west-1a rdf:type owl:NamedIndividual ,
 ###  http://www.semantic-faas.com/ontology#eu-west-1b
 faas:eu-west-1b rdf:type owl:NamedIndividual ,
                          faas:Datacenter ;
+                locn:location faas:Ireland ;
                 rdfs:label "eu-west-1b" ;
                 locn:addressArea faas:Ireland .
 
@@ -1454,6 +1483,7 @@ faas:eu-west-1b rdf:type owl:NamedIndividual ,
 ###  http://www.semantic-faas.com/ontology#eu-west-1c
 faas:eu-west-1c rdf:type owl:NamedIndividual ,
                          faas:Datacenter ;
+                locn:location faas:Ireland ;
                 rdfs:label "eu-west-1c" ;
                 locn:addressArea faas:Ireland .
 
@@ -1720,7 +1750,7 @@ faas:us-west-2d rdf:type owl:NamedIndividual ,
 ###  http://www.semantic-faas.com/ontology#98UptimeRequirement
 <http://www.semantic-faas.com/ontology#98UptimeRequirement> rdf:type owl:NamedIndividual ,
                                                                      faas:SLA_Credit_Requirement ;
-                                                            faas:SLAMetric faas:AWSAvailability ;
+                                                            faas:targetMetric faas:AWSAvailability ;
                                                             faas:disturbanceTreshold "98.0"^^xsd:float ;
                                                             faas:minPercentageRefund "20.0"^^xsd:float .
 

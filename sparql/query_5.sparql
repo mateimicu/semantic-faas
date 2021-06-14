@@ -16,14 +16,14 @@ WHERE {
   VALUES ?targetApplication { faas:EchoServer }
 
   ?subject rdf:type owl:NamedIndividual .
-  ?subject rdf:type faas:ServerlessExecutionEnvironment .
+  ?subject rdf:type faas:HostedServerlessExecutionEnvironment.
 
   #### Filter for ExecutionTime Restrictions
   ?targetApplication faas:requirements ?executionTIme .
   ?executionTIme rdf:type faas:ExecutionTimeRequirement .
   ?executionTIme faas:maxTimeAllowed ?maxTimeAllowed .
 
-  ?subject faas:maxTimeAllowed ?SubjectMaxTimeAllowed .
+  ?subject faas:maxExecutionTime ?SubjectMaxTimeAllowed .
 
    FILTER (xsd:integer(?SubjectMaxTimeAllowed) >= xsd:integer(?maxTimeAllowed))
 
@@ -38,11 +38,11 @@ WHERE {
   #### Filter for CPU
   ?targetApplication faas:requirements ?CPURequirement .
   ?CPURequirement rdf:type faas:CPURequirement .
-  ?CPURequirement faas:cpuArch ?cpuArch .
+  ?CPURequirement faas:requiredCPUArch ?cpuArch .
 
   ?subject faas:cpuArch ?cpuArch .
 
-  #### Filter for CPU
+  #### Filter for Memory
   ?targetApplication faas:requirements ?MemoryRequirement .
   ?MemoryRequirement rdf:type faas:MemoryRequirement .
   ?MemoryRequirement faas:maxAllowedRAM ?maxAllowedRAM .
@@ -55,7 +55,7 @@ WHERE {
   ?SLARequirement rdf:type faas:SLA_Credit_Requirement .
   ?SLARequirement faas:disturbanceTreshold ?disturbanceTreshold .
   ?SLARequirement faas:minPercentageRefund ?minPercentageRefund .
-  ?SLARequirement faas:SLAMetric ?metric .
+  ?SLARequirement faas:targetMetric ?metric .
 
   ?subject faas:hasSLA ?sla .
   ?sla faas:SLAMetric ?metric .
