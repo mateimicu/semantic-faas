@@ -1,0 +1,78 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+
+SELECT  DISTINCT  ?platformA ?platfomB
+WHERE {
+  # It is a Hosted Platform
+  ?platformA rdf:type faas:HostedServerlessExecutionEnvironment.
+  ?platformb rdf:type faas:HostedServerlessExecutionEnvironment.
+
+  # Supports the desired langauges
+  ?platformA faas:supportedPackages faas:Java.
+  ?platformB faas:supportedPackages faas:Java.
+
+  # Supports invocation method
+  ?platformA faas:hasInvocationMethod faas:queueInvocationMethod.
+  ?platformb faas:hasInvocationMethod faas:queueInvocationMethod.
+
+  # SLA Requirement
+  ?platformA faas:hasSLA ?slaA .
+  ?slaA rdf:type faas:SLA .
+  ?slaA faas:penalty ?penaltyA .
+  ?penaltyA faas:threshold ?thresholdA .
+  FILTER (xsd:float(?thresholdA) >= xsd:float(95))
+
+  ?platformB faas:hasSLB ?slaB .
+  ?slaB rdf:type faas:SLB .
+  ?slaB faas:penalty ?penaltyB .
+  ?penaltyB faas:threshold ?thresholdB .
+  FILTER (xsd:float(?thresholdB) >= xsd:float(95))
+
+  # Each platform has 3 datacenters;
+  ?platformA faas:datacenter ?datacenterA_1.
+  ?platformA faas:datacenter ?datacenterA_2.
+  ?platformA faas:datacenter ?datacenterA_3.
+
+  ?platformB faas:datacenter ?datacenterB_1.
+  ?platformB faas:datacenter ?datacenterB_2.
+  ?platformB faas:datacenter ?datacenterB_3.
+
+  ### now check that we have pairs of two datacenters in the same country
+
+  # Datacenter 1
+  ?datacenterA_1 locn:addressArea ?addressA_1 .
+  ?addressA_1 faas:partOf* ?countryA_1 .
+  ?countryA_1 rdfs:type wd:Q6256 . # Q6256 is country
+
+  ?datacenterB_1 locn:addressArea ?addressB_1 .
+  # We are checking now that the addressB_1 is part of the same
+  # country as addressA_1
+  ?addressB_1 faas:partOf* ?countryA_1 .
+
+  # Datacenter 2
+  ?datacenterA_2 locn:addressArea ?addressA_2 .
+  ?addressA_2 faas:partOf* ?countryA_2 .
+  ?countryA_2 rdfs:type wd:Q6256 . # Q6256 is country
+
+  ?datacenterB_2 locn:addressArea ?addressB_2 .
+  # We are checking now that the addressB_2 is part of the same
+  # country as addressA_2
+  ?addressB_2 faas:partOf* ?countryA_2 .
+
+  # Datacenter 3
+  ?datacenterA_3 locn:addressArea ?addressA_3 .
+  ?addressA_3 faas:partOf* ?countryA_3 .
+  ?countryA_3 rdfs:type wd:Q6256 . # Q6256 is country
+
+  ?datacenterB_3 locn:addressArea ?addressB_3 .
+  # We are checking now that the addressB_3 is part of the same
+  # country as addressA_3
+  ?addressB_3 faas:partOf* ?countryA_3 .
+}
+
