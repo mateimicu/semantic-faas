@@ -45,7 +45,16 @@ WHERE {
   ?sla faas:penalty ?penalty .
 
   ?penalty faas:threshold ?threshold .
-
   FILTER (xsd:float(?threshold) >= xsd:float(95))
+
+  OPTIONAL {
+    ?platform faas:supportedPackages faas:Go .
+  }
+
+  OPTIONAL {
+    ?platform faas:datacenter ?datacenterUSA .
+    ?datacenterUSA locn:addressArea ?addressAreaUSA .
+    ?addressAreaUSA faas:partOf* wd:Q30. # Q30 is United States of America
+  }
 }
 
