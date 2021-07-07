@@ -1,0 +1,60 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+
+PREFIX faas: <http://www.semantic-faas.com/ontology#>
+
+SELECT  DISTINCT  ?platform
+WHERE {
+  # Query for Hard Requirements
+  ##########################################
+
+  # It is a Hosted Platform
+  ?platform rdf:type faas:HostedServerlessExecutionEnvironment.
+
+  # Supports the desired langauges
+  ?platform faas:supportedPackages faas:Python .
+  ?platform faas:supportedPackages faas:Node.
+
+  # Has at least 3 datacenter Locate in EU
+  {
+  SELECT ?executionEnvironment (COUNT(?datacenter) AS ?datacenterCount)
+    WHERE
+    {
+      ?executionEnvironment faas:datacenter ?datacenter .
+      ?datacenter locn:addressArea ?addressArea .
+      ?addressArea faas:partOf* wd:Q458 . # Q458 is Europe Union
+    }
+    GROUP BY ?executionEnvironment
+  }
+  FILTER (xsd:integer(?datacenterCount) >= xsd:integer(3))
+
+
+  #Integrates with an ObjectStorage
+  ?platform faas:canIntegrateWith ?service .
+  ?service rdf:type dbc:Object_storage .
+
+
+  #### Filter for SLA
+  ?platform faas:hasSLA ?sla .
+  ?sla faas:SLAMetric ?metric .
+  ?sla rdf:type faas:SLA .
+  ?sla faas:penalty ?penalty .
+
+  ?penalty faas:threshold ?threshold .
+  FILTER (xsd:float(?threshold) >= xsd:float(95))
+
+  OPTIONAL {
+    ?platform faas:supportedPackages faas:Go .
+  }
+
+  OPTIONAL {
+    ?platform faas:datacenter ?datacenterUSA .
+    ?datacenterUSA locn:addressArea ?addressAreaUSA .
+    ?addressAreaUSA faas:partOf* wd:Q30. # Q30 is United States of America
+  }
+}
+
